@@ -1,0 +1,80 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getBlogPostBySlug, getBlogSlugs } from '../../sanity/queries';
+import { urlFor } from '../../sanity/image';
+import { PortableText } from 'astro-portabletext';
+
+export async function getStaticPaths() {
+  const slugs = await getBlogSlugs();
+  return slugs.map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await getBlogPostBySlug(slug!);
+
+if (!post) return Astro.redirect('/journal');
+
+const title = typeof post.title === 'object' ? post.title.en : post.title;
+const publishedDate = post.publishedAt
+  ? new Date(post.publishedAt).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
+  : null;
+
+const bodyLeft  = post.body?.en ?? [];
+const bodyRight: any[] = [];
+
+const midpoint = Math.ceil(bodyLeft.length / 2);
+const col1 = bodyLeft.slice(0, midpoint);
+const col2 = bodyLeft.slice(midpoint);
+---
+
+<Layout
+  title={post.seoTitle ?? title}
+  description={post.seoDescription ?? (typeof post.excerpt === 'object' ? post.excerpt.en : post.excerpt)}
+  ogImage={post.featuredImage ? urlFor(post.featuredImage).width(1200).url() : undefined}
+>
+  <div class="journal-inner">
+    <div class="container">
+      <!-- Header -->
+      <div class="journal-inner-header">
+        {(post.category || publishedDate) && (
+          <div class="journal-inner-meta">
+            {post.category && <span>{post.category}</span>}
+            {post.category && publishedDate && <span> · </span>}
+            {publishedDate && <span>{publishedDate}</span>}
+          </div>
+        )}
+        <h1 class="journal-inner-title">{title}</h1>
+      </div>
+
+      <!-- Two-column body -->
+      {col1.length > 0 && (
+        <div class="journal-inner-body">
+          <div class="journal-inner-prose">
+            <PortableText value={col1} />
+          </div>
+          {col2.length > 0 && (
+            <div class="journal-inner-prose">
+              <PortableText value={col2} />
+            </div>
+          )}
+        </div>
+      )}
+
+      <!-- Featured image -->
+      {post.featuredImage && (
+        <div class="journal-inner-img">
+          <img
+            src={urlFor(post.featuredImage).width(1400).url()}
+            alt={title}
+            loading="lazy"
+          />
+        </div>
+      )}
+
+      <!-- Back link -->
+      <div class="journal-back">
+        <a href="/journal">← Back to Journal</a>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getJournalPage, getBlogPosts } from '../sanity/queries';
+import { urlFor } from '../sanity/image';
+
+const [page, posts] = await Promise.all([getJournalPage(), getBlogPosts()]);
+
+const heroBgStyle = page?.heroBgImage
+  ? `background-image:url('${urlFor(page.heroBgImage).width(1920).url()}')`
+  : '';
+---
+
+<Layout
+  title={page?.seoTitle ?? 'Journal'}
+  description={page?.seoDescription}
+>
+  <!-- ═══ HERO ══════════════════════════════════════════════ -->
+  <section class="page-hero">
+    <div class="page-hero-bg" style={heroBgStyle}></div>
+    <div class="page-hero-label">
+      <h1>{page?.heroLabel ?? 'Journal.'}</h1>
+      <div class="page-hero-bar"></div>
+    </div>
+  </section>
+
+  <!-- ═══ ARTICLES ════════════════════════════════════════ -->
+  <section class="journal-section">
+    <div class="container">
+      <h2 class="journal-heading reveal-up">
+        {page?.sectionHeadline ?? 'On Transformation and Leadership'}
+      </h2>
+
+      {posts?.length > 0 ? (
+        <div class="journal-grid">
+          {posts.map((post: any) => (
+            <a href={`/journal/${post.slug.current}`} class="journal-card">
+              {post.featuredImage && (
+                <div class="journal-card-img">
+                  <img
+                    src={urlFor(post.featuredImage).width(640).height(480).url()}
+                    alt={typeof post.title === 'object' ? post.title.en : post.title}
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <h3 class="journal-card-title">
+                {typeof post.title === 'object' ? post.title.en : post.title}
+              </h3>
+              {post.excerpt && (
+                <p class="journal-card-excerpt">
+                  {typeof post.excerpt === 'object' ? post.excerpt.en : post.excerpt}
+                </p>
+              )}
+              <span class="journal-read-more">Read More</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p style="text-align:center;color:var(--clr-muted);padding-bottom:5rem;">
+          No posts yet. Check back soon.
+        </p>
+      )}
+    </div>
+  </section>
+</Layout>

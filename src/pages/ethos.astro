@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getEthosPage } from '../sanity/queries';
+import { urlFor } from '../sanity/image';
+
+const page = await getEthosPage();
+
+const heroBgStyle = page?.heroBgImage
+  ? `background-image:url('${urlFor(page.heroBgImage).width(1920).url()}')`
+  : '';
+
+const founderPhotoUrl = page?.founderPhoto
+  ? urlFor(page.founderPhoto).width(800).url()
+  : null;
+
+const values = page?.values ?? [
+  { name: 'Trust',       body: 'Built through consistency, integrity, and transparency.' },
+  { name: 'Excellence',  body: 'Driven by insight, expertise, and disciplined execution.' },
+  { name: 'Growth',      body: 'Focused on strengthening capabilities and unlocking potential.' },
+  { name: 'Partnership', body: 'Defined by shared commitment to meaningful, lasting outcomes.' },
+];
+---
+
+<Layout
+  title={page?.seoTitle ?? 'Ethos'}
+  description={page?.seoDescription}
+>
+  <!-- ═══ HERO ══════════════════════════════════════════════ -->
+  <section class="page-hero">
+    <div class="page-hero-bg" style={heroBgStyle}></div>
+    <div class="page-hero-label">
+      <h1>{page?.heroLabel ?? 'Ethos.'}</h1>
+      <div class="page-hero-bar"></div>
+    </div>
+  </section>
+
+  <!-- ═══ PRINCIPLES HEADING ═══════════════════════════════ -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="container">
+      <h2 class="ethos-intro-heading reveal-up">
+        {page?.principlesHeadline ?? 'The principles and perspectives that shape our work.'}
+      </h2>
+    </div>
+  </section>
+
+  <!-- ═══ ETYMOLOGY + PHILOSOPHY ═══════════════════════════ -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="ethos-two-col">
+        <!-- Etymology (left) -->
+        <div class="ethos-left reveal-left">
+          <h3 class="ethos-section-label ethos-section-label--right">Etymology</h3>
+          <p class="ethos-desc ethos-desc--right">
+            {page?.etymologyDesc ?? 'Tracing the roots of our philosophy, values, and purpose as a firm.'}
+          </p>
+          <div class="etymology-word">
+            <div class="etymology-line">
+              <span class="etymology-part">sen</span>
+              <span class="etymology-phonetic">tentia [sɛnˈtɛn.ti.a]</span>
+              <span class="etymology-meaning">a way of thinking</span>
+            </div>
+            <div class="etymology-line">
+              <span class="etymology-part">elo</span>
+              <span class="etymology-phonetic">: [eː.ɫɔˈkʷɛn.ti.a]</span>
+              <span class="etymology-meaning">the art of fluency</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ethos-col-divider"></div>
+
+        <!-- Philosophy (right) -->
+        <div class="ethos-right reveal-right">
+          <h3 class="ethos-section-label">Philosophy</h3>
+          <div class="ethos-desc">
+            {page?.philosophyBody
+              ? <p>{page.philosophyBody}</p>
+              : <>
+                  <p>At Senquentia, we challenge conventional thinking and provide clarity in complex environments.</p>
+                  <p>We combine strategic insight with practical execution to help leaders make informed decisions and drive meaningful change.</p>
+                </>
+            }
+          </div>
+          <blockquote class="ethos-quote">
+            {page?.philosophyQuote ?? 'Experience brings perspective, but integrity is what earns trust.'}
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VALUES ════════════════════════════════════════════ -->
+  <section class="section values-section" style="padding-top:0;">
+    <div class="container">
+      <div class="values-header reveal-up">
+        <h2 class="values-title">Values</h2>
+        <p class="values-desc">
+          {page?.valuesDesc ?? 'Our values have shaped every step of our journey and continue to define our perspective.'}
+        </p>
+      </div>
+      <div class="values-divider"></div>
+      <div class="values-grid">
+        {values.map((v: any) => (
+          <div class="value-item reveal-up">
+            <h3 class="value-name">{v.name}</h3>
+            <p class="value-body">{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOUNDER ═══════════════════════════════════════════ -->
+  <section class="founder-section">
+    <div class="container">
+      <div class="founder-grid">
+        {founderPhotoUrl && (
+          <img
+            src={founderPhotoUrl}
+            alt={page?.founderName ?? 'Founder'}
+            class="founder-photo reveal-left"
+            loading="lazy"
+          />
+        )}
+        <div class="reveal-right">
+          <h2 class="founder-label">Founder</h2>
+          <h3 class="founder-name">
+            {page?.founderName ?? 'Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery.'}
+          </h3>
+          <div class="founder-divider"></div>
+          <div class="founder-bio">
+            {page?.founderBio
+              ? <p>{page.founderBio}</p>
+              : <>
+                  <p>With 20 years of experience leading ERP programs and expertise in Human Capital Management solutions, she is a trusted voice in digital and organizational transformation, bringing fresh perspectives to defining business initiatives.</p>
+                  <p>She has led several multinational engagements and directed global delivery teams, honing her expertise in large-scale implementations.</p>
+                  <p>As a strategic advisor, Veronica has partnered with executive teams to navigate critical business initiatives, mergers and acquisitions, and culture shifts, leveraging her skills in organizational development, succession planning, and change management.</p>
+                </>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
