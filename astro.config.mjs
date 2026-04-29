@@ -2,9 +2,6 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
 import sanityIntegration from '@sanity/astro';
-import { loadEnv } from 'vite';
-
-const env = loadEnv(process.env.NODE_ENV || 'development', process.cwd(), '');
 
 export default defineConfig({
   output: 'server',
@@ -27,8 +24,8 @@ export default defineConfig({
   integrations: [
     react(),
     sanityIntegration({
-      projectId: env.PUBLIC_SANITY_PROJECT_ID,
-      dataset: env.PUBLIC_SANITY_DATASET || 'production',
+      projectId: 'egq490jl',
+      dataset: 'production',
       useCdn: false,
       studioBasePath: '/studio',
     }),

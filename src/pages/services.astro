@@ -1,47 +1,102 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getServices } from '../sanity/queries';
-
-const services = await getServices();
-
-const displayServices = services?.length ? services : [
-  {
-    slug: { current: 'digital-organizational-transformation' },
-    title: 'Digital & Organizational Transformation',
-    shortDescription: 'Successful transformation requires bold, already-clarity and disciplined execution.',
-  },
-  {
-    slug: { current: 'strategic-advisory' },
-    title: 'Strategic Advisory.',
-    shortDescription: 'Strategic decisions rarely fail because of a lack of ideas. They fail when organizations struggle to align leadership.',
-  },
-  {
-    slug: { current: 'leadership-development-executive-coaching' },
-    title: 'Leadership Development & Executive Coaching.',
-    shortDescription: 'Leaders often engage us when they are navigating complex challenges and need clear, proven solutions.',
-  },
-];
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Services" description="Our areas of expertise at Senquentia.">
-  <div class="services-page">
-    <div class="services-listing" style="padding-top:8rem;">
-      <div class="container">
-        <div class="services-listing-grid">
-          {displayServices.map((s: any, i: number) => {
-            const title = typeof s.title === 'object' ? s.title.en : s.title;
-            const desc  = typeof s.shortDescription === 'object' ? s.shortDescription.en : s.shortDescription;
-            return (
-              <a href={`/services/${s.slug?.current ?? s.slug}`} class="services-listing-card">
-                <span class="services-listing-num">0{i + 1}</span>
-                <h2 class="services-listing-title">{title}</h2>
-                {desc && <p class="services-listing-desc">{desc}</p>}
-                <span class="services-listing-arrow">View →</span>
-              </a>
-            );
-          })}
+<Layout title="Services" description="Digital & Organizational Transformation">
+  <div class="services-page-wrap">
+    <!-- Section 1: Hero -->
+    <section class="svc-hero">
+      <div class="svc-hero-bg">
+        <img src="/images/serviceherobg.png" alt="" />
+      </div>
+      <div class="svc-hero-container">
+        <div class="svc-hero-box">
+          <div class="svc-hero-text-row">
+            <h1 class="svc-hero-title">
+              DIGITAL & ORGANIZATIONAL<br />TRANSFORMATION.
+            </h1>
+            <div class="svc-hero-bar"></div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Section 2: Perspective -->
+    <section class="svc-perspective">
+      <div class="container">
+        <h2 class="svc-perspective-heading">PERSPECTIVE</h2>
+
+        <div class="svc-perspective-grid">
+          <div class="svc-perspective-left">
+            <p class="svc-perspective-lead1">
+              Successful transformation requires both strategic clarity and
+              disciplined execution.
+            </p>
+            <p class="svc-perspective-lead2">
+              We work alongside leadership teams to structure transformation
+              initiatives, guide program delivery, and ensure organizations
+              remain aligned as change unfolds
+            </p>
+          </div>
+          <div class="svc-perspective-divider"></div>
+          <div class="svc-perspective-right">
+            <p>
+              Organizations that approach transformation as a purely
+              technological initiative often underestimate the leadership,
+              governance, and organizational alignment required to sustain
+              meaningful change — a challenge that becomes even more pronounced
+              as organizations integrate AI-enabled capabilities into their
+              operations.
+            </p>
+            <p>
+              Artificial intelligence presents significant opportunities to
+              enhance decision-making, streamline operations, and create new
+              sources of value. Realizing this potential, however, requires more
+              than the adoption of new tools; it demands alignment between
+              business priorities, data, governance, and organizational
+              readiness.
+            </p>
+            <p>
+              We work with leadership teams to define their digital
+              transformation initiatives, assess opportunities, establish
+              appropriate governance, and integrate digital capabilities in a
+              way that is practical, responsible, and aligned with strategic
+              objectives.
+            </p>
+            <p>
+              Our focus is on helping organizations move beyond experimentation
+              toward thoughtful, scalable adoption.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Alignment -->
+    <section class="svc-alignment">
+      <div class="svc-alignment-bg">
+        <img src="/images/serviceherobg.png" alt="" />
+      </div>
+      <div class="svc-alignment-full-line"></div>
+      <div class="container svc-alignment-container">
+        <div class="svc-alignment-box">
+          <div class="svc-alignment-top">
+            <h3 class="svc-alignment-title">
+              Process, technology, and culture alignment lead to meaningful and
+              lasting change.
+            </h3>
+          </div>
+          <div class="svc-alignment-bottom">
+            <p class="svc-alignment-desc">
+              With expertise in ERP and Human Capital Management solutions, and
+              experience supporting the adoption of emerging technologies
+              including artificial intelligence, we partner with leadership
+              teams to guide complex transformations and provide experienced
+              leadership throughout critical program phases.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </Layout>

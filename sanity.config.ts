@@ -14,8 +14,8 @@ export default defineConfig({
   name: 'senquentia',
   title: 'Senquentia CMS',
 
-  projectId: process.env.PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.PUBLIC_SANITY_DATASET || 'production',
+  projectId: 'egq490jl',
+  dataset: 'production',
 
   plugins: [
     structureTool({
