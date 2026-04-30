@@ -46,6 +46,19 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
 
     <script is:inline>
       (function () {
+        // ── Scroll to hash on page load (handles /#services-section navigation) ──
+        var hash = window.location.hash;
+        if (hash) {
+          window.addEventListener('load', function () {
+            var target = document.querySelector(hash);
+            if (target) {
+              setTimeout(function () {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 120);
+            }
+          });
+        }
+
         if (typeof gsap === 'undefined') return;
         gsap.registerPlugin(ScrollTrigger);
 
@@ -117,6 +130,27 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
         // Page transitions
         const ptLayer1 = document.querySelector('.pt-layer-1');
         const ptLayer2 = document.querySelector('.pt-layer-2');
+
+        // ── Services Link Scroll Highlight ──
+        const servicesSection = document.getElementById('services-section');
+        const servicesLinks = document.querySelectorAll('[data-scroll-target="services-section"]');
+        if (servicesSection && servicesLinks.length > 0) {
+          ScrollTrigger.create({
+            trigger: servicesSection,
+            start: "top 30%", 
+            end: "bottom 70%",
+            onToggle: self => {
+              servicesLinks.forEach(link => {
+                if (self.isActive) {
+                  link.classList.add('active');
+                } else {
+                  link.classList.remove('active');
+                }
+              });
+            }
+          });
+        }
+
         if (ptLayer1 && ptLayer2) {
           gsap.set([ptLayer1, ptLayer2], { xPercent: 0 });
           gsap.timeline()
@@ -124,9 +158,36 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
             .to(ptLayer1, { xPercent: 120, duration: 0.68, ease: 'power4.inOut' }, 0.08);
 
           let transitioning = false;
+
           document.querySelectorAll('a[href]').forEach(link => {
             const href = link.getAttribute('href');
-            if (!href || href.startsWith('#') || href.startsWith('http') ||
+            if (!href) return;
+
+            // ── Scroll-anchor links (e.g. /#services-section) ──
+            if (link.dataset.scrollAnchor === 'true') {
+              link.addEventListener('click', e => {
+                e.preventDefault();
+                const anchorId = link.dataset.scrollTarget;
+                const isHome = window.location.pathname === '/';
+
+                if (isHome && anchorId) {
+                  // Already on homepage — smooth scroll in place
+                  const target = document.getElementById(anchorId);
+                  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                  // On another page — run page transition then navigate to hash URL
+                  if (transitioning) return;
+                  transitioning = true;
+                  gsap.timeline({ onComplete: () => { window.location.href = href; } })
+                    .fromTo(ptLayer1, { xPercent: -120 }, { xPercent: 0, duration: 0.62, ease: 'power4.inOut' }, 0)
+                    .fromTo(ptLayer2, { xPercent: -120 }, { xPercent: 0, duration: 0.62, ease: 'power4.inOut' }, 0.08);
+                }
+              });
+              return; // skip the generic handler below
+            }
+
+            // ── Regular internal links ──
+            if (href.startsWith('#') || href.startsWith('http') ||
                 href.startsWith('//') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
             link.addEventListener('click', e => {
               if (transitioning) return;

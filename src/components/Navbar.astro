@@ -13,7 +13,7 @@ const enableFR = settings?.enableFR ?? false;
 
 const links = [
   { label: 'Home',     labelFR: 'Accueil', href: '/' },
-  { label: 'Services', labelFR: 'Services', href: '/services' },
+  { label: 'Services', labelFR: 'Services', href: '/#services-section', scrollAnchor: true },
   { label: 'Ethos',    labelFR: 'Éthique',  href: '/ethos' },
   { label: 'Journal',  labelFR: 'Journal',  href: '/journal' },
   { label: 'Contact',  labelFR: 'Contact',  href: '/contact' },
@@ -21,6 +21,7 @@ const links = [
 
 function isActive(href: string) {
   if (href === '/') return currentPath === '/';
+  if (href === '/#services-section') return currentPath.startsWith('/services');
   return currentPath.startsWith(href);
 }
 ---
@@ -44,6 +45,7 @@ function isActive(href: string) {
           <a
             href={link.href}
             class={isActive(link.href) ? 'active' : ''}
+            {...(link.scrollAnchor ? { 'data-scroll-anchor': 'true', 'data-scroll-target': link.href.split('#')[1] } : {})}
           >
             {link.label}
           </a>
@@ -69,7 +71,11 @@ function isActive(href: string) {
 <!-- Mobile nav -->
 <nav class="mobile-nav" aria-label="Mobile navigation">
   {links.map(link => (
-    <a href={link.href} class={isActive(link.href) ? 'active' : ''}>
+    <a
+      href={link.href}
+      class={isActive(link.href) ? 'active' : ''}
+      {...(link.scrollAnchor ? { 'data-scroll-anchor': 'true', 'data-scroll-target': link.href.split('#')[1] } : {})}
+    >
       {link.label}
     </a>
   ))}

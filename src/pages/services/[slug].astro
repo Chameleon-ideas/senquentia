@@ -1,111 +1,214 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getServiceBySlug, getServiceSlugs } from '../../sanity/queries';
-import { urlFor } from '../../sanity/image';
-import { PortableText } from 'astro-portabletext';
+import { getServiceSlugs } from '../../sanity/queries';
 
 export async function getStaticPaths() {
   const slugs = await getServiceSlugs();
-  return slugs.map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+  const paths = slugs.map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+  
+  // Add fallbacks just in case Sanity doesn't have them yet
+  const fallbacks = [
+    "digital-organizational-transformation",
+    "strategic-advisory",
+    "leadership-development-executive-coaching"
+  ];
+  
+  for (const fallback of fallbacks) {
+    if (!paths.find((p: any) => p.params.slug === fallback)) {
+      paths.push({ params: { slug: fallback } });
+    }
+  }
+  
+  return paths;
 }
 
 const { slug } = Astro.params;
-const service = await getServiceBySlug(slug!);
-
-if (!service) return Astro.redirect('/services');
-
-const title = typeof service.title === 'object' ? service.title.en : service.title;
-
-const heroBgStyle = service.heroBgImage
-  ? `background-image:url('${urlFor(service.heroBgImage).width(1920).url()}')`
-  : service.image
-    ? `background-image:url('${urlFor(service.image).width(1920).url()}')`
-    : '';
-
-const perspectiveCol1 = service.perspectiveCol1 ?? [];
-const perspectiveCol2 = service.perspectiveCol2 ?? [];
-const approachSections = service.approachSections ?? [];
-const industries = service.industriesEngaged ?? [];
+// For now, render exactly the same UI as /services
 ---
 
-<Layout title={service.seoTitle ?? title} description={service.seoDescription}>
-  <!-- ═══ HERO ══════════════════════════════════════════════ -->
-  <section class="page-hero">
-    <div class="page-hero-bg" style={heroBgStyle}></div>
-    <div class="page-hero-label">
-      <h1>{title}</h1>
-      <div class="page-hero-bar"></div>
-    </div>
-  </section>
-
-  <!-- ═══ PERSPECTIVE ═══════════════════════════════════════ -->
-  <section class="perspective-section">
-    <div class="container">
-      <h2 class="perspective-label reveal-up">Perspective</h2>
-      <div class="perspective-grid">
-        <div class="perspective-col reveal-left">
-          {perspectiveCol1.length > 0
-            ? <PortableText value={perspectiveCol1} />
-            : service.perspectiveText && <p>{service.perspectiveText}</p>
-          }
-        </div>
-        <div class="perspective-col reveal-right">
-          {perspectiveCol2.length > 0
-            ? <PortableText value={perspectiveCol2} />
-            : service.perspectiveText2 && <p>{service.perspectiveText2}</p>
-          }
-        </div>
+<Layout title="Services" description="Senquentia Service">
+  <div class="services-page-wrap">
+    <!-- Section 1: Hero -->
+    <section class="svc-hero">
+      <div class="svc-hero-bg">
+        <img src="/images/serviceherobg.png" alt="" />
       </div>
-    </div>
-  </section>
-
-  <!-- ═══ QUOTE ════════════════════════════════════════════ -->
-  {service.quoteText && (
-    <section class="service-quote-section">
-      <div class="container">
-        <p class="service-quote-text reveal-up">{service.quoteText}</p>
+      <div class="svc-hero-container">
+        <div class="svc-hero-box">
+          <div class="svc-hero-text-row">
+            <h1 class="svc-hero-title">
+              DIGITAL & ORGANIZATIONAL<br />TRANSFORMATION.
+            </h1>
+            <div class="svc-hero-bar"></div>
+          </div>
+        </div>
       </div>
     </section>
-  )}
 
-  <!-- ═══ APPROACH ═════════════════════════════════════════ -->
-  <section class="approach-section">
-    <div class="container">
-      <h2 class="approach-label reveal-up">Approach</h2>
-      {service.approachLead && (
-        <p class="approach-lead">{service.approachLead}</p>
-      )}
-      {approachSections.length > 0 && (
-        <div class="approach-blocks">
-          {approachSections.map((s: any) => (
-            <div class="approach-block reveal-up">
-              <h3 class="approach-block-title">{s.title}</h3>
-              <p class="approach-block-body">{s.body}</p>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {industries.length > 0 && (
-        <div class="industries-table">
-          <p class="industries-label">Organizations engage us in moments such as these</p>
-          {industries.map((row: any) => (
-            <div class="industries-row">
-              <span class="industry-name">{row.label}</span>
-              <span class="industry-desc">{row.description}</span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  </section>
-
-  <!-- ═══ CLOSING ═══════════════════════════════════════════ -->
-  {service.closingText && (
-    <section class="service-closing">
+    <!-- Section 2: Perspective -->
+    <section class="svc-perspective">
       <div class="container">
-        <p class="service-closing-text reveal-up">{service.closingText}</p>
+        <h2 class="svc-perspective-heading">PERSPECTIVE</h2>
+
+        <div class="svc-perspective-grid">
+          <div class="svc-perspective-left">
+            <p class="svc-perspective-lead1">
+              Successful transformation requires both strategic clarity and
+              disciplined execution.
+            </p>
+            <p class="svc-perspective-lead2">
+              We work alongside leadership teams to structure transformation
+              initiatives, guide program delivery, and ensure organizations
+              remain aligned as change unfolds
+            </p>
+          </div>
+          <div class="svc-perspective-divider"></div>
+          <div class="svc-perspective-right">
+            <p>
+              Organizations that approach transformation as a purely
+              technological initiative often underestimate the leadership,
+              governance, and organizational alignment required to sustain
+              meaningful change — a challenge that becomes even more pronounced
+              as organizations integrate AI-enabled capabilities into their
+              operations.
+            </p>
+            <p>
+              Artificial intelligence presents significant opportunities to
+              enhance decision-making, streamline operations, and create new
+              sources of value. Realizing this potential, however, requires more
+              than the adoption of new tools; it demands alignment between
+              business priorities, data, governance, and organizational
+              readiness.
+            </p>
+            <p>
+              We work with leadership teams to define their digital
+              transformation initiatives, assess opportunities, establish
+              appropriate governance, and integrate digital capabilities in a
+              way that is practical, responsible, and aligned with strategic
+              objectives.
+            </p>
+            <p>
+              Our focus is on helping organizations move beyond experimentation
+              toward thoughtful, scalable adoption.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
-  )}
+
+    <!-- Section 3 & 4: Alignment & Impact -->
+    <section class="svc-alignment">
+      <div class="svc-alignment-bg">
+        <img src="/images/serviceherobg.png" alt="" />
+      </div>
+      
+      <!-- Alignment Box -->
+      <div class="container svc-alignment-container">
+        <div class="svc-alignment-box">
+          <div class="svc-alignment-top">
+            <h3 class="svc-alignment-title">
+              Process, technology, and culture alignment lead to meaningful and
+              lasting change.
+            </h3>
+          </div>
+          <div class="svc-alignment-bottom">
+            <p class="svc-alignment-desc">
+              With expertise in ERP and Human Capital Management solutions, and
+              experience supporting the adoption of emerging technologies
+              including artificial intelligence, we partner with leadership
+              teams to guide complex transformations and provide experienced
+              leadership throughout critical program phases.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Approach -->
+    <section class="svc-approach">
+      <div class="container">
+        <div class="svc-approach-header">
+          <h2 class="svc-approach-title">APPROACH</h2>
+        </div>
+        
+        <div class="svc-approach-list">
+          <div class="svc-approach-item">
+            <h3 class="svc-approach-item-title">Transformation Strategy</h3>
+            <p class="svc-approach-item-text">We work with executive teams to define transformation objectives, establish governance structures, and structure implementation roadmaps that provide clarity and direction across complex initiatives — including the thoughtful integration of AI and digital capabilities aligned to business priorities.</p>
+          </div>
+          
+          <div class="svc-approach-item">
+            <h3 class="svc-approach-item-title">Program Leadership</h3>
+            <p class="svc-approach-item-text">We provide experienced program leadership for ERP and Human Capital Management transformations, as well as broader digital initiatives, helping organizations navigate critical implementation phases while maintaining alignment with strategic priorities.</p>
+          </div>
+          
+          <div class="svc-approach-item">
+            <h3 class="svc-approach-item-title">Organizational Adoption</h3>
+            <div class="svc-approach-item-text">
+              <p>Technology transformation succeeds when organizations evolve alongside their systems.</p>
+              <p>We support leadership teams in aligning processes, culture, and governance to ensure transformation initiatives — including those involving AI-driven change — translate into lasting organizational capability.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Moments -->
+    <section class="svc-moments">
+      <div class="container svc-moments-container">
+        <div class="svc-moments-content">
+          <h2 class="svc-moments-title">Organizations engage us in moments such as these.</h2>
+          <div class="svc-moments-line"></div>
+          
+          <div class="svc-moments-list">
+            <div class="svc-moments-label">Launching Transformation</div>
+            <div class="svc-moments-desc">Large-scale ERP or HCM transformation programs</div>
+            
+            <div class="svc-moments-label">Technology Selection</div>
+            <div class="svc-moments-desc">Evaluating enterprise platforms, including AI-enabled solutions</div>
+            
+            <div class="svc-moments-label">AI Integration</div>
+            <div class="svc-moments-desc">Defining the role of artificial intelligence within broader transformation initiatives</div>
+            
+            <div class="svc-moments-label">Governance Alignment</div>
+            <div class="svc-moments-desc">Establishing governance and leadership alignment for major initiatives</div>
+            
+            <div class="svc-moments-label">Program Leadership</div>
+            <div class="svc-moments-desc">Strengthening leadership during critical delivery phases</div>
+            
+            <div class="svc-moments-label">Global Change Alignment</div>
+            <div class="svc-moments-desc">Aligning process, technology, and organizational change across global teams</div>
+            
+            <div class="svc-moments-label">Sustainable Impact</div>
+            <div class="svc-moments-desc">Ensuring transformation programs deliver lasting operational value</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Impact -->
+    <section class="svc-alignment">
+      <div class="svc-alignment-bg">
+        <img src="/images/serviceherobg.png" alt="" />
+      </div>
+      
+      <!-- Impact Box -->
+      <div class="container svc-alignment-container">
+        <div class="svc-alignment-box">
+          <div class="svc-impact-top">
+            <h3 class="svc-impact-title">LASTING IMPACT</h3>
+            <div class="svc-impact-text">
+              <p>Digital and organizational transformations are defining moments for many organizations.</p>
+              <p>Our role is to bring clarity, structure, and experienced leadership to these initiatives — helping organizations navigate complexity, align stakeholders, and deliver outcomes that create lasting impact.</p>
+            </div>
+          </div>
+          <div class="svc-impact-bottom">
+            <h4 class="svc-impact-footer">
+              We welcome conversations with leadership teams undertaking complex transformation initiatives.
+            </h4>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </Layout>
