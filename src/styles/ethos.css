@@ -1,0 +1,357 @@
+/* ETHOS PAGE SPECIFIC STYLES */
+
+/* --- HERO --- */
+.ethos-hero {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 6rem;
+  overflow: hidden;
+}
+
+.ethos-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.ethos-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85);
+}
+
+.ethos-hero-label {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 2;
+}
+
+.ethos-hero-label h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(1.4rem, 5vw, 3rem);
+  font-weight: 400;
+  color: var(--clr-cream);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ethos-hero-bar {
+  width: 8px;
+  height: clamp(1.5rem, 5vw, 3rem);
+  background: var(--clr-red);
+}
+
+/* --- PRINCIPLES --- */
+.ethos-principles {
+  background: var(--clr-dark);
+  padding-block: 10rem;
+}
+
+.principles-headline-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12rem;
+}
+
+.principles-headline {
+  font-family: var(--ff-display);
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  color: var(--clr-cream);
+  text-align: right;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: 1fr 2px 1.25fr;
+  gap: 5rem;
+  align-items: stretch;
+}
+
+.principles-divider {
+  background: var(--clr-red);
+  width: 2px;
+  height: 65%;
+  align-self: center;
+}
+
+.principles-left {
+  text-align: right;
+  padding-right: 1rem;
+}
+
+.principles-right {
+  padding-left: 1rem;
+  padding-top: 10rem;
+  /* Asymmetrical offset */
+}
+
+.ethos-label {
+  font-family: var(--ff-display);
+  font-size: 2.2rem;
+  color: var(--clr-cream);
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+
+.ethos-body-text {
+  font-family: var(--ff-body);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(248, 246, 242, 0.85);
+}
+
+.etymology-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 4rem;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.etymology-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-end;
+}
+
+.etymology-tag {
+  font-family: var(--ff-body);
+  font-size: 1rem;
+  color: rgba(248, 246, 242, 0.6);
+  font-style: italic;
+}
+
+.etymology-word-line {
+  font-family: var(--ff-display);
+  font-size: 1.6rem;
+  color: var(--clr-cream);
+}
+
+.etymology-word-line span {
+  font-family: var(--ff-body);
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.etymology-meaning {
+  font-family: var(--ff-body);
+  font-size: 1rem;
+  color: rgba(248, 246, 242, 0.6);
+}
+
+.ethos-quote-box {
+  margin-top: 6rem;
+}
+
+.ethos-quote-text {
+  font-family: var(--ff-display);
+  font-size: 2.2rem;
+  line-height: 1.3;
+  color: var(--clr-cream);
+  text-align: right;
+  /* Match screenshot */
+}
+
+/* --- VALUES --- */
+.ethos-values {
+  background: var(--clr-dark);
+  padding-bottom: 12rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.values-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  margin-bottom: 3.5rem;
+  padding-right: 46%;
+  margin-right: 3rem;
+  /* Tighter offset to align with grid spine */
+}
+
+.values-main-title {
+  font-family: var(--ff-display);
+  font-size: 2.8rem;
+  color: var(--clr-cream);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.values-intro-desc {
+  font-family: var(--ff-body);
+  font-size: 1.2rem;
+  color: #F8F6F2;
+  max-width: 480px;
+  line-height: 1.5;
+}
+
+.values-red-line {
+  height: 2px;
+  background: var(--clr-red);
+  width: 50vw;
+  margin-bottom: 3rem;
+  margin-left: calc(50% - 50vw);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem 4rem;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.value-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.value-card:nth-child(odd) {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.value-card:nth-child(odd) .value-card-body {
+  margin-left: auto;
+}
+
+.value-card-name {
+  font-family: var(--ff-display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--clr-cream);
+  text-transform: none;
+}
+
+.value-card-body {
+  font-family: var(--ff-body);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #F8F6F2;
+  max-width: 300px;
+}
+
+/* --- FOUNDER --- */
+.ethos-founder {
+  background: var(--clr-dark);
+  padding-block: 10rem;
+  overflow: hidden;
+}
+
+.founder-white-card {
+  background: #fff;
+  padding: 8rem 4rem 8rem 4rem;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.founder-img-box img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  /* More square in screenshot */
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.founder-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.founder-label-top {
+  font-family: var(--ff-display);
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--clr-dark);
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+
+.founder-headline {
+  font-family: var(--ff-display);
+  font-size: 1.45rem;
+  line-height: 1.4;
+  color: var(--clr-dark);
+  margin-bottom: 1.6rem;
+  max-width: 460px;
+}
+
+.founder-red-divider {
+  width: 100vw;
+  height: 1.2px;
+  background: var(--clr-red);
+  margin-bottom: 2rem;
+  margin-right: -100vw;
+  /* Bleed out right */
+  position: relative;
+  z-index: 2;
+}
+
+.founder-bio-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.founder-bio-text p {
+  font-family: var(--ff-body);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: #0F0F0F;
+  max-width: 420px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .principles-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .principles-divider {
+    display: none;
+  }
+
+  .principles-left,
+  .principles-right {
+    text-align: left;
+    padding: 0;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .value-card:nth-child(odd) {
+    text-align: left;
+  }
+
+  .founder-white-card {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .ethos-hero {
+    padding: 2rem;
+  }
+}
