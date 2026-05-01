@@ -1,65 +1,88 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getJournalPage, getBlogPosts } from '../sanity/queries';
-import { urlFor } from '../sanity/image';
+import Layout from "../layouts/Layout.astro";
+import "../styles/journal.css";
 
-const [page, posts] = await Promise.all([getJournalPage(), getBlogPosts()]);
+const heroBgUrl = "/images/jouhero.png";
 
-const heroBgStyle = page?.heroBgImage
-  ? `background-image:url('${urlFor(page.heroBgImage).width(1920).url()}')`
-  : '';
+const articles = [
+  {
+    title: "Why Digital Transformation is No Longer Optional",
+    desc: "Businesses that delay digital transformation risk falling behind competitors.",
+    img: "/images/jou1.png",
+  },
+  {
+    title: "The Role of Leadership in Organizational Change",
+    desc: "Leaders who communicate a clear vision, inspire teams, and adapt to change.",
+    img: "/images/jou2.png",
+  },
+  {
+    title: "Strategic Advisory: Turning Vision into Action",
+    desc: "Many organizations have big ideas but lack execution.",
+    img: "/images/jou3.png",
+  },
+  {
+    title: "Building a Future-Ready Organization",
+    desc: "Future-ready companies invest in technology, people, and processes.",
+    img: "/images/jou4.png",
+  },
+  {
+    title: "Executive Coaching for High-Impact Leaders",
+    desc: "Top executives face constant pressure to perform.",
+    img: "/images/jou5.png",
+  },
+  {
+    title: "Overcoming Resistance to Change in the Workplace",
+    desc: "Change often brings uncertainty. Organizations that focus.",
+    img: "/images/jou6.png",
+  },
+];
 ---
 
-<Layout
-  title={page?.seoTitle ?? 'Journal'}
-  description={page?.seoDescription}
->
-  <!-- ═══ HERO ══════════════════════════════════════════════ -->
-  <section class="page-hero">
-    <div class="page-hero-bg" style={heroBgStyle}></div>
-    <div class="page-hero-label">
-      <h1>{page?.heroLabel ?? 'Journal.'}</h1>
-      <div class="page-hero-bar"></div>
-    </div>
-  </section>
+<Layout title="Journal | Senquentia">
+  <div class="journal-page">
+    <!-- Section 1: Hero -->
+    <section class="journal-hero">
+      <img src={heroBgUrl} alt="Journal Hero" class="journal-hero-img" />
+      <div class="journal-hero-label">
+        <h1>JOURNAL.</h1>
+        <div class="journal-hero-bar"></div>
+      </div>
+    </section>
 
-  <!-- ═══ ARTICLES ════════════════════════════════════════ -->
-  <section class="journal-section">
-    <div class="container">
-      <h2 class="journal-heading reveal-up">
-        {page?.sectionHeadline ?? 'On Transformation and Leadership'}
-      </h2>
+    <div class="container2">
+      <!-- Section 2: Intro -->
+      <section class="journal-intro">
+        <h2 class="journal-intro-title">
+          ON TRANSFORMATION <br /> AND LEADERSHIP
+        </h2>
+      </section>
 
-      {posts?.length > 0 ? (
-        <div class="journal-grid">
-          {posts.map((post: any) => (
-            <a href={`/journal/${post.slug.current}`} class="journal-card">
-              {post.featuredImage && (
-                <div class="journal-card-img">
-                  <img
-                    src={urlFor(post.featuredImage).width(640).height(480).url()}
-                    alt={typeof post.title === 'object' ? post.title.en : post.title}
-                    loading="lazy"
-                  />
+      <!-- Section 3: Articles Grid -->
+      <section class="journal-articles">
+        <div class="container">
+          <div class="articles-grid">
+            {
+              articles.map((article) => (
+                <div class="article-card">
+                  <div class="article-img-box">
+                    <img src={article.img} alt={article.title} />
+                  </div>
+                  <h3 class="article-title">{article.title}</h3>
+                  <p class="article-desc">{article.desc}</p>
+                  <a
+                    href={article.title === "Why Digital Transformation is No Longer Optional" 
+                      ? "/journal/why-digital-transformation-is-no-longer-optional" 
+                      : "#"}
+                    class="article-link"
+                  >
+                    Read More
+                  </a>
                 </div>
-              )}
-              <h3 class="journal-card-title">
-                {typeof post.title === 'object' ? post.title.en : post.title}
-              </h3>
-              {post.excerpt && (
-                <p class="journal-card-excerpt">
-                  {typeof post.excerpt === 'object' ? post.excerpt.en : post.excerpt}
-                </p>
-              )}
-              <span class="journal-read-more">Read More</span>
-            </a>
-          ))}
+              ))
+            }
+          </div>
         </div>
-      ) : (
-        <p style="text-align:center;color:var(--clr-muted);padding-bottom:5rem;">
-          No posts yet. Check back soon.
-        </p>
-      )}
+      </section>
     </div>
-  </section>
+  </div>
 </Layout>
