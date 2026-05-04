@@ -130,6 +130,12 @@ button {
   padding: 1.4rem 12rem 1.4rem 12rem;
 }
 
+@media (max-width: 1200px) {
+  .site-header.scrolled {
+    padding: 1.4rem 1rem 1.4rem 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .site-header {
     padding: 2rem 4rem 2rem 4rem;
