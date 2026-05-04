@@ -59,7 +59,7 @@
 
 /* Content Area */
 .contact-content-main {
-  margin-top: 32vh;
+  margin-top: 10vh;
   /* Fixed top alignment as per screenshots */
   display: flex;
   flex-direction: column;

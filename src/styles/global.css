@@ -403,7 +403,7 @@ button {
   grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
   align-items: start;
   gap: 0;
-  padding: 8rem 1rem;
+  padding: 8rem 0rem;
 }
 
 .intro-v-divider {
@@ -418,7 +418,7 @@ button {
 
 .intro-heading {
   font-family: var(--ff-display);
-  font-size: clamp(1.5rem, 5.4vw, 3.2rem);
+  font-size: clamp(1.5rem, 5.6vw, 3.4rem);
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
@@ -434,11 +434,12 @@ button {
 }
 
 .intro-lead {
+  max-width: 550px;
   font-family: var(--ff-display);
   font-size: clamp(1.1rem, 3.5vw, 1.8rem);
   color: var(--clr-cream);
   margin-bottom: 2.5rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .intro-body {
@@ -664,7 +665,6 @@ button {
   font-family: var(--ff-display);
   font-size: clamp(2.5rem, 8vw, 60px);
   font-weight: 500;
-  color: var(--clr-cream);
   line-height: 1;
   letter-spacing: -0.01em;
 }
@@ -724,7 +724,7 @@ button {
 
 .ticker-item {
   font-family: var(--ff-body);
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: var(--clr-cream);
   letter-spacing: -0.02em;
   padding-inline: 1rem;
@@ -1963,7 +1963,9 @@ button {
   color: var(--clr-dark);
   text-align: right;
   line-height: 1.2;
-  letter-spacing: 0.02em;
+  -webkit-text-stroke-width: 0.4px;
+  -webkit-text-stroke-color: var(--clr-dark);
+
 }
 
 .svc-hero-bar {
@@ -2028,6 +2030,7 @@ button {
   font-family: var(--ff-display);
   font-size: 1.65rem;
   line-height: 1.5;
+  font-weight: 400;
 }
 
 .svc-perspective-lead2 {
@@ -2039,7 +2042,7 @@ button {
 }
 
 .svc-perspective-right {
-  max-width: 680px;
+  max-width: 590px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -2541,6 +2544,7 @@ button {
     margin-bottom: 0.25rem;
   }
 }
+
 /* --- SERVICES INNER RESPONSIVENESS (1200px & 460px) --- */
 @media (max-width: 1200px) {
   .svc-hero-title {
