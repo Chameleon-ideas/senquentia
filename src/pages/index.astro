@@ -130,7 +130,7 @@ const displayServices = services?.length
       )
     }
     <div class="services-overlay" id="services-section">
-      <div class="container">
+      <div class="container2">
         <div class="services-overlay-inner">
           {
             displayServices.slice(0, 3).map((s: any, i: number) => {
@@ -150,7 +150,7 @@ const displayServices = services?.length
               return (
                 <a
                   href={`/services/${s.slug?.current ?? s.slug}`}
-                  class="service-overlay-item"
+                  class="service-overlay-item reveal-up"
                   style={`background-image: ${bgImg}`}
                 >
                   <div class="service-overlay-inner-box">
@@ -201,7 +201,7 @@ const displayServices = services?.length
     <div class="home-cta-bg" style={ctaBgStyle}></div>
     <div class="container2">
       <div class="home-cta-content">
-        <div class="home-cta-text-wrapper">
+        <div class="home-cta-text-wrapper reveal-right">
           <p class="home-cta-text">
             {page?.ctaText ?? "Our work begins in conversation."}
           </p>

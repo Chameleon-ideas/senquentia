@@ -347,6 +347,15 @@
     padding: 0;
   }
 
+  .principles-right {
+    padding-top: 2rem;
+  }
+
+  .ethos-quote-text {
+    text-align: left;
+    font-size: 1.8rem;
+  }
+
   .values-grid {
     grid-template-columns: 1fr;
     gap: 4rem;
@@ -354,15 +363,85 @@
 
   .value-card:nth-child(odd) {
     text-align: left;
+    align-items: flex-start;
+  }
+
+  .values-intro {
+    padding-right: 0;
+    margin-right: 0;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .values-red-line {
+    width: 100%;
+    margin-left: 0;
   }
 
   .founder-white-card {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "heading"
+      "img"
+      "info";
     gap: 3rem;
-    padding: 3rem 1.5rem;
+    padding: 6rem 1.5rem;
+  }
+
+  .founder-label-top {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .founder-img-box {
+    margin-top: 0;
+  }
+
+  .founder-img-box img {
+    width: 100%;
+  }
+
+  .founder-red-divider {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .founder-bio-text p {
+    font-size: 1.1rem;
+    max-width: 100%;
   }
 
   .ethos-hero {
     padding: 2rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .principles-headline {
+    font-size: 1.8rem;
+  }
+
+  .ethos-label {
+    font-size: 1.6rem;
+  }
+
+  .ethos-quote-text {
+    font-size: 1.5rem;
+  }
+
+  .values-main-title {
+    font-size: 2rem;
+  }
+
+  .founder-label-top {
+    font-size: 1.8rem;
+  }
+
+  .founder-headline {
+    font-size: 1.25rem;
+  }
+
+  .founder-bio-text p {
+    font-size: 1rem;
   }
 }

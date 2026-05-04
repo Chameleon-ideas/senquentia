@@ -24,6 +24,7 @@
 }
 
 .contact-page-inner {
+  padding: 10rem 1rem;
   position: relative;
   z-index: 1;
   width: 100%;
@@ -195,6 +196,7 @@
   .contact-form-grid {
     grid-template-columns: 1fr;
     max-width: 100%;
+    padding-inline: 1.5rem;
   }
 
   .contact-red-line {
@@ -206,9 +208,52 @@
   .contact-footer-right {
     grid-column: 1;
     align-items: flex-start;
+    padding-inline: 1.5rem;
   }
 
   .contact-footer-text {
     text-align: left;
+  }
+
+  .contact-top-label {
+    top: 2rem;
+    right: 1.5rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .contact-top-label h2 {
+    font-size: 1.5rem;
+  }
+
+  .contact-top-bar {
+    height: 1.5rem;
+    width: 6px;
+  }
+
+  .contact-intro-text {
+    margin-left: 1rem;
+  }
+
+  .contact-intro-text p {
+    font-size: 1.15rem;
+  }
+
+  .contact-field {
+    font-size: 16px;
+    padding: 1rem;
+  }
+
+  .contact-submit-btn {
+    width: 100%;
+    padding-inline: 2rem;
+  }
+
+  .contact-email-link-footer {
+    font-size: 1rem;
+  }
+
+  .contact-disclaimer {
+    font-size: 0.85rem;
   }
 }

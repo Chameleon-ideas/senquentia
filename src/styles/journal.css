@@ -128,25 +128,6 @@
   border-color: var(--clr-dark);
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 1024px) {
-  .articles-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .articles-grid {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-  }
-
-  .journal-intro-title {
-    margin-right: 5%;
-    text-align: left;
-  }
-}
-
 /* --- ARTICLE DETAIL PAGE --- */
 .article-detail-header {
   background: #0F0F0F;
@@ -249,4 +230,128 @@
   position: absolute;
   top: 50%;
   left: 0;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1200px) {
+  .journal-intro-title {
+    margin-right: 5%;
+  }
+
+  .article-detail-intro-grid {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .article-detail-intro-grid {
+    grid-template-columns: 1fr;
+    padding-inline: 5%;
+  }
+
+  .article-vertical-divider {
+    display: none;
+  }
+
+  .article-detail-text-col {
+    max-width: 100%;
+  }
+
+  .article-detail-header {
+    padding-inline: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .journal-hero {
+    height: 60vh;
+  }
+
+  .journal-hero-label {
+    right: 5%;
+    bottom: 10%;
+  }
+
+  .journal-intro {
+    padding-block: 6rem;
+  }
+
+  .journal-intro-title {
+    margin-right: 0;
+    padding-inline: 1.5rem;
+    text-align: left;
+    font-size: 2.2rem;
+  }
+
+  .articles-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .journal-articles {
+    padding-block: 6rem;
+  }
+
+  .article-detail-header {
+    padding-top: 6rem;
+  }
+
+  .article-detail-title {
+    font-size: 2.2rem;
+    max-width: 100%;
+  }
+
+  .article-detail-intro-grid {
+    padding-block: 4rem;
+  }
+
+  .article-detail-quote-section {
+    padding-inline: 5%;
+  }
+
+  .article-detail-staggered {
+    padding-block: 6rem;
+    padding-inline: 5%;
+    gap: 4rem;
+  }
+
+  .staggered-top,
+  .staggered-bottom {
+    max-width: 100%;
+    text-align: left;
+    align-self: flex-start;
+  }
+
+  .staggered-red-line {
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    display: none;
+  }
+}
+
+@media (max-width: 460px) {
+  .journal-intro-title {
+    font-size: 1.75rem;
+  }
+
+  .article-title {
+    font-size: 1.25rem;
+  }
+
+  .article-detail-title {
+    font-size: 1.6rem;
+  }
+
+  .article-detail-text-col p {
+    font-size: 1rem;
+  }
+
+  .article-detail-quote {
+    font-size: 1.1rem;
+  }
 }
