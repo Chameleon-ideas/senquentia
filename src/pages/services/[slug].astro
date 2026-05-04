@@ -4,7 +4,7 @@ import { getServiceSlugs } from '@/utils/sanity';
 
 export async function getStaticPaths() {
   const slugs = await getServiceSlugs();
-  const paths = slugs.map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+  const paths = (slugs ?? []).map((s: { slug: string }) => ({ params: { slug: s.slug } }));
   
   // Add fallbacks just in case Sanity doesn't have them yet
   const fallbacks = [
