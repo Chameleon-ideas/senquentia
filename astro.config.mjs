@@ -23,11 +23,11 @@ export default defineConfig({
   },
   integrations: [
     react(),
-    sanityIntegration({
-      projectId: 'egq490jl',
-      dataset: 'production',
-      useCdn: false,
-      studioBasePath: '/studio',
-    }),
+    // sanityIntegration({
+    //   projectId: 'egq490jl',
+    //   dataset: 'production',
+    //   useCdn: false,
+    //   studioBasePath: '/studio',
+    // }),
   ],
 });
