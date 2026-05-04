@@ -4,7 +4,7 @@ import vercel from '@astrojs/vercel';
 import sanityIntegration from '@sanity/astro';
 
 export default defineConfig({
-  output: 'server',
+  output: 'static',
   adapter: vercel(),
   vite: {
     build: {
