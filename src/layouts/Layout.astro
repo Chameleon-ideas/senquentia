@@ -62,11 +62,19 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
         if (typeof gsap === 'undefined') return;
         gsap.registerPlugin(ScrollTrigger);
 
-        // Header scroll
+        // Header scroll — hysteresis prevents flicker on sticky navbar
         const header = document.querySelector('.site-header');
         if (header) {
+          let isScrolled = false;
           window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 60);
+            const y = window.scrollY;
+            if (!isScrolled && y > 80) {
+              isScrolled = true;
+              header.classList.add('scrolled');
+            } else if (isScrolled && y < 20) {
+              isScrolled = false;
+              header.classList.remove('scrolled');
+            }
           }, { passive: true });
         }
 

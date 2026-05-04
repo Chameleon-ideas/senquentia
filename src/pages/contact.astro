@@ -1,134 +1,152 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getConnectPage } from '../sanity/queries';
-import { urlFor } from '../sanity/image';
+import Layout from "../layouts/Layout.astro";
+import { getConnectPage } from "../sanity/queries";
+import { urlFor } from "../sanity/image";
+import "../styles/contact.css";
 
 const page = await getConnectPage();
 
-const bgStyle = page?.heroBgImage
-  ? `background-image:url('${urlFor(page.heroBgImage).width(1920).url()}')`
-  : '';
+const heroBgUrl = page?.heroBgImage
+  ? urlFor(page.heroBgImage).width(1920).url()
+  : "/images/contactbg.png";
 
-const email = page?.email ?? 'info@senquentia.com';
+const email = page?.email ?? "info@senquentia.com";
 ---
 
 <Layout
-  title={page?.seoTitle ?? 'Contact'}
+  title={page?.seoTitle ?? "Contact | Senquentia"}
   description={page?.seoDescription}
 >
-  <div class="connect-page">
-    <!-- Background -->
-    <div class="connect-bg" style={bgStyle}></div>
-
-    <div class="connect-inner">
-      <!-- "CONTACT |" label top right -->
-      <div class="connect-label">
-        <span class="connect-label-text">Contact</span>
-        <div class="connect-bar"></div>
+  <div
+    class="contact-page-outer"
+    style={`background-image: url(${heroBgUrl});`}
+  >
+    <div class="contact-page-inner">
+      <!-- Top Right Label -->
+      <div class="contact-top-label">
+        <h2>CONTACT</h2>
+        <div class="contact-top-bar"></div>
       </div>
 
-      <!-- Content -->
-      <div class="connect-content">
-        <div class="connect-intro">
-          <p>{page?.leadText ?? 'Our work begins in conversation.'}</p>
-          <p>Connect.</p>
-        </div>
-        <div class="connect-line"></div>
-
-        <!-- Form -->
-        <form
-          id="connect-form"
-          class="connect-form-grid"
-          method="POST"
-          action="/api/contact"
-          novalidate
-        >
-          <!-- Left column -->
-          <div class="connect-left-col">
-            <input
-              class="connect-input"
-              type="text"
-              name="name"
-              placeholder="Name"
-              required
-            />
-            <input
-              class="connect-input"
-              type="text"
-              name="organization"
-              placeholder="Organization"
-            />
-            <input
-              class="connect-input"
-              type="email"
-              name="email"
-              placeholder="Email"
-              required
-            />
-            <input
-              class="connect-input"
-              type="tel"
-              name="phone"
-              placeholder="Phone"
-            />
+      <div class="container">
+        <main class="contact-content-main">
+          <!-- Intro Text -->
+          <div class="contact-intro-text">
+            <p>{page?.leadText ?? "Our work begins in conversation."}</p>
+            <p>Connect.</p>
           </div>
 
-          <!-- Right column -->
-          <div class="connect-right-col">
-            <textarea
-              class="connect-textarea connect-textarea--area"
-              name="area"
-              placeholder="Area of interest"
-            ></textarea>
-            <textarea
-              class="connect-textarea connect-textarea--msg"
-              name="message"
-              placeholder="Message"
-              required
-            ></textarea>
-          </div>
+          <!-- Red Line -->
+          <div class="contact-red-line"></div>
 
-          <!-- Footer row -->
-          <div class="connect-form-footer">
-            <p class="connect-disclaimer">
-              {page?.disclaimer ?? 'We treat all inquiries with discretion and confidentiality.'}
-            </p>
-            <button type="submit" class="connect-send-btn" id="send-btn">Send</button>
-          </div>
-        </form>
+          <!-- Form Grid -->
+          <form
+            id="connect-form"
+            class="contact-form-grid"
+            method="POST"
+            action="/api/contact"
+          >
+            <!-- Left Col -->
+            <div class="contact-form-col">
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                class="contact-field"
+                required
+              />
+              <input
+                type="text"
+                name="organization"
+                placeholder="Organization"
+                class="contact-field"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                class="contact-field"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone"
+                class="contact-field"
+              />
+            </div>
 
-        {email && (
-          <p class="connect-form-email">{email}</p>
-        )}
+            <!-- Right Col -->
+            <div class="contact-form-col">
+              <input
+                type="text"
+                name="area"
+                placeholder="Area of interest"
+                class="contact-field"
+              />
+              <textarea
+                name="message"
+                placeholder="Message"
+                class="contact-field contact-textarea"
+                required></textarea>
+            </div>
+
+            <!-- Footer row spanning the second column for alignment -->
+            <div class="contact-footer-right">
+              <button type="submit" id="send-btn" class="contact-submit-btn"
+                >SEND</button
+              >
+
+              <div class="contact-footer-text">
+                <p class="contact-disclaimer">
+                  {
+                    page?.disclaimer ??
+                      "We treat all inquiries with discretion and confidentiality."
+                  }
+                </p>
+                <a href={`mailto:${email}`} class="contact-email-link-footer"
+                  >{email}</a
+                >
+              </div>
+            </div>
+          </form>
+        </main>
       </div>
     </div>
   </div>
 </Layout>
 
 <script>
-  const form = document.getElementById('connect-form') as HTMLFormElement | null;
-  const btn  = document.getElementById('send-btn') as HTMLButtonElement | null;
+  const form = document.getElementById(
+    "connect-form",
+  ) as HTMLFormElement | null;
+  const btn = document.getElementById("send-btn") as HTMLButtonElement | null;
 
-  form?.addEventListener('submit', async (e) => {
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!btn) return;
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    const originalText = btn.textContent;
+    btn.textContent = "Sending…";
 
     const data = Object.fromEntries(new FormData(form));
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error();
-      btn.textContent = 'Sent ✓';
+      btn.textContent = "Sent ✓";
       form.reset();
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }, 3000);
     } catch {
       btn.disabled = false;
-      btn.textContent = 'Send';
-      alert('Something went wrong. Please try again or email us directly.');
+      btn.textContent = "Send";
+      alert("Something went wrong. Please try again or email us directly.");
     }
   });
 </script>

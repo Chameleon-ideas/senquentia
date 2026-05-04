@@ -75,8 +75,12 @@ const displayServices = services?.length
       </div>
       <div class="intro-grid">
         <div class="intro-left">
-          <h2 class="intro-heading reveal-left" set:html={page?.introHeadline ? page.introHeadline.replace(/\n/g, '<br/>') : "WHERE LEADERSHIP<br/>MEETS<br/>TRANSFORMATION"}>
-          </h2>
+          <h2
+            class="intro-heading reveal-left"
+            set:html={page?.introHeadline
+              ? page.introHeadline.replace(/\n/g, "<br/>")
+              : "WHERE LEADERSHIP<br/>MEETS<br/>TRANSFORMATION"}
+          />
         </div>
         <div class="intro-v-divider"></div>
         <div class="intro-right reveal-right">
@@ -165,7 +169,7 @@ const displayServices = services?.length
 
   <!-- ═══ STATS ════════════════════════════════════════════ -->
   <section class="stats-bar">
-    <div class="container">
+    <div class="container2">
       <div class="stats-grid">
         {
           stats.map((stat: any) => (

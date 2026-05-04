@@ -1,5 +1,5 @@
 ---
-import { urlFor } from '../sanity/image';
+import { urlFor } from "../sanity/image";
 
 interface Props {
   settings: any;
@@ -8,30 +8,36 @@ const { settings } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const logoUrl = settings?.logo ? urlFor(settings.logo).height(88).url() : null;
-const linkedinUrl = settings?.linkedin ?? '#';
+const linkedinUrl = settings?.linkedin ?? "#";
 const enableFR = settings?.enableFR ?? false;
 
 const links = [
-  { label: 'Home',     labelFR: 'Accueil', href: '/' },
-  { label: 'Services', labelFR: 'Services', href: '/#services-section', scrollAnchor: true },
-  { label: 'Ethos',    labelFR: 'Éthique',  href: '/ethos' },
-  { label: 'Journal',  labelFR: 'Journal',  href: '/journal' },
-  { label: 'Contact',  labelFR: 'Contact',  href: '/contact' },
+  { label: "Home", labelFR: "Accueil", href: "/" },
+  {
+    label: "Services",
+    labelFR: "Services",
+    href: "/#services-section",
+    scrollAnchor: true,
+  },
+  { label: "Ethos", labelFR: "Éthique", href: "/ethos" },
+  { label: "Journal", labelFR: "Journal", href: "/journal" },
+  { label: "Contact", labelFR: "Contact", href: "/contact" },
+  { label: "En", labelFR: "Fr", href: "/" },
 ];
 
 function isActive(href: string) {
-  if (href === '/') return currentPath === '/';
-  if (href === '/#services-section') return currentPath.startsWith('/services');
+  if (href === "/") return currentPath === "/";
+  if (href === "/#services-section") return currentPath.startsWith("/services");
   return currentPath.startsWith(href);
 }
 ---
 
 <header class="site-header">
   <!-- Logo -->
-  <a href="/" class="nav-logo" aria-label={settings?.siteName ?? 'Senquentia'}>
+  <a href="/" class="nav-logo" aria-label={settings?.siteName ?? "Senquentia"}>
     <img
-      src={logoUrl ?? '/images/logo.png'}
-      alt={settings?.siteName ?? 'Senquentia'}
+      src={logoUrl ?? "/images/logo.png"}
+      alt={settings?.siteName ?? "Senquentia"}
       height="44"
       width="auto"
     />
@@ -40,26 +46,43 @@ function isActive(href: string) {
   <!-- Desktop nav -->
   <nav aria-label="Main navigation">
     <ul class="nav-links">
-      {links.map(link => (
-        <li>
-          <a
-            href={link.href}
-            class={isActive(link.href) ? 'active' : ''}
-            {...(link.scrollAnchor ? { 'data-scroll-anchor': 'true', 'data-scroll-target': link.href.split('#')[1] } : {})}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class={isActive(link.href) ? "active" : ""}
+              {...(link.scrollAnchor
+                ? {
+                    "data-scroll-anchor": "true",
+                    "data-scroll-target": link.href.split("#")[1],
+                  }
+                : {})}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 
   <!-- Right side -->
   <div class="nav-right">
-    {enableFR && (
-      <button class="nav-lang" data-lang-toggle>FR</button>
-    )}
-    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="nav-linkedin" aria-label="LinkedIn">
+    {
+      enableFR && (
+        <button class="nav-lang" data-lang-toggle>
+          FR
+        </button>
+      )
+    }
+    <a
+      href={linkedinUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="nav-linkedin"
+      aria-label="LinkedIn"
+    >
       <img src="/images/linkdinicon.svg" alt="LinkedIn" />
     </a>
     <button class="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -70,13 +93,20 @@ function isActive(href: string) {
 
 <!-- Mobile nav -->
 <nav class="mobile-nav" aria-label="Mobile navigation">
-  {links.map(link => (
-    <a
-      href={link.href}
-      class={isActive(link.href) ? 'active' : ''}
-      {...(link.scrollAnchor ? { 'data-scroll-anchor': 'true', 'data-scroll-target': link.href.split('#')[1] } : {})}
-    >
-      {link.label}
-    </a>
-  ))}
+  {
+    links.map((link) => (
+      <a
+        href={link.href}
+        class={isActive(link.href) ? "active" : ""}
+        {...(link.scrollAnchor
+          ? {
+              "data-scroll-anchor": "true",
+              "data-scroll-target": link.href.split("#")[1],
+            }
+          : {})}
+      >
+        {link.label}
+      </a>
+    ))
+  }
 </nav>
