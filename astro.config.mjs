@@ -1,11 +1,25 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
-import sanityIntegration from '@sanity/astro';
+import sanity from '@sanity/astro';
 
 export default defineConfig({
-  output: 'static',
+  output: 'hybrid',
   adapter: vercel(),
+  integrations: [
+    react(),
+    sanity({
+      projectId: 'egq490jl',
+      dataset: 'production',
+      apiVersion: '2024-01-01',
+      useCdn: true,
+      studioBasePath: '/studio',
+      stega: {
+        enabled: false,
+        studioUrl: '/studio',
+      },
+    }),
+  ],
   vite: {
     build: {
       rollupOptions: {
@@ -18,16 +32,8 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
+      include: ['gsap', 'lenis', 'gsap/ScrollTrigger'],
       exclude: ['fsevents'],
     },
   },
-  integrations: [
-    react(),
-    sanityIntegration({
-      projectId: 'egq490jl',
-      dataset: 'production',
-      useCdn: false,
-      studioBasePath: '/studio',
-    }),
-  ],
 });

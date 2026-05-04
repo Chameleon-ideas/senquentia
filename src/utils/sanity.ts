@@ -1,17 +1,38 @@
-import { sanityClient, hasSanityConfig } from './client';
+import { createClient } from "@sanity/client";
+import imageUrlBuilder from "@sanity/image-url";
 
+// ── Hardcoded config for reliability ──────────────────────────────────────────
+const clientConfig = {
+  projectId: 'egq490jl',
+  dataset: 'production',
+  apiVersion: '2024-01-01',
+  token: 'sk9pPpLfulj4mVAS0mqu7dssJtWJWTEXqkvWNMRrw5RnHIIj5Fg3ofb1o9HsnTAJjtLuFAoGRzQvrrtEWtKGtS8QWprID513VZ2Th7ZFIwujvKHOCqd593Z4aa7jRmGfNbzApPeE3IiXp0dBaHENZXl3mpNYZzcpzWPfREykbF8j8HQUvfpS',
+  useCdn: true, 
+};
+
+export const sanityClient = createClient(clientConfig);
+
+// ── Image URL builder ─────────────────────────────────────────────────────────
+const builder = imageUrlBuilder(sanityClient);
+
+export function urlFor(source: any) {
+  return builder.image(source);
+}
+
+// ── Queries Helper ────────────────────────────────────────────────────────────
 const imageFields = `{ asset->{ url, metadata { dimensions } }, hotspot, crop, alt }`;
 
 async function safeFetch<T>(query: string, params?: Record<string, unknown>): Promise<T | null> {
-  if (!hasSanityConfig) return null;
   try {
     return await sanityClient.fetch<T>(query, params ?? {});
-  } catch {
+  } catch (err) {
+    console.error("Sanity fetch error:", err);
     return null;
   }
 }
 
-// ── Site Settings ─────────────────────────────────────────────────────────────
+// ── Fetchers ──────────────────────────────────────────────────────────────────
+
 export async function getSiteSettings() {
   return safeFetch(`*[_type == "siteSettings"][0]{
     siteName, tagline, defaultSeoDescription,
@@ -22,7 +43,6 @@ export async function getSiteSettings() {
   }`);
 }
 
-// ── Home Page ─────────────────────────────────────────────────────────────────
 export async function getHomePage() {
   return safeFetch(`*[_type == "homePage"][0]{
     heroTagline,
@@ -35,7 +55,6 @@ export async function getHomePage() {
   }`);
 }
 
-// ── Ethos Page ────────────────────────────────────────────────────────────────
 export async function getEthosPage() {
   return safeFetch(`*[_type == "aboutPage"][0]{
     heroLabel,
@@ -52,7 +71,6 @@ export async function getEthosPage() {
   }`);
 }
 
-// ── Journal Page ──────────────────────────────────────────────────────────────
 export async function getJournalPage() {
   return safeFetch(`*[_type == "blogPage"][0]{
     heroLabel,
@@ -62,7 +80,6 @@ export async function getJournalPage() {
   }`);
 }
 
-// ── Connect / Contact Page ────────────────────────────────────────────────────
 export async function getConnectPage() {
   return safeFetch(`*[_type == "contactPage"][0]{
     heroBgImage ${imageFields},
@@ -71,7 +88,6 @@ export async function getConnectPage() {
   }`);
 }
 
-// ── Services ──────────────────────────────────────────────────────────────────
 export async function getServices() {
   return safeFetch<any[]>(`*[_type == "service"] | order(order asc){
     _id, title, slug,
@@ -99,10 +115,10 @@ export async function getServiceBySlug(slug: string) {
 }
 
 export async function getServiceSlugs() {
-  return safeFetch<{ slug: string }[]>(`*[_type == "service"]{ "slug": slug.current }`);
+  const result = await safeFetch<{ slug: string }[]>(`*[_type == "service"]{ "slug": slug.current }`);
+  return result || [];
 }
 
-// ── Blog / Journal Posts ──────────────────────────────────────────────────────
 export async function getBlogPosts() {
   return safeFetch<any[]>(`*[_type == "blogPost"] | order(publishedAt desc){
     _id, title, slug, excerpt,
@@ -124,21 +140,17 @@ export async function getBlogPostBySlug(slug: string) {
 }
 
 export async function getBlogSlugs() {
-  return safeFetch<{ slug: string }[]>(`*[_type == "blogPost"]{ "slug": slug.current }`);
+  const result = await safeFetch<{ slug: string }[]>(`*[_type == "blogPost"]{ "slug": slug.current }`);
+  return result || [];
 }
 
-// ── Team ──────────────────────────────────────────────────────────────────────
 export async function getTeamMembers() {
   return safeFetch<any[]>(`*[_type == "teamMember"] | order(order asc){
     _id, name, role, bio, photo ${imageFields}
   }`);
 }
 
-// ── Legacy stubs ──────────────────────────────────────────────────────────────
+// Stubs for consistency
 export async function getAboutPage()       { return getEthosPage(); }
-export async function getServicesPage()    { return null; }
-export async function getPortfolioItems()  { return []; }
-export async function getTestimonials()    { return []; }
-export async function getFaqItems()        { return []; }
 export async function getBlogPage()        { return getJournalPage(); }
 export async function getContactPage()     { return getConnectPage(); }

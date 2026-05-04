@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getServiceSlugs } from '../../sanity/queries';
+import { getServiceSlugs } from '@/utils/sanity';
 
 export async function getStaticPaths() {
   const slugs = await getServiceSlugs();

@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getConnectPage } from "../sanity/queries";
-import { urlFor } from "../sanity/image";
+import { getConnectPage, urlFor } from "@/utils/sanity";
 import "../styles/contact.css";
 
 const page = await getConnectPage();

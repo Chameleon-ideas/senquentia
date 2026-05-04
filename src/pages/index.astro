@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getHomePage, getServices } from "../sanity/queries";
-import { urlFor } from "../sanity/image";
+import { getHomePage, getServices, urlFor } from "@/utils/sanity";
 
 const [page, services] = await Promise.all([getHomePage(), getServices()]);
 
