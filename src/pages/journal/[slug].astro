@@ -5,7 +5,7 @@ import { PortableText } from 'astro-portabletext';
 
 export async function getStaticPaths() {
   const slugs = await getBlogSlugs();
-  return slugs.map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+  return (slugs ?? []).map((s: { slug: string }) => ({ params: { slug: s.slug } }));
 }
 
 const { slug } = Astro.params;
