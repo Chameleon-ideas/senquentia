@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { getSiteSettings } from '../sanity/queries';
+import { getLang } from '../utils/i18n';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const { title, description, ogImage } = Astro.props;
+const lang = getLang(Astro.url);
 const settings = await getSiteSettings();
 
 const siteName  = settings?.siteName ?? 'Senquentia';
@@ -20,7 +22,7 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -186,7 +188,16 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
                   // On another page — run page transition then navigate to hash URL
                   if (transitioning) return;
                   transitioning = true;
-                  gsap.timeline({ onComplete: () => { window.location.href = href; } })
+
+                  // Preserve lang param
+                  let targetHref = href;
+                  const currentLang = new URLSearchParams(window.location.search).get('lang');
+                  if (currentLang && !href.includes('lang=')) {
+                    const separator = href.includes('?') ? '&' : '?';
+                    targetHref = `${href}${separator}lang=${currentLang}`;
+                  }
+
+                  gsap.timeline({ onComplete: () => { window.location.href = targetHref; } })
                     .fromTo(ptLayer1, { xPercent: -120 }, { xPercent: 0, duration: 0.62, ease: 'power4.inOut' }, 0)
                     .fromTo(ptLayer2, { xPercent: -120 }, { xPercent: 0, duration: 0.62, ease: 'power4.inOut' }, 0.08);
                 }
@@ -201,7 +212,16 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
               if (transitioning) return;
               e.preventDefault();
               transitioning = true;
-              gsap.timeline({ onComplete: () => { window.location.href = href; } })
+
+              // Preserve lang param
+              let targetHref = href;
+              const currentLang = new URLSearchParams(window.location.search).get('lang');
+              if (currentLang && !href.includes('lang=')) {
+                const separator = href.includes('?') ? '&' : '?';
+                targetHref = `${href}${separator}lang=${currentLang}`;
+              }
+
+              gsap.timeline({ onComplete: () => { window.location.href = targetHref; } })
                 .fromTo(ptLayer1, { xPercent: -120 }, { xPercent: 0, duration: 0.62, ease: 'power4.inOut' }, 0)
                 .fromTo(ptLayer2, { xPercent: -120 }, { xPercent: 0, duration: 0.62, ease: 'power4.inOut' }, 0.08);
             });

@@ -45,21 +45,20 @@
 
 .contact-top-label h2 {
   font-family: var(--ff-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
   font-weight: 400;
-  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .contact-top-bar {
   width: 8px;
-  height: clamp(2.5rem, 6vw, 4rem);
+  height: clamp(2.5rem, 4.5vw, 2.5rem);
   background: var(--clr-red);
 }
 
 /* Content Area */
 .contact-content-main {
-  margin-top: 25vh;
+  margin-top: 32vh;
   /* Fixed top alignment as per screenshots */
   display: flex;
   flex-direction: column;
@@ -67,21 +66,22 @@
 }
 
 .contact-intro-text {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+  margin-left: 1.8rem;
 }
 
 .contact-intro-text p {
+  -webkit-text-stroke-width: 0.3px;
   font-family: var(--ff-display);
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  font-weight: 400;
+  font-size: 1.55rem;
+  margin-bottom: 1.2rem;
 }
 
 /* Red Horizontal Line */
 .contact-red-line {
   width: 550px;
   max-width: 90vw;
-  height: 2px;
+  height: 1.2px;
   background: var(--clr-red);
   margin-bottom: 5rem;
   /* Bleed to absolute left edge */

@@ -1,10 +1,12 @@
 ---
 import { urlFor } from '../sanity/image';
+import { getLang } from '../utils/i18n';
 
 interface Props {
   settings: any;
 }
 const { settings } = Astro.props;
+const lang = getLang(Astro.url);
 
 const logoUrl = settings?.logo ? urlFor(settings.logo).height(72).url() : null;
 const siteName = settings?.siteName ?? 'Senquentia';
@@ -19,7 +21,7 @@ const linkedin = settings?.linkedin ?? '#';
     <div class="footer-inner">
       <!-- Brand -->
       <div class="footer-brand">
-        <a href="/" class="footer-logo" aria-label={siteName}>
+        <a href={lang === "fr" ? "/?lang=fr" : "/"} class="footer-logo" aria-label={siteName}>
           {logoUrl
             ? <img src={logoUrl} alt={siteName} />
             : <img src="/images/logofooter.svg" alt={siteName} />
@@ -35,7 +37,7 @@ const linkedin = settings?.linkedin ?? '#';
         {address && <span class="footer-info">{address}</span>}
         {email && <span class="footer-email">{email}</span>}
         <div class="footer-contact-row">
-          <a href="/contact" class="footer-contact-link">Contact</a>
+          <a href="/contact" class="footer-contact-link">{lang === 'fr' ? 'Contact' : 'Contact'}</a>
           <a href={linkedin} target="_blank" rel="noopener noreferrer" class="footer-linkedin" aria-label="LinkedIn">
             <img src="/images/linkdinicon.svg" alt="LinkedIn" />
           </a>
