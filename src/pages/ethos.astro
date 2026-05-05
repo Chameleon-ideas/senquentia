@@ -1,11 +1,18 @@
----
 import Layout from "../layouts/Layout.astro";
 import "../styles/ethos.css";
+import { getEthosPage, urlFor } from "@/utils/sanity";
 
-const heroBgUrl = "/images/ethoshero.png";
-const founderPhotoUrl = "/images/ethosfounder.png";
+const page = await getEthosPage();
 
-const values = [
+const heroBgUrl = page?.heroBgImage 
+  ? urlFor(page.heroBgImage).width(1920).url() 
+  : "/images/ethoshero.png";
+
+const founderPhotoUrl = page?.founderPhoto 
+  ? urlFor(page.founderPhoto).width(800).url() 
+  : "/images/ethosfounder.png";
+
+const values = page?.values ?? [
   {
     name: "Trust",
     body: "Built through consistency, integrity, and transparency.",
@@ -26,8 +33,8 @@ const values = [
 ---
 
 <Layout
-  title="Ethos | Senquentia"
-  description="The principles and perspectives that shape our work."
+  title={page?.seoTitle ?? "Ethos | Senquentia"}
+  description={page?.seoDescription ?? "The principles and perspectives that shape our work."}
 >
   <div class="ethos-page-wrapper">
     <!-- Section 1: Hero -->
@@ -36,7 +43,7 @@ const values = [
         <img src={heroBgUrl} alt="Ethos Hero" />
       </div>
       <div class="ethos-hero-label" style="font-weight: 400;">
-        <h2>ETHOS.</h2>
+        <h2>{page?.heroLabel ?? "ETHOS."}</h2>
         <div class="ethos-hero-bar"></div>
       </div>
     </section>
@@ -46,7 +53,7 @@ const values = [
       <div class="container" style="padding: 0rem 8.5rem;">
         <div class="principles-headline-row">
           <h2 class="principles-headline" style="font-weight: 400;">
-            THE PRINCIPLES AND <br /> PERSPECTIVES <br /> THAT SHAPE OUR WORK.
+            {page?.principlesHeadline ?? "THE PRINCIPLES AND PERSPECTIVES THAT SHAPE OUR WORK."}
           </h2>
         </div>
 
@@ -54,8 +61,7 @@ const values = [
           <div class="principles-left">
             <h3 class="ethos-label" style="font-weight: 500;">ETYMOLOGY</h3>
             <p class="ethos-body-text">
-              Tracing the roots of our philosophy, values, and purpose as a
-              firm.
+              {page?.etymologyDesc ?? "Tracing the roots of our philosophy, values, and purpose as a firm."}
             </p>
 
             <div class="etymology-details">
@@ -81,15 +87,19 @@ const values = [
           <div class="principles-right">
             <h3 class="ethos-label" style="font-weight: 500;">PHILOSOPHY</h3>
             <div class="ethos-body-text">
-              <p>
-                At Senquentia, we challenge conventional thinking and provide
-                clarity in complex environments.
-              </p>
-              <br />
-              <p>
-                We combine strategic insight with practical execution to help
-                leaders make informed decisions and drive meaningful change.
-              </p>
+              {page?.philosophyBody ? <p>{page.philosophyBody}</p> : (
+                <>
+                  <p>
+                    At Senquentia, we challenge conventional thinking and provide
+                    clarity in complex environments.
+                  </p>
+                  <br />
+                  <p>
+                    We combine strategic insight with practical execution to help
+                    leaders make informed decisions and drive meaningful change.
+                  </p>
+                </>
+              )}
             </div>
 
             <div class="ethos-quote-box">
@@ -109,8 +119,7 @@ const values = [
         <div class="values-intro">
           <h2 class="values-main-title" style="font-weight: 400;">VALUES</h2>
           <p class="values-intro-desc">
-            Our values have shaped every step of our journey and continue to
-            define our perspective.
+            {page?.valuesDesc ?? "Our values have shaped every step of our journey and continue to define our perspective."}
           </p>
         </div>
 
@@ -141,28 +150,31 @@ const values = [
 
           <div class="founder-info">
             <h3 class="founder-headline">
-              Veronica Eleonora Palumbo is an executive advisor fluent in both
-              strategy and delivery.
+              {page?.founderHeadline ?? (page?.founderName && page?.founderTitle ? `${page.founderName} is ${page.founderTitle}` : "Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery.")}
             </h3>
 
             <div class="founder-red-divider"></div>
 
             <div class="founder-bio-text">
-              <p>
-                With 20 years of experience leading ERP programs and expertise
-                in Human Capital Management solutions, she is a trusted voice in
-                digital and organizational transformation, bringing fresh
-                perspectives to defining business initiatives. She has led
-                several multinational engagements and directed global delivery
-                teams, honing her expertise in large-scale implementations.
-              </p>
-              <p>
-                As a strategic advisor, Veronica has partnered with executive
-                teams to navigate critical business initiatives, mergers and
-                acquisitions, and culture shifts, leveraging her skills in
-                organizational development, succession planning, and change
-                management.
-              </p>
+              {page?.founderBio ? <p>{page.founderBio}</p> : (
+                <>
+                  <p>
+                    With 20 years of experience leading ERP programs and expertise
+                    in Human Capital Management solutions, she is a trusted voice in
+                    digital and organizational transformation, bringing fresh
+                    perspectives to defining business initiatives. She has led
+                    several multinational engagements and directed global delivery
+                    teams, honing her expertise in large-scale implementations.
+                  </p>
+                  <p>
+                    As a strategic advisor, Veronica has partnered with executive
+                    teams to navigate critical business initiatives, mergers and
+                    acquisitions, and culture shifts, leveraging her skills in
+                    organizational development, succession planning, and change
+                    management.
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>

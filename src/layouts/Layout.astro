@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { getSiteSettings } from '@/utils/sanity';
+import { getSiteSettings, getFooter } from '@/utils/sanity';
 import { getLang } from '../utils/i18n';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
@@ -13,7 +13,10 @@ interface Props {
 
 const { title, description, ogImage } = Astro.props;
 const lang = getLang(Astro.url);
-const settings = await getSiteSettings();
+const [settings, footerData] = await Promise.all([
+  getSiteSettings(),
+  getFooter()
+]);
 
 const siteName  = settings?.siteName ?? 'Senquentia';
 const siteTitle = title ? `${title} | ${siteName}` : siteName;
@@ -44,7 +47,7 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
 
     <Navbar settings={settings} />
     <slot />
-    <Footer settings={settings} />
+    <Footer settings={settings} footerData={footerData} />
 
     <script is:inline>
       (function () {

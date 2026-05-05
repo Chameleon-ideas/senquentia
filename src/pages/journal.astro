@@ -1,14 +1,24 @@
----
 import Layout from "../layouts/Layout.astro";
 import "../styles/journal.css";
+import { getJournalPage, getBlogPosts, urlFor } from "@/utils/sanity";
 
-const heroBgUrl = "/images/jouhero.png";
+const [page, posts] = await Promise.all([getJournalPage(), getBlogPosts()]);
 
-const articles = [
+const heroBgUrl = page?.heroBgImage 
+  ? urlFor(page.heroBgImage).width(1920).url() 
+  : "/images/jouhero.png";
+
+const articles = posts?.length ? posts.map(p => ({
+  title: p.title,
+  desc: p.excerpt,
+  img: p.featuredImage ? urlFor(p.featuredImage).width(600).url() : "/images/jou1.png",
+  slug: p.slug?.current
+})) : [
   {
     title: "Why Digital Transformation is No Longer Optional",
     desc: "Businesses that delay digital transformation risk falling behind competitors.",
     img: "/images/jou1.png",
+    slug: "why-digital-transformation-is-no-longer-optional"
   },
   {
     title: "The Role of Leadership in Organizational Change",
@@ -38,13 +48,13 @@ const articles = [
 ];
 ---
 
-<Layout title="Journal | Senquentia">
+<Layout title={page?.seoTitle ?? "Journal | Senquentia"} description={page?.seoDescription}>
   <div class="journal-page">
     <!-- Section 1: Hero -->
     <section class="journal-hero">
       <img src={heroBgUrl} alt="Journal Hero" class="journal-hero-img" />
       <div class="journal-hero-label">
-        <h1>JOURNAL.</h1>
+        <h1>{page?.heroLabel ?? "JOURNAL."}</h1>
         <div class="journal-hero-bar"></div>
       </div>
     </section>
@@ -53,7 +63,7 @@ const articles = [
       <!-- Section 2: Intro -->
       <section class="journal-intro">
         <h2 class="journal-intro-title">
-          ON TRANSFORMATION <br /> AND LEADERSHIP
+          {page?.sectionHeadline ?? "ON TRANSFORMATION AND LEADERSHIP"}
         </h2>
       </section>
 
@@ -70,9 +80,7 @@ const articles = [
                   <h3 class="article-title">{article.title}</h3>
                   <p class="article-desc">{article.desc}</p>
                   <a
-                    href={article.title === "Why Digital Transformation is No Longer Optional" 
-                      ? "/journal/why-digital-transformation-is-no-longer-optional" 
-                      : "#"}
+                    href={article.slug ? `/journal/${article.slug}` : "#"}
                     class="article-link"
                   >
                     Read More

@@ -4,16 +4,18 @@ import { getLang } from "../utils/i18n";
 
 interface Props {
   settings: any;
+  footerData: any;
 }
-const { settings } = Astro.props;
+const { settings, footerData } = Astro.props;
 const lang = getLang(Astro.url);
 
 const logoUrl = settings?.logo ? urlFor(settings.logo).height(72).url() : null;
-const siteName = settings?.siteName ?? "Senquentia";
+const siteName = footerData?.companyName ?? settings?.siteName ?? "Senquentia";
 const tagline = settings?.tagline ?? "Strategy & Management Consulting";
-const address = settings?.address ?? "Montréal, Quebec, Canada";
-const email = settings?.email ?? "info@senquentia.com";
-const linkedin = settings?.linkedin ?? "#";
+const address = footerData?.address ?? settings?.address ?? "Montréal, Quebec, Canada";
+const email = footerData?.email ?? settings?.email ?? "info@senquentia.com";
+const linkedin = footerData?.linkedinUrl ?? settings?.linkedin ?? "#";
+const copyrightText = footerData?.copyrightText ?? "© 2026 Senquentia. All rights reserved.";
 ---
 
 <footer class="site-footer">
@@ -59,7 +61,7 @@ const linkedin = settings?.linkedin ?? "#";
     </div>
 
     <div class="footer-bottom">
-      <span> Copyright </span>
+      <span>{copyrightText} Designed and Developed by <a href="https://chameleon-ideas.com" target="_blank" rel="noopener noreferrer">Chameleon Ideas</a></span>
     </div>
   </div>
 </footer>

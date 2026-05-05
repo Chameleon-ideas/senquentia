@@ -88,6 +88,21 @@ export async function getConnectPage() {
   }`);
 }
 
+export async function getFooter() {
+  return safeFetch(`*[_type == "footer"][0]{
+    companyName, address, phone, email, linkedinUrl, copyrightText
+  }`);
+}
+
+export async function getServicesPage() {
+  return safeFetch(`*[_type == "servicesPage"][0]{
+    heroHeadline, heroSubtext, heroBgImage ${imageFields},
+    sectionEyebrow, sectionHeadline, sectionSubtext,
+    ctaHeadline, ctaBody, ctaButton,
+    seoTitle, seoDescription
+  }`);
+}
+
 export async function getServices() {
   return safeFetch<any[]>(`*[_type == "service"] | order(order asc){
     _id, title, slug,

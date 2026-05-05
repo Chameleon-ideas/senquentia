@@ -24,8 +24,6 @@ export default defineConfig({
     build: {
       rollupOptions: {
         external: [
-          'styled-components',
-          'react/compiler-runtime',
           'fsevents',
           /^media-chrome/,
         ],
