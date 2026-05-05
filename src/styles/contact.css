@@ -102,9 +102,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(1rem, 3vw, 3rem);
-  max-width: 810px;
-  margin: auto;
+  padding: 0rem 12rem;
 }
+
+@media (max-width: 1400px) {
+  .contact-form-grid {
+    padding: 0rem 3rem;
+  }
+}
+
 
 /* Form Columns */
 .contact-form-col {
@@ -137,12 +143,14 @@
 
 /* Footer Alignment */
 .contact-footer-right {
-  grid-column: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 2.5rem;
-  margin-top: 1.5rem;
+  margin-top: 3rem;
+  max-width: 804px;
+  margin-inline: auto;
+  width: 100%;
 }
 
 .contact-submit-btn {
@@ -169,17 +177,28 @@
 
 .contact-disclaimer {
   font-family: var(--ff-body);
-  font-size: 1rem;
-  color: var(--clr-cream);
+  font-size: 1.1rem;
+  color: #fff;
   opacity: 0.9;
-  max-width: 480px;
-  line-height: 1.4;
+  max-width: 100%;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 1460px) {
+  .contact-footer-right {
+    align-items: center;
+  }
+
+  .contact-footer-text {
+    text-align: center;
+  }
 }
 
 .contact-email-link-footer {
   font-family: var(--ff-display);
   font-size: 1.25rem;
-  color: var(--clr-cream);
+  color: #fff;
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -206,9 +225,9 @@
   }
 
   .contact-footer-right {
-    grid-column: 1;
     align-items: flex-start;
     padding-inline: 1.5rem;
+    margin-top: 2rem;
   }
 
   .contact-footer-text {
@@ -254,6 +273,7 @@
   }
 
   .contact-disclaimer {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    white-space: normal;
   }
 }

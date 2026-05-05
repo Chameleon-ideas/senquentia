@@ -1,6 +1,6 @@
 /* ============================================================
    SENQUENTIA — GLOBAL DESIGN SYSTEM
-   Fonts: American Typewriter (display), Century Gothic (body), Avenir (ui)
+   Fonts: American Typewriter (display), Century Gothic (body), Avenir (ui), Helvetica Neue (light)
    ============================================================ */
 
 @font-face {
@@ -27,11 +27,20 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Helvetica Neue Light';
+  src: url('/fonts/HelveticaNeueLight.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --ff-display: 'American Typewriter', Georgia, serif;
   --ff-light: 'American Typewriter Light', Georgia, serif;
   --ff-body: 'Century Gothic Paneuropean', 'Century Gothic', 'Century', 'Trebuchet MS', Verdana, sans-serif;
   --ff-ui: 'Avenir', 'Century Gothic Paneuropean', 'Century Gothic', 'Trebuchet MS', sans-serif;
+  --ff-h-light: 'Helvetica Neue Light', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   --clr-dark: #0f0f0f;
   --clr-cream: #f8f6f2;

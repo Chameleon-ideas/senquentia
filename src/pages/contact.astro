@@ -90,25 +90,29 @@ const email = page?.email ?? "info@senquentia.com";
                 required></textarea>
             </div>
 
-            <!-- Footer row spanning the second column for alignment -->
-            <div class="contact-footer-right">
-              <button type="submit" id="send-btn" class="contact-submit-btn"
-                >SEND</button
-              >
-
-              <div class="contact-footer-text">
-                <p class="contact-disclaimer">
-                  {
-                    page?.disclaimer ??
-                      "We treat all inquiries with discretion and confidentiality."
-                  }
-                </p>
-                <a href={`mailto:${email}`} class="contact-email-link-footer"
-                  >{email}</a
-                >
-              </div>
-            </div>
           </form>
+
+          <!-- Footer row moved outside the grid to allow more width -->
+          <div class="contact-footer-right">
+            <button
+              type="submit"
+              id="send-btn"
+              form="connect-form"
+              class="contact-submit-btn">SEND</button
+            >
+
+            <div class="contact-footer-text">
+              <p class="contact-disclaimer">
+                {
+                  page?.disclaimer ??
+                    "We treat all inquiries with discretion and confidentiality."
+                }
+              </p>
+              <a href={`mailto:${email}`} class="contact-email-link-footer"
+                >{email}</a
+              >
+            </div>
+          </div>
         </main>
       </div>
     </div>
