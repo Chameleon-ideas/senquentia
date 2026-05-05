@@ -145,7 +145,7 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 3.65rem 12rem 3.65rem 12rem;
-  background: #000000;
+  background: #0f0f0f;
   border-bottom: 1px solid var(--clr-border);
   transition: all 0.35s var(--ease);
 }
@@ -459,9 +459,9 @@ button {
 }
 
 .intro-lead {
-  max-width: 550px;
+  max-width: 558px;
   font-family: var(--ff-display);
-  font-size: clamp(1.1rem, 3.5vw, 1.8rem);
+  font-size: clamp(1.1rem, 3.5vw, 1.85rem);
   color: var(--clr-cream);
   margin-bottom: 2.5rem;
   line-height: 1.2;
@@ -469,7 +469,7 @@ button {
 
 .intro-body {
   font-family: var(--ff-body);
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
   color: #F8F6F2;
   line-height: 1.5;
   letter-spacing: -0.01em;
@@ -477,7 +477,7 @@ button {
 }
 
 .intro-body p {
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.3rem;
 }
 
 @media (max-width: 1200px) {
@@ -2006,7 +2006,7 @@ button {
 .svc-perspective {
   background: var(--clr-dark);
   padding-top: 13rem;
-  padding-bottom: 12rem;
+  padding-bottom: 13rem;
   padding-left: 3.5rem;
   padding-right: 3.5rem;
 }
@@ -2504,7 +2504,7 @@ button {
 /* SECTION 6: MOMENTS */
 .svc-moments {
   background: var(--clr-dark);
-  padding-block: 12rem;
+  padding-block: 14rem;
   overflow: hidden;
 }
 

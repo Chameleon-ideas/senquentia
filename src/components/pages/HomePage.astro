@@ -149,8 +149,12 @@ const displayServices = services?.length
           </p>
           <div class="intro-body">
             {
-              page?.introBody ? (
-                <p>{t(page.introBody, lang)}</p>
+              (page?.introBody1 || page?.introBody2 || page?.introBody3) ? (
+                <>
+                  {page?.introBody1 && <p>{t(page.introBody1, lang)}</p>}
+                  {page?.introBody2 && <p>{t(page.introBody2, lang)}</p>}
+                  {page?.introBody3 && <p>{t(page.introBody3, lang)}</p>}
+                </>
               ) : lang === "fr" ? (
                 <>
                   <p>

@@ -48,7 +48,7 @@ export async function getHomePage() {
     heroTagline,
     heroBgImage ${imageFields},
     heroBgImageFR ${imageFields},
-    introEyebrow, introHeadline, introLead, introBody,
+    introEyebrow, introHeadline, introLead, introBody1, introBody2, introBody3,
     servicesBgImage ${imageFields},
     stats[],
     ctaText, ctaLinkLabel, ctaBgImage ${imageFields},

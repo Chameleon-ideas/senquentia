@@ -33,7 +33,9 @@ export const homePage = defineType({
     }),
     defineField({ name: 'introHeadline', title: 'Headline', type: 'localeString', group: 'intro' }),
     defineField({ name: 'introLead', title: 'Lead Text (left)', type: 'localeText', rows: 3, group: 'intro' }),
-    defineField({ name: 'introBody', title: 'Body Text (right)', type: 'localeText', rows: 4, group: 'intro' }),
+    defineField({ name: 'introBody1', title: 'Body Text Line 1 (right)', type: 'localeText', rows: 2, group: 'intro' }),
+    defineField({ name: 'introBody2', title: 'Body Text Line 2 (right)', type: 'localeText', rows: 2, group: 'intro' }),
+    defineField({ name: 'introBody3', title: 'Body Text Line 3 (right)', type: 'localeText', rows: 2, group: 'intro' }),
 
     // ── Services ──────────────────────────────────────────────────────────────
     defineField({ name: 'servicesBgImage', title: 'Services Section Background', type: 'image',
