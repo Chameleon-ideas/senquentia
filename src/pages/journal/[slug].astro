@@ -1,7 +1,7 @@
----
 import Layout from '../../layouts/Layout.astro';
 import { getBlogPostBySlug, getBlogSlugs, urlFor } from '@/utils/sanity';
 import { PortableText } from 'astro-portabletext';
+import { t, getLang } from '@/utils/i18n';
 
 export async function getStaticPaths() {
   const slugs = await getBlogSlugs();
@@ -9,26 +9,25 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
+const lang = getLang(Astro.url);
 const post = await getBlogPostBySlug(slug!);
 
-if (!post) return Astro.redirect('/journal');
+if (!post) return Astro.redirect(`/journal?lang=${lang}`);
 
-const title = typeof post.title === 'object' ? post.title.en : post.title;
+const title = t(post.title, lang);
 const publishedDate = post.publishedAt
-  ? new Date(post.publishedAt).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
+  ? new Date(post.publishedAt).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
   : null;
 
-const bodyLeft  = post.body?.en ?? [];
-const bodyRight: any[] = [];
-
-const midpoint = Math.ceil(bodyLeft.length / 2);
-const col1 = bodyLeft.slice(0, midpoint);
-const col2 = bodyLeft.slice(midpoint);
+const bodyContent = post.body?.[lang] || post.body?.en || [];
+const midpoint = Math.ceil(bodyContent.length / 2);
+const col1 = bodyContent.slice(0, midpoint);
+const col2 = bodyContent.slice(midpoint);
 ---
 
 <Layout
-  title={post.seoTitle ?? title}
-  description={post.seoDescription ?? (typeof post.excerpt === 'object' ? post.excerpt.en : post.excerpt)}
+  title={t(post.seoTitle, lang) || title}
+  description={t(post.seoDescription, lang) || t(post.excerpt, lang)}
   ogImage={post.featuredImage ? urlFor(post.featuredImage).width(1200).url() : undefined}
 >
   <div class="journal-inner">
@@ -72,7 +71,9 @@ const col2 = bodyLeft.slice(midpoint);
 
       <!-- Back link -->
       <div class="journal-back">
-        <a href="/journal">← Back to Journal</a>
+        <a href={`/journal?lang=${lang}`}>
+          {lang === 'fr' ? "← Retour au Journal" : "← Back to Journal"}
+        </a>
       </div>
     </div>
   </div>

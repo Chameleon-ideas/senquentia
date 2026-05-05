@@ -9,13 +9,12 @@ export const footer = defineType({
     defineField({
       name: 'companyName',
       title: 'Company Name',
-      type: 'string',
-      initialValue: 'Senquentia',
+      type: 'localeString',
     }),
     defineField({
       name: 'address',
       title: 'Address',
-      type: 'text',
+      type: 'localeText',
       rows: 3,
     }),
     defineField({
@@ -36,7 +35,7 @@ export const footer = defineType({
     defineField({
       name: 'copyrightText',
       title: 'Copyright Text',
-      type: 'string',
+      type: 'localeString',
       description: 'e.g. © 2026 Senquentia. All rights reserved.',
     }),
   ],

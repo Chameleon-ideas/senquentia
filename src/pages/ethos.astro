@@ -1,8 +1,9 @@
----
 import Layout from "../layouts/Layout.astro";
 import "../styles/ethos.css";
 import { getEthosPage, urlFor } from "@/utils/sanity";
+import { t, getLang } from "@/utils/i18n";
 
+const lang = getLang(Astro.url);
 const page = await getEthosPage();
 
 const heroBgUrl = page?.heroBgImage 
@@ -13,7 +14,24 @@ const founderPhotoUrl = page?.founderPhoto
   ? urlFor(page.founderPhoto).width(800).url() 
   : "/images/ethosfounder.png";
 
-const values = page?.values ?? [
+const values = page?.values ?? (lang === 'fr' ? [
+  {
+    name: "Confiance",
+    body: "Construite sur la cohérence, l'intégrité et la transparence.",
+  },
+  {
+    name: "Croissance",
+    body: "Axée sur le renforcement des capacités et la libération du potentiel.",
+  },
+  {
+    name: "Excellence",
+    body: "Soutenue par la vision, l'expertise et une exécution disciplinée.",
+  },
+  {
+    name: "Partenariat",
+    body: "Défini par un engagement partagé envers des résultats significatifs et durables.",
+  },
+] : [
   {
     name: "Trust",
     body: "Built through consistency, integrity, and transparency.",
@@ -30,12 +48,12 @@ const values = page?.values ?? [
     name: "Partnership",
     body: "Defined by shared commitment to meaningful, lasting outcomes.",
   },
-];
+]);
 ---
 
 <Layout
-  title={page?.seoTitle ?? "Ethos | Senquentia"}
-  description={page?.seoDescription ?? "The principles and perspectives that shape our work."}
+  title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Ethos | Senquentia" : "Ethos | Senquentia")}
+  description={t(page?.seoDescription, lang) || (lang === 'fr' ? "Les principes et perspectives qui façonnent notre travail." : "The principles and perspectives that shape our work.") }
 >
   <div class="ethos-page-wrapper">
     <!-- Section 1: Hero -->
@@ -44,7 +62,7 @@ const values = page?.values ?? [
         <img src={heroBgUrl} alt="Ethos Hero" />
       </div>
       <div class="ethos-hero-label" style="font-weight: 400;">
-        <h2>{page?.heroLabel ?? "ETHOS."}</h2>
+        <h2>{t(page?.heroLabel, lang) || (lang === 'fr' ? "ETHOS." : "ETHOS.")}</h2>
         <div class="ethos-hero-bar"></div>
       </div>
     </section>
@@ -54,20 +72,20 @@ const values = page?.values ?? [
       <div class="container" style="padding: 0rem 8.5rem;">
         <div class="principles-headline-row">
           <h2 class="principles-headline" style="font-weight: 400;">
-            {page?.principlesHeadline ?? "THE PRINCIPLES AND PERSPECTIVES THAT SHAPE OUR WORK."}
+            {t(page?.principlesHeadline, lang) || (lang === 'fr' ? "LES PRINCIPES ET PERSPECTIVES QUI FAÇONNENT NOTRE TRAVAIL." : "THE PRINCIPLES AND PERSPECTIVES THAT SHAPE OUR WORK.") }
           </h2>
         </div>
 
         <div class="principles-grid">
           <div class="principles-left">
-            <h3 class="ethos-label" style="font-weight: 500;">ETYMOLOGY</h3>
+            <h3 class="ethos-label" style="font-weight: 500;">{lang === 'fr' ? "ÉTYMOLOGIE" : "ETYMOLOGY"}</h3>
             <p class="ethos-body-text">
-              {page?.etymologyDesc ?? "Tracing the roots of our philosophy, values, and purpose as a firm."}
+              {t(page?.etymologyDesc, lang) || (lang === 'fr' ? "Retracer les racines de notre philosophie, de nos valeurs et de notre but en tant que cabinet." : "Tracing the roots of our philosophy, values, and purpose as a firm.") }
             </p>
 
             <div class="etymology-details">
               <div class="etymology-item">
-                <span class="etymology-tag">a way of thinking</span>
+                <span class="etymology-tag">{lang === 'fr' ? "une façon de penser" : "a way of thinking"}</span>
                 <div class="etymology-word-line">
                   <span style="font-weight: 600;">sen</span>tentia <span
                     class="etymology-word-line-span">[sɛn'tɛn.ti.a] :</span
@@ -78,7 +96,7 @@ const values = page?.values ?? [
                 <div class="etymology-word-line">
                   <span>: [eː.ɫɔˈkʷɛn.ti.a]</span> elo<strong>quentia</strong>
                 </div>
-                <span class="etymology-meaning">the art of fluency</span>
+                <span class="etymology-meaning">{lang === 'fr' ? "l'art de la fluidité" : "the art of fluency"}</span>
               </div>
             </div>
           </div>
@@ -86,27 +104,41 @@ const values = page?.values ?? [
           <div class="principles-divider"></div>
 
           <div class="principles-right">
-            <h3 class="ethos-label" style="font-weight: 500;">PHILOSOPHY</h3>
+            <h3 class="ethos-label" style="font-weight: 500;">{lang === 'fr' ? "PHILOSOPHIE" : "PHILOSOPHY"}</h3>
             <div class="ethos-body-text">
-              {page?.philosophyBody ? <p>{page.philosophyBody}</p> : (
-                <>
-                  <p>
-                    At Senquentia, we challenge conventional thinking and provide
-                    clarity in complex environments.
-                  </p>
-                  <br />
-                  <p>
-                    We combine strategic insight with practical execution to help
-                    leaders make informed decisions and drive meaningful change.
-                  </p>
-                </>
+              {page?.philosophyBody ? <p>{t(page.philosophyBody, lang)}</p> : (
+                lang === 'fr' ? (
+                  <>
+                    <p>
+                      Chez Senquentia, nous remettons en question la pensée conventionnelle et apportons de la clarté dans les environnements complexes.
+                    </p>
+                    <br />
+                    <p>
+                      Nous combinons vision stratégique et exécution pratique pour aider les dirigeants à prendre des décisions éclairées et à mener des changements significatifs.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      At Senquentia, we challenge conventional thinking and provide
+                      clarity in complex environments.
+                    </p>
+                    <br />
+                    <p>
+                      We combine strategic insight with practical execution to help
+                      leaders make informed decisions and drive meaningful change.
+                    </p>
+                  </>
+                )
               )}
             </div>
 
             <div class="ethos-quote-box">
               <h3 class="ethos-quote-text" style="font-weight: 500;">
-                Experience brings perspective, but integrity is what earns
-                trust.
+                {lang === 'fr' 
+                  ? "L'expérience apporte de la perspective, mais c'est l'intégrité qui gagne la confiance."
+                  : "Experience brings perspective, but integrity is what earns trust."
+                }
               </h3>
             </div>
           </div>
@@ -118,9 +150,9 @@ const values = page?.values ?? [
     <section class="ethos-values">
       <div class="container">
         <div class="values-intro">
-          <h2 class="values-main-title" style="font-weight: 400;">VALUES</h2>
+          <h2 class="values-main-title" style="font-weight: 400;">{lang === 'fr' ? "VALEURS" : "VALUES"}</h2>
           <p class="values-intro-desc">
-            {page?.valuesDesc ?? "Our values have shaped every step of our journey and continue to define our perspective."}
+            {t(page?.valuesDesc, lang) || (lang === 'fr' ? "Nos valeurs ont façonné chaque étape de notre parcours et continuent de définir notre perspective." : "Our values have shaped every step of our journey and continue to define our perspective.") }
           </p>
         </div>
 
@@ -128,10 +160,10 @@ const values = page?.values ?? [
 
         <div class="values-grid">
           {
-            values.map((v) => (
+            values.map((v: any) => (
               <div class="value-card">
-                <h3 class="value-card-name">{v.name}</h3>
-                <p class="value-card-body">{v.body}</p>
+                <h3 class="value-card-name">{t(v.name, lang)}</h3>
+                <p class="value-card-body">{t(v.body, lang)}</p>
               </div>
             ))
           }
@@ -147,34 +179,49 @@ const values = page?.values ?? [
             <img src={founderPhotoUrl} alt="Veronica Eleonora Palumbo" />
           </div>
 
-          <h2 class="founder-label-top">FOUNDER</h2>
+          <h2 class="founder-label-top">{lang === 'fr' ? "FONDATRICE" : "FOUNDER"}</h2>
 
           <div class="founder-info">
             <h3 class="founder-headline">
-              {page?.founderHeadline ?? (page?.founderName && page?.founderTitle ? `${page.founderName} is ${page.founderTitle}` : "Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery.")}
+              {t(page?.founderHeadline, lang) || (
+                lang === 'fr'
+                  ? "Veronica Eleonora Palumbo est une conseillère de direction qui maîtrise parfaitement la stratégie et la mise en œuvre."
+                  : "Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery."
+              )}
             </h3>
 
             <div class="founder-red-divider"></div>
 
             <div class="founder-bio-text">
-              {page?.founderBio ? <p>{page.founderBio}</p> : (
-                <>
-                  <p>
-                    With 20 years of experience leading ERP programs and expertise
-                    in Human Capital Management solutions, she is a trusted voice in
-                    digital and organizational transformation, bringing fresh
-                    perspectives to defining business initiatives. She has led
-                    several multinational engagements and directed global delivery
-                    teams, honing her expertise in large-scale implementations.
-                  </p>
-                  <p>
-                    As a strategic advisor, Veronica has partnered with executive
-                    teams to navigate critical business initiatives, mergers and
-                    acquisitions, and culture shifts, leveraging her skills in
-                    organizational development, succession planning, and change
-                    management.
-                  </p>
-                </>
+              {page?.founderBio ? <p>{t(page.founderBio, lang)}</p> : (
+                lang === 'fr' ? (
+                  <>
+                    <p>
+                      Avec 20 ans d'expérience dans la direction de programmes ERP et une expertise dans les solutions de gestion du capital humain, elle est une voix de confiance dans la transformation numérique et organisationnelle, apportant des perspectives fraîches pour définir les initiatives commerciales. Elle a dirigé plusieurs mandats multinationaux et encadré des équipes de prestation mondiales, perfectionnant son expertise dans les mises en œuvre à grande échelle.
+                    </p>
+                    <p>
+                      En tant que conseillère stratégique, Veronica s'est associée à des équipes de direction pour naviguer dans des initiatives commerciales critiques, des fusions et acquisitions et des changements de culture, mettant à profit ses compétences en développement organisationnel, en planification de la relève et en gestion du changement.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      With 20 years of experience leading ERP programs and expertise
+                      in Human Capital Management solutions, she is a trusted voice in
+                      digital and organizational transformation, bringing fresh
+                      perspectives to defining business initiatives. She has led
+                      several multinational engagements and directed global delivery
+                      teams, honing her expertise in large-scale implementations.
+                    </p>
+                    <p>
+                      As a strategic advisor, Veronica has partnered with executive
+                      teams to navigate critical business initiatives, mergers and
+                      acquisitions, and culture shifts, leveraging her skills in
+                      organizational development, succession planning, and change
+                      management.
+                    </p>
+                  </>
+                )
               )}
             </div>
           </div>

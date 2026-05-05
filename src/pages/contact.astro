@@ -1,8 +1,9 @@
----
 import Layout from "../layouts/Layout.astro";
 import { getConnectPage, urlFor } from "@/utils/sanity";
+import { t, getLang } from "@/utils/i18n";
 import "../styles/contact.css";
 
+const lang = getLang(Astro.url);
 const page = await getConnectPage();
 
 const heroBgUrl = page?.heroBgImage
@@ -13,8 +14,8 @@ const email = page?.email ?? "info@senquentia.com";
 ---
 
 <Layout
-  title={page?.seoTitle ?? "Contact | Senquentia"}
-  description={page?.seoDescription}
+  title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Contact | Senquentia" : "Contact | Senquentia")}
+  description={t(page?.seoDescription, lang)}
 >
   <div
     class="contact-page-outer"
@@ -23,7 +24,7 @@ const email = page?.email ?? "info@senquentia.com";
     <div class="contact-page-inner">
       <!-- Top Right Label -->
       <div class="contact-top-label">
-        <h2>CONTACT</h2>
+        <h2>{lang === 'fr' ? "CONTACT" : "CONTACT"}</h2>
         <div class="contact-top-bar"></div>
       </div>
 
@@ -31,8 +32,8 @@ const email = page?.email ?? "info@senquentia.com";
         <main class="contact-content-main">
           <!-- Intro Text -->
           <div class="contact-intro-text">
-            <p>{page?.leadText ?? "Our work begins in conversation."}</p>
-            <p>Connect.</p>
+            <p>{t(page?.leadText, lang) || (lang === 'fr' ? "Notre travail commence par une conversation." : "Our work begins in conversation.")}</p>
+            <p>{lang === 'fr' ? "Connecter." : "Connect."}</p>
           </div>
 
           <!-- Red Line -->
@@ -50,14 +51,14 @@ const email = page?.email ?? "info@senquentia.com";
               <input
                 type="text"
                 name="name"
-                placeholder="Name"
+                placeholder={lang === 'fr' ? "Nom" : "Name"}
                 class="contact-field"
                 required
               />
               <input
                 type="text"
                 name="organization"
-                placeholder="Organization"
+                placeholder={lang === 'fr' ? "Organisation" : "Organization"}
                 class="contact-field"
               />
               <input
@@ -70,7 +71,7 @@ const email = page?.email ?? "info@senquentia.com";
               <input
                 type="tel"
                 name="phone"
-                placeholder="Phone"
+                placeholder={lang === 'fr' ? "Téléphone" : "Phone"}
                 class="contact-field"
               />
             </div>
@@ -80,7 +81,7 @@ const email = page?.email ?? "info@senquentia.com";
               <input
                 type="text"
                 name="area"
-                placeholder="Area of interest"
+                placeholder={lang === 'fr' ? "Domaine d'intérêt" : "Area of interest"}
                 class="contact-field"
               />
               <textarea
@@ -98,14 +99,20 @@ const email = page?.email ?? "info@senquentia.com";
               type="submit"
               id="send-btn"
               form="connect-form"
-              class="contact-submit-btn">SEND</button
+              class="contact-submit-btn"
+              data-sending={lang === 'fr' ? "Envoi en cours…" : "Sending…"}
+              data-sent={lang === 'fr' ? "Envoyé ✓" : "Sent ✓"}
+              data-error={lang === 'fr' ? "Une erreur est survenue." : "Something went wrong."}
+              >{lang === 'fr' ? "ENVOYER" : "SEND"}</button
             >
 
             <div class="contact-footer-text">
               <p class="contact-disclaimer">
                 {
-                  page?.disclaimer ??
-                    "We treat all inquiries with discretion and confidentiality."
+                  t(page?.disclaimer, lang) ||
+                    (lang === 'fr' 
+                      ? "Nous traitons toutes les demandes avec discrétion et confidentialité."
+                      : "We treat all inquiries with discretion and confidentiality.")
                 }
               </p>
               <a href={`mailto:${email}`} class="contact-email-link-footer"
@@ -130,7 +137,11 @@ const email = page?.email ?? "info@senquentia.com";
     if (!btn) return;
     btn.disabled = true;
     const originalText = btn.textContent;
-    btn.textContent = "Sending…";
+    const sendingText = btn.dataset.sending || "Sending…";
+    const sentText = btn.dataset.sent || "Sent ✓";
+    const errorText = btn.dataset.error || "Something went wrong.";
+
+    btn.textContent = sendingText;
 
     const data = Object.fromEntries(new FormData(form));
     try {
@@ -140,7 +151,7 @@ const email = page?.email ?? "info@senquentia.com";
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error();
-      btn.textContent = "Sent ✓";
+      btn.textContent = sentText;
       form.reset();
       setTimeout(() => {
         btn.disabled = false;
@@ -148,8 +159,8 @@ const email = page?.email ?? "info@senquentia.com";
       }, 3000);
     } catch {
       btn.disabled = false;
-      btn.textContent = "Send";
-      alert("Something went wrong. Please try again or email us directly.");
+      btn.textContent = originalText;
+      alert(errorText);
     }
   });
 </script>

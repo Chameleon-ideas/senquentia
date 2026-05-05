@@ -86,6 +86,10 @@ function isActive(href: string) {
 
   <!-- Right side -->
   <div class="nav-right">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
     <a
       href={linkedinUrl}
       target="_blank"
@@ -101,12 +105,33 @@ function isActive(href: string) {
   </div>
 </header>
 
+<style>
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-text);
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.3s var(--ease);
+  }
+  .theme-toggle:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  .sun-icon { display: none; }
+  .moon-icon { display: block; }
+
+  :global([data-theme="light"]) .sun-icon { display: block; }
+  :global([data-theme="light"]) .moon-icon { display: none; }
+  :global([data-theme="light"]) .nav-linkedin { filter: invert(1); }
+</style>
+
 <!-- Mobile nav -->
 <nav class="mobile-nav" aria-label="Mobile navigation">
   {
     links.map((link: any) => (
       <a
-        href={link.href}
+        href={link.isLangToggle ? "#" : link.href}
         class={isActive(link.href) ? "active" : ""}
         data-lang-toggle={link.isLangToggle ? "true" : undefined}
         {...(link.scrollAnchor
@@ -123,24 +148,37 @@ function isActive(href: string) {
 </nav>
 
 <script>
-  function initLangToggle() {
-    const toggles = document.querySelectorAll("[data-lang-toggle]");
-    toggles.forEach((toggle) => {
+  function initNav() {
+    // Language Toggle
+    const langToggles = document.querySelectorAll("[data-lang-toggle]");
+    langToggles.forEach((toggle) => {
       toggle.addEventListener("click", (e) => {
         e.preventDefault();
         const url = new URL(window.location.href);
         const currentLang = url.searchParams.get("lang") || "en";
         const nextLang = currentLang === "en" ? "fr" : "en";
-
         url.searchParams.set("lang", nextLang);
         window.location.href = url.toString();
       });
     });
+
+    // Theme Toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const doc = document.documentElement;
+        const currentTheme = doc.getAttribute('data-theme') || 'dark';
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        doc.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
   }
 
   // Initialize on load
-  initLangToggle();
+  initNav();
 
-  // Re-initialize after Astro page transitions if using them
-  document.addEventListener("astro:after-swap", initLangToggle);
+  // Re-initialize after Astro page transitions
+  document.addEventListener("astro:after-swap", initNav);
 </script>

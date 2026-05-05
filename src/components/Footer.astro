@@ -1,6 +1,5 @@
----
 import { urlFor } from "@/utils/sanity";
-import { getLang } from "../utils/i18n";
+import { getLang, t } from "../utils/i18n";
 
 interface Props {
   settings: any;
@@ -10,12 +9,12 @@ const { settings, footerData } = Astro.props;
 const lang = getLang(Astro.url);
 
 const logoUrl = settings?.logo ? urlFor(settings.logo).height(72).url() : null;
-const siteName = footerData?.companyName ?? settings?.siteName ?? "Senquentia";
-const tagline = settings?.tagline ?? "Strategy & Management Consulting";
-const address = footerData?.address ?? settings?.address ?? "Montréal, Quebec, Canada";
+const siteName = t(footerData?.companyName, lang) || t(settings?.siteName, lang) || "Senquentia";
+const tagline = t(settings?.tagline, lang) || (lang === 'fr' ? "Conseil en stratégie et management" : "Strategy & Management Consulting");
+const address = t(footerData?.address, lang) || t(settings?.address, lang) || "Montréal, Quebec, Canada";
 const email = footerData?.email ?? settings?.email ?? "info@senquentia.com";
 const linkedin = footerData?.linkedinUrl ?? settings?.linkedin ?? "#";
-const copyrightText = footerData?.copyrightText ?? "© 2026 Senquentia. All rights reserved.";
+const copyrightText = t(footerData?.copyrightText, lang) || (lang === 'fr' ? `© ${new Date().getFullYear()} Senquentia. Tous droits réservés.` : `© ${new Date().getFullYear()} Senquentia. All rights reserved.`);
 ---
 
 <footer class="site-footer">
@@ -44,7 +43,7 @@ const copyrightText = footerData?.copyrightText ?? "© 2026 Senquentia. All righ
         {address && <span class="footer-info">{address}</span>}
         {email && <span class="footer-email">{email}</span>}
         <div class="footer-contact-row">
-          <a href="/contact" class="footer-contact-link"
+          <a href={`/contact?lang=${lang}`} class="footer-contact-link"
             >{lang === "fr" ? "Contact" : "Contact"}</a
           >
           <a

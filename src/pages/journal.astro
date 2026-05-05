@@ -1,8 +1,9 @@
----
 import Layout from "../layouts/Layout.astro";
 import "../styles/journal.css";
 import { getJournalPage, getBlogPosts, urlFor } from "@/utils/sanity";
+import { t, getLang } from "@/utils/i18n";
 
+const lang = getLang(Astro.url);
 const [page, posts] = await Promise.all([getJournalPage(), getBlogPosts()]);
 
 const heroBgUrl = page?.heroBgImage 
@@ -10,52 +11,37 @@ const heroBgUrl = page?.heroBgImage
   : "/images/jouhero.png";
 
 const articles = posts?.length ? posts.map(p => ({
-  title: p.title,
-  desc: p.excerpt,
+  title: t(p.title, lang),
+  desc: t(p.excerpt, lang),
   img: p.featuredImage ? urlFor(p.featuredImage).width(600).url() : "/images/jou1.png",
   slug: p.slug?.current
 })) : [
   {
-    title: "Why Digital Transformation is No Longer Optional",
-    desc: "Businesses that delay digital transformation risk falling behind competitors.",
+    title: lang === 'fr' ? "Pourquoi la transformation numérique n'est plus optionnelle" : "Why Digital Transformation is No Longer Optional",
+    desc: lang === 'fr' ? "Les entreprises qui retardent leur transformation numérique risquent de se laisser distancer par leurs concurrents." : "Businesses that delay digital transformation risk falling behind competitors.",
     img: "/images/jou1.png",
     slug: "why-digital-transformation-is-no-longer-optional"
   },
   {
-    title: "The Role of Leadership in Organizational Change",
-    desc: "Leaders who communicate a clear vision, inspire teams, and adapt to change.",
+    title: lang === 'fr' ? "Le rôle du leadership dans le changement organisationnel" : "The Role of Leadership in Organizational Change",
+    desc: lang === 'fr' ? "Les dirigeants qui communiquent une vision claire, inspirent les équipes et s'adaptent au changement." : "Leaders who communicate a clear vision, inspire teams, and adapt to change.",
     img: "/images/jou2.png",
   },
   {
-    title: "Strategic Advisory: Turning Vision into Action",
-    desc: "Many organizations have big ideas but lack execution.",
+    title: lang === 'fr' ? "Conseil stratégique : Transformer la vision en action" : "Strategic Advisory: Turning Vision into Action",
+    desc: lang === 'fr' ? "De nombreuses organisations ont de grandes idées mais manquent d'exécution." : "Many organizations have big ideas but lack execution.",
     img: "/images/jou3.png",
-  },
-  {
-    title: "Building a Future-Ready Organization",
-    desc: "Future-ready companies invest in technology, people, and processes.",
-    img: "/images/jou4.png",
-  },
-  {
-    title: "Executive Coaching for High-Impact Leaders",
-    desc: "Top executives face constant pressure to perform.",
-    img: "/images/jou5.png",
-  },
-  {
-    title: "Overcoming Resistance to Change in the Workplace",
-    desc: "Change often brings uncertainty. Organizations that focus.",
-    img: "/images/jou6.png",
   },
 ];
 ---
 
-<Layout title={page?.seoTitle ?? "Journal | Senquentia"} description={page?.seoDescription}>
+<Layout title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Journal | Senquentia" : "Journal | Senquentia")} description={t(page?.seoDescription, lang)}>
   <div class="journal-page">
     <!-- Section 1: Hero -->
     <section class="journal-hero">
       <img src={heroBgUrl} alt="Journal Hero" class="journal-hero-img" />
       <div class="journal-hero-label">
-        <h1>{page?.heroLabel ?? "JOURNAL."}</h1>
+        <h1>{t(page?.heroLabel, lang) || (lang === 'fr' ? "JOURNAL." : "JOURNAL.")}</h1>
         <div class="journal-hero-bar"></div>
       </div>
     </section>
@@ -64,7 +50,7 @@ const articles = posts?.length ? posts.map(p => ({
       <!-- Section 2: Intro -->
       <section class="journal-intro">
         <h2 class="journal-intro-title">
-          {page?.sectionHeadline ?? "ON TRANSFORMATION AND LEADERSHIP"}
+          {t(page?.sectionHeadline, lang) || (lang === 'fr' ? "SUR LA TRANSFORMATION ET LE LEADERSHIP" : "ON TRANSFORMATION AND LEADERSHIP")}
         </h2>
       </section>
 
@@ -81,10 +67,10 @@ const articles = posts?.length ? posts.map(p => ({
                   <h3 class="article-title">{article.title}</h3>
                   <p class="article-desc">{article.desc}</p>
                   <a
-                    href={article.slug ? `/journal/${article.slug}` : "#"}
+                    href={article.slug ? `/journal/${article.slug}?lang=${lang}` : "#"}
                     class="article-link"
                   >
-                    Read More
+                    {lang === 'fr' ? "En savoir plus" : "Read More"}
                   </a>
                 </div>
               ))

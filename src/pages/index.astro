@@ -1,7 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getHomePage, getServices, urlFor } from "@/utils/sanity";
+import { t, getLang } from "@/utils/i18n";
 
+const lang = getLang(Astro.url);
 const [page, services] = await Promise.all([getHomePage(), getServices()]);
 
 const heroImageSrc = page?.heroBgImage
@@ -17,13 +19,26 @@ const ctaBgStyle = page?.ctaBgImage
   : `background-image:url('/images/contactbg.png')`;
 
 const stats = page?.stats ?? [
-  { number: "500M+", label: "Program budget oversight" },
-  { number: "25+", label: "ERP Transformation Programs" },
-  { number: "30+", label: "HCM Transformation Programs" },
-  { number: "10+", label: "Mergers & Acquisitions" },
+  { number: "500M+", label: { en: "Program budget oversight", fr: "Surveillance du budget du programme" } },
+  { number: "25+", label: { en: "ERP Transformation Programs", fr: "Programmes de transformation ERP" } },
+  { number: "30+", label: { en: "HCM Transformation Programs", fr: "Programmes de transformation HCM" } },
+  { number: "10+", label: { en: "Mergers & Acquisitions", fr: "Fusions et acquisitions" } },
 ];
 
-const industries = [
+const industries = lang === 'fr' ? [
+  "Sociétés d'État et entités du secteur public",
+  "Services bancaires et financiers",
+  "Énergie et services publics",
+  "Assurance",
+  "Aviation et aérospatiale",
+  "Transport et logistique",
+  "Services de construction et d'ingénierie",
+  "Pâte, papier et foresterie",
+  "Mines et ressources naturelles",
+  "Commerce de détail et biens de consommation",
+  "Fabrication d'aliments et de boissons",
+  "Enseignement supérieur et institutions académiques",
+] : [
   "Crown Corporations & Public Sector Entities",
   "Banking & Financial Services",
   "Energy & Utilities",
@@ -42,18 +57,21 @@ const displayServices = services?.length
   ? services
   : [
       {
-        title: "Digital & Organizational Transformation",
+        title: { en: "Digital & Organizational Transformation", fr: "Transformation numérique et organisationnelle" },
         slug: { current: "digital-organizational-transformation" },
       },
-      { title: "Strategic Advisory", slug: { current: "strategic-advisory" } },
+      { title: { en: "Strategic Advisory", fr: "Conseil stratégique" }, slug: { current: "strategic-advisory" } },
       {
-        title: "Leadership Development & Executive Coaching",
+        title: { en: "Leadership Development & Executive Coaching", fr: "Développement du leadership et coaching de dirigeants" },
         slug: { current: "leadership-development-executive-coaching" },
       },
     ];
 ---
 
-<Layout title={page?.seoTitle} description={page?.seoDescription}>
+<Layout 
+  title={t(page?.seoTitle, lang)} 
+  description={t(page?.seoDescription, lang)}
+>
   <!-- ═══ HERO ══════════════════════════════════════════════ -->
   <section class="home-hero">
     <img src={heroImageSrc} alt="Senquentia" class="home-hero-img" />
@@ -64,7 +82,7 @@ const displayServices = services?.length
     <div class="container2">
       <div class="intro-eyebrow-wrapper">
         <p class="intro-eyebrow">
-          {page?.introEyebrow ?? "Welcome to Senquentia"}
+          {t(page?.introEyebrow, lang) || (lang === 'fr' ? "Bienvenue chez Senquentia" : "Welcome to Senquentia")}
         </p>
         <div class="intro-eyebrow-line"></div>
       </div>
@@ -72,37 +90,57 @@ const displayServices = services?.length
         <div class="intro-left">
           <h2
             class="intro-heading reveal-left"
-            set:html={page?.introHeadline
-              ? page.introHeadline.replace(/\n/g, "<br/>")
-              : "WHERE LEADERSHIP<br/>MEETS<br/>TRANSFORMATION"}
+            set:html={t(page?.introHeadline, lang)
+              ? t(page.introHeadline, lang).replace(/\n/g, "<br/>")
+              : (lang === 'fr' 
+                  ? "OÙ LE LEADERSHIP<br/>RENCONTRE LA<br/>TRANSFORMATION" 
+                  : "WHERE LEADERSHIP<br/>MEETS<br/>TRANSFORMATION")}
           />
         </div>
         <div class="intro-v-divider"></div>
         <div class="intro-right reveal-right">
           <p class="intro-lead">
             {
-              page?.introLead ??
-                "Since 2010, we have partnered with executive teams to lead complex digital and organizational transformation."
+              t(page?.introLead, lang) ||
+                (lang === 'fr' 
+                  ? "Depuis 2010, nous nous associons aux équipes de direction pour mener des transformations numériques et organisationnelles complexes."
+                  : "Since 2010, we have partnered with executive teams to lead complex digital and organizational transformation.")
             }
           </p>
           <div class="intro-body">
             {
               page?.introBody ? (
-                <p>{page.introBody}</p>
+                <p>{t(page.introBody, lang)}</p>
               ) : (
-                <>
-                  <p>
-                    Through our strategy and management consulting services,
-                    organizations navigate complexity and drive meaningful
-                    change — supported by strategic perspective and a pragmatic,
-                    hands-on approach.
-                  </p>
-                  <p>
-                    Our work is grounded in trust and shaped by the unique
-                    context of each organization.
-                  </p>
-                  <p>We focus on delivering lasting impact.</p>
-                </>
+                lang === 'fr' ? (
+                  <>
+                    <p>
+                      Grâce à nos services de conseil en stratégie et en gestion, 
+                      les organisations naviguent dans la complexité et stimulent 
+                      des changements significatifs — soutenus par une perspective 
+                      stratégique et une approche pragmatique et concrète.
+                    </p>
+                    <p>
+                      Notre travail est fondé sur la confiance et façonné par le 
+                      contexte unique de chaque organisation.
+                    </p>
+                    <p>Nous nous concentrons sur la production d'un impact durable.</p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      Through our strategy and management consulting services,
+                      organizations navigate complexity and drive meaningful
+                      change — supported by strategic perspective and a pragmatic,
+                      hands-on approach.
+                    </p>
+                    <p>
+                      Our work is grounded in trust and shaped by the unique
+                      context of each organization.
+                    </p>
+                    <p>We focus on delivering lasting impact.</p>
+                  </>
+                )
               )
             }
           </div>
@@ -118,7 +156,7 @@ const displayServices = services?.length
         <img
           class="services-bg-img"
           src={urlFor(page.servicesBgImage).width(1920).url()}
-          alt=""
+          alt={t(page.servicesBgImage.alt, lang) || ""}
         />
       ) : (
         <img class="services-bg-img" src="/images/services.png" alt="" />
@@ -144,13 +182,13 @@ const displayServices = services?.length
               const bgImg = `linear-gradient(rgba(248, 246, 242, 0.7), rgba(248, 246, 242, 0.7)), ${imgUrl}`;
               return (
                 <a
-                  href={`/services/${s.slug?.current ?? s.slug}`}
+                  href={`/services/${s.slug?.current ?? s.slug}?lang=${lang}`}
                   class="service-overlay-item reveal-up"
                   style={`background-image: ${bgImg}`}
                 >
                   <div class="service-overlay-inner-box">
                     <div class="service-overlay-title">
-                      {typeof s.title === "object" ? s.title.en : s.title}
+                      {t(s.title, lang)}
                     </div>
                   </div>
                 </a>
@@ -170,7 +208,7 @@ const displayServices = services?.length
           stats.map((stat: any) => (
             <div class="reveal-up">
               <div class="stat-number">{stat.number ?? stat.value}</div>
-              <div class="stat-label">{stat.label}</div>
+              <div class="stat-label">{t(stat.label, lang)}</div>
             </div>
           ))
         }
@@ -198,10 +236,10 @@ const displayServices = services?.length
       <div class="home-cta-content">
         <div class="home-cta-text-wrapper reveal-right">
           <p class="home-cta-text">
-            {page?.ctaText ?? "Our work begins in conversation."}
+            {t(page?.ctaText, lang) || (lang === 'fr' ? "Notre travail commence par une conversation." : "Our work begins in conversation.") }
           </p>
-          <a href="/contact" class="home-cta-link">
-            {page?.ctaLinkLabel ?? "Connect."}
+          <a href={`/contact?lang=${lang}`} class="home-cta-link">
+            {t(page?.ctaLinkLabel, lang) || (lang === 'fr' ? "Connecter." : "Connect.")}
           </a>
         </div>
         <div class="home-cta-bar"></div>
