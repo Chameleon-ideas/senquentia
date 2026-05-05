@@ -10,12 +10,26 @@ const { settings, footerData } = Astro.props;
 const lang = getLang(Astro.url);
 
 const logoUrl = settings?.logo ? urlFor(settings.logo).height(72).url() : null;
-const siteName = t(footerData?.companyName, lang) || t(settings?.siteName, lang) || "Senquentia";
-const tagline = t(settings?.tagline, lang) || (lang === 'fr' ? "Conseil en stratégie et management" : "Strategy & Management Consulting");
-const address = t(footerData?.address, lang) || t(settings?.address, lang) || "Montréal, Quebec, Canada";
+const siteName =
+  t(footerData?.companyName, lang) ||
+  t(settings?.siteName, lang) ||
+  "Senquentia";
+const tagline =
+  t(settings?.tagline, lang) ||
+  (lang === "fr"
+    ? "Conseil en stratégie et management"
+    : "Strategy & Management Consulting");
+const address =
+  t(footerData?.address, lang) ||
+  t(settings?.address, lang) ||
+  "Montréal, Quebec, Canada";
 const email = footerData?.email ?? settings?.email ?? "info@senquentia.com";
 const linkedin = footerData?.linkedinUrl ?? settings?.linkedin ?? "#";
-const copyrightText = t(footerData?.copyrightText, lang) || (lang === 'fr' ? `© ${new Date().getFullYear()} Senquentia. Tous droits réservés.` : `© ${new Date().getFullYear()} Senquentia. All rights reserved.`);
+const copyrightText =
+  t(footerData?.copyrightText, lang) ||
+  (lang === "fr"
+    ? `© ${new Date().getFullYear()} Senquentia. Tous droits réservés.`
+    : `© ${new Date().getFullYear()} Senquentia. All rights reserved.`);
 ---
 
 <footer class="site-footer">
@@ -61,7 +75,7 @@ const copyrightText = t(footerData?.copyrightText, lang) || (lang === 'fr' ? `©
     </div>
 
     <div class="footer-bottom">
-      <span>{copyrightText} Designed and Developed by <a href="https://chameleon-ideas.com" target="_blank" rel="noopener noreferrer">Chameleon Ideas</a></span>
+      <span>Copyright</span>
     </div>
   </div>
 </footer>

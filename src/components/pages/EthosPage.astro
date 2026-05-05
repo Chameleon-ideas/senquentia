@@ -1,0 +1,161 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getEthosPage, urlFor } from "@/utils/sanity";
+import { t } from "@/utils/i18n";
+
+interface Props {
+  lang: 'en' | 'fr';
+}
+const { lang } = Astro.props;
+
+const page = await getEthosPage();
+
+const heroBgUrl = page?.heroBgImage 
+  ? urlFor(page.heroBgImage).width(1920).url() 
+  : "/images/ethoshero.png";
+
+const founderPhotoUrl = page?.founderPhoto 
+  ? urlFor(page.founderPhoto).width(800).url() 
+  : "/images/ethosfounder.png";
+
+const values = page?.values ?? (lang === 'fr' ? [
+  {
+    name: "Confiance",
+    body: "Construite sur la cohérence, l'intégrité et la transparence.",
+  },
+  {
+    name: "Croissance",
+    body: "Axée sur le rendement, l'adaptabilité et le leadership.",
+  },
+  {
+    name: "Co-création",
+    body: "Ancrée dans la collaboration, l'écoute et l'engagement.",
+  }
+] : [
+  {
+    name: "Trust",
+    body: "Built on consistency, integrity, and transparency.",
+  },
+  {
+    name: "Growth",
+    body: "Focused on performance, adaptability, and leadership.",
+  },
+  {
+    name: "Co-creation",
+    body: "Anchored in collaboration, listening, and engagement.",
+  }
+]);
+---
+
+<Layout 
+  title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Ethos" : "Ethos")} 
+  description={t(page?.seoDescription, lang)}
+  lang={lang}
+>
+  <!-- ═══ HERO ══════════════════════════════════════════════ -->
+  <section class="ethos-hero">
+    <div class="ethos-hero-bg" style={`background-image: url('${heroBgUrl}')`}></div>
+    <div class="container2">
+      <div class="ethos-hero-content">
+        <div class="ethos-hero-eyebrow-wrapper">
+          <p class="ethos-hero-eyebrow">{t(page?.heroLabel, lang) || "ETHOS"}</p>
+          <div class="ethos-hero-eyebrow-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRINCIPLES ════════════════════════════════════════ -->
+  <section class="principles-section">
+    <div class="container2">
+      <div class="principles-grid">
+        <div class="principles-left reveal-left">
+          <h2 class="principles-heading">
+            {t(page?.principlesHeadline, lang) || (lang === 'fr' ? "Principes directeurs." : "Guiding principles.")}
+          </h2>
+        </div>
+        <div class="principles-right reveal-right">
+          <div class="principles-body">
+            <p>
+              {t(page?.etymologyDesc, lang) || (lang === 'fr' 
+                ? "L'étymologie d'Ethos est liée à la fois au caractère et à l'habitude. Elle définit les croyances ou idéaux fondamentaux qui caractérisent une communauté, une nation ou une idéologie."
+                : "The etymology of Ethos is linked to both character and habit. It defines the underlying beliefs or ideals that characterize a community, nation, or ideology.")}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PHILOSOPHY ════════════════════════════════════════ -->
+  <section class="philosophy-section">
+    <div class="container2">
+      <div class="philosophy-grid">
+        <div class="philosophy-content reveal-left">
+          <div class="philosophy-body">
+             {page?.philosophyBody ? (
+               <p>{t(page.philosophyBody, lang)}</p>
+             ) : (
+               <p>
+                 {lang === 'fr' 
+                   ? "Notre travail est fondé sur une relation de confiance et s'adapte au contexte unique de chaque organisation. Nous abordons chaque mandat avec un regard neuf, en combinant rigueur analytique et intelligence émotionnelle pour naviguer dans la complexité humaine et technologique."
+                   : "Our work is grounded in trust and shaped by the unique context of each organization. We approach every mandate with a fresh perspective, combining analytical rigor with emotional intelligence to navigate both human and technological complexity."}
+               </p>
+             )}
+          </div>
+          <blockquote class="philosophy-quote">
+            "{t(page?.philosophyQuote, lang) || (lang === 'fr' ? "L'impact durable commence par des fondations solides." : "Lasting impact starts with solid foundations.")}"
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VALUES ════════════════════════════════════════════ -->
+  <section class="values-section">
+    <div class="container2">
+      <div class="values-header reveal-up">
+        <p class="values-intro">
+          {t(page?.valuesDesc, lang) || (lang === 'fr' 
+            ? "Nous nous concentrons sur la création d'un impact durable à travers trois valeurs fondamentales."
+            : "We focus on delivering lasting impact through three core values.")}
+        </p>
+      </div>
+      
+      <div class="values-grid">
+        {values.map((value: any, i: number) => (
+          <div class="value-card reveal-up" style={`transition-delay: ${i * 150}ms`}>
+            <h3 class="value-name">{t(value.name, lang)}</h3>
+            <p class="value-body">{t(value.body, lang)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOUNDER ═══════════════════════════════════════════ -->
+  <section class="founder-section">
+    <div class="container2">
+      <div class="founder-grid">
+        <div class="founder-image-wrap reveal-left">
+          <img src={founderPhotoUrl} alt="Founder" class="founder-img" />
+        </div>
+        <div class="founder-info reveal-right">
+          <h2 class="founder-name">{t(page?.founderName, lang) || "S. Kareen"}</h2>
+          <p class="founder-title">{t(page?.founderTitle, lang) || (lang === 'fr' ? "Fondatrice et Associée principale" : "Founder & Managing Partner")}</p>
+          <div class="founder-bio">
+            {page?.founderBio ? (
+               <p>{t(page.founderBio, lang)}</p>
+            ) : (
+              <p>
+                {lang === 'fr' 
+                  ? "Avec plus de deux décennies d'expérience dans la direction de transformations à grande échelle, Kareen apporte une perspective stratégique unique aux défis organisationnels complexes."
+                  : "With over two decades of experience leading large-scale transformations, Kareen brings a unique strategic perspective to complex organizational challenges."}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

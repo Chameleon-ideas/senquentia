@@ -1,5 +1,5 @@
 ---
 import { getLang } from "../utils/i18n";
 const lang = getLang(Astro.url);
-return Astro.redirect(`/journal?lang=${lang}`, 301);
+return Astro.redirect(lang === 'fr' ? '/fr/journal' : '/journal', 301);
 ---

@@ -1,0 +1,90 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { urlFor } from "@/utils/sanity";
+import { PortableText } from "astro-portabletext";
+import { t } from "@/utils/i18n";
+
+interface Props {
+  post: any;
+  lang: 'en' | 'fr';
+}
+const { post, lang } = Astro.props;
+
+if (!post) {
+  return Astro.redirect(`${lang === 'fr' ? '/fr' : ''}/journal`);
+}
+
+const title = t(post.title, lang);
+const publishedDate = post.publishedAt
+  ? new Date(post.publishedAt).toLocaleDateString(
+      lang === "fr" ? "fr-FR" : "en-CA",
+      { year: "numeric", month: "long", day: "numeric" }
+    )
+  : null;
+
+const bodyContent = post.body?.[lang] || post.body?.en || [];
+const midpoint = Math.ceil(bodyContent.length / 2);
+const col1 = bodyContent.slice(0, midpoint);
+const col2 = bodyContent.slice(midpoint);
+---
+
+<Layout
+  title={t(post.seoTitle, lang) || title}
+  description={t(post.seoDescription, lang) || t(post.excerpt, lang)}
+  ogImage={post.featuredImage
+    ? urlFor(post.featuredImage).width(1200).url()
+    : undefined}
+  lang={lang}
+>
+  <div class="journal-inner">
+    <div class="container">
+      <!-- Header -->
+      <div class="journal-inner-header">
+        {(post.category || publishedDate) && (
+          <div class="journal-inner-meta">
+            {post.category && <span>{post.category}</span>}
+            {post.category && publishedDate && <span> · </span>}
+            {publishedDate && <span>{publishedDate}</span>}
+          </div>
+        )}
+        <h1 class="journal-inner-title">{title}</h1>
+      </div>
+
+      <!-- Two-column body -->
+      {
+        col1.length > 0 && (
+          <div class="journal-inner-body">
+            <div class="journal-inner-prose">
+              <PortableText value={col1} />
+            </div>
+            {col2.length > 0 && (
+              <div class="journal-inner-prose">
+                <PortableText value={col2} />
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      <!-- Featured image -->
+      {
+        post.featuredImage && (
+          <div class="journal-inner-img">
+            <img
+              src={urlFor(post.featuredImage).width(1400).url()}
+              alt={title}
+              loading="lazy"
+            />
+          </div>
+        )
+      }
+
+      <!-- Back link -->
+      <div class="journal-back">
+        <a href={`${lang === 'fr' ? '/fr' : ''}/journal`}>
+          {lang === "fr" ? "← Retour au Journal" : "← Back to Journal"}
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

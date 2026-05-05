@@ -39,16 +39,19 @@ const links = [
 
 function isActive(href: string) {
   if (href === "#") return false;
-  if (href === "/") return currentPath === "/";
-  if (href === "/#services-section") return currentPath.startsWith("/services");
-  return currentPath.startsWith(href);
+  const pathWithoutLang = currentPath.replace(/^\/fr(\/|$)/, '/');
+  if (href === "/") return pathWithoutLang === "/";
+  if (href === "/#services-section") return pathWithoutLang.startsWith("/services");
+  return pathWithoutLang.startsWith(href);
 }
+
+const langPath = lang === 'fr' ? '/fr' : '';
 ---
 
 <header class="site-header">
   <!-- Logo -->
   <a
-    href={lang === "fr" ? "/?lang=fr" : "/"}
+    href={lang === "fr" ? "/fr" : "/"}
     class="nav-logo"
     aria-label={settings?.siteName ?? "Senquentia"}
   >
@@ -64,23 +67,29 @@ function isActive(href: string) {
   <nav aria-label="Main navigation">
     <ul class="nav-links">
       {
-        links.map((link: any) => (
-          <li>
-            <a
-              href={link.href}
-              class={isActive(link.href) ? "active" : ""}
-              data-lang-toggle={link.isLangToggle ? "true" : undefined}
-              {...(link.scrollAnchor
-                ? {
-                    "data-scroll-anchor": "true",
-                    "data-scroll-target": link.href.split("#")[1],
-                  }
-                : {})}
-            >
-              {lang === "fr" ? link.labelFR : link.label}
-            </a>
-          </li>
-        ))
+        links.map((link: any) => {
+          let href = link.href;
+          if (!link.isLangToggle && lang === 'fr') {
+             href = href.startsWith('/') ? `/fr${href === '/' ? '' : href}` : href;
+          }
+          return (
+            <li>
+              <a
+                href={href}
+                class={isActive(link.href) ? "active" : ""}
+                data-lang-toggle={link.isLangToggle ? "true" : undefined}
+                {...(link.scrollAnchor
+                  ? {
+                      "data-scroll-anchor": "true",
+                      "data-scroll-target": link.href.split("#")[1],
+                    }
+                  : {})}
+              >
+                {lang === "fr" ? link.labelFR : link.label}
+              </a>
+            </li>
+          );
+        })
       }
     </ul>
   </nav>
@@ -111,21 +120,27 @@ function isActive(href: string) {
 <!-- Mobile nav -->
 <nav class="mobile-nav" aria-label="Mobile navigation">
   {
-    links.map((link: any) => (
-      <a
-        href={link.isLangToggle ? "#" : link.href}
-        class={isActive(link.href) ? "active" : ""}
-        data-lang-toggle={link.isLangToggle ? "true" : undefined}
-        {...(link.scrollAnchor
-          ? {
-              "data-scroll-anchor": "true",
-              "data-scroll-target": link.href.split("#")[1],
-            }
-          : {})}
-      >
-        {lang === "fr" ? link.labelFR : link.label}
-      </a>
-    ))
+    links.map((link: any) => {
+      let href = link.href;
+      if (!link.isLangToggle && lang === 'fr') {
+         href = href.startsWith('/') ? `/fr${href === '/' ? '' : href}` : href;
+      }
+      return (
+        <a
+          href={link.isLangToggle ? "#" : href}
+          class={isActive(link.href) ? "active" : ""}
+          data-lang-toggle={link.isLangToggle ? "true" : undefined}
+          {...(link.scrollAnchor
+            ? {
+                "data-scroll-anchor": "true",
+                "data-scroll-target": link.href.split("#")[1],
+              }
+            : {})}
+        >
+          {lang === "fr" ? link.labelFR : link.label}
+        </a>
+      );
+    })
   }
 </nav>
 
@@ -136,11 +151,22 @@ function isActive(href: string) {
     langToggles.forEach((toggle) => {
       toggle.addEventListener("click", (e) => {
         e.preventDefault();
-        const url = new URL(window.location.href);
-        const currentLang = url.searchParams.get("lang") || "en";
-        const nextLang = currentLang === "en" ? "fr" : "en";
-        url.searchParams.set("lang", nextLang);
-        window.location.href = url.toString();
+        const currentPath = window.location.pathname;
+        let nextPath = currentPath;
+        
+        if (currentPath.startsWith('/fr')) {
+          // Switch to English: remove /fr prefix
+          nextPath = currentPath.replace(/^\/fr/, '') || '/';
+        } else {
+          // Switch to French: add /fr prefix
+          nextPath = '/fr' + (currentPath === '/' ? '' : currentPath);
+        }
+        
+        // Ensure no double slashes and correct root
+        nextPath = nextPath.replace(/\/+/g, '/');
+        if (nextPath === '') nextPath = '/';
+        
+        window.location.href = nextPath;
       });
     });
   }

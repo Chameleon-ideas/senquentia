@@ -1,0 +1,13 @@
+---
+import { getServiceSlugs, getServiceBySlug } from '@/utils/sanity';
+import ServiceDetailPage from '../../../components/pages/ServiceDetailPage.astro';
+
+export async function getStaticPaths() {
+  const slugs = await getServiceSlugs();
+  return (slugs ?? []).map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const service = await getServiceBySlug(slug!);
+---
+<ServiceDetailPage service={service} lang="fr" />

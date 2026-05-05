@@ -12,10 +12,21 @@ export type LocaleString = { en?: string; fr?: string } | null | undefined;
  * Read ?lang= query param, falling back to 'en'.
  * Works in both Astro page scripts (pass `Astro.url`) and client-side (pass window.location).
  */
-export function getLang(url: URL | string): Locale {
+export function getLang(url: URL | string, params?: Record<string, string | undefined>): Locale {
+  // 1. Check params (Astro.params)
+  if (params?.lang === 'fr') return 'fr';
+  if (params?.lang === 'en') return 'en';
+
+  // 2. Check path segment
   const u = typeof url === 'string' ? new URL(url) : url;
+  const pathParts = u.pathname.split('/').filter(Boolean);
+  if (pathParts[0] === 'fr') return 'fr';
+  if (pathParts[0] === 'en') return 'en';
+
+  // 3. Fallback to query param (legacy/backup)
   const param = u.searchParams.get('lang');
   if (param === 'fr') return 'fr';
+  
   return 'en';
 }
 

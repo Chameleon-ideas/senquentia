@@ -1,0 +1,269 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getServiceBySlug, urlFor } from "@/utils/sanity";
+import { t } from "@/utils/i18n";
+
+interface Props {
+  service: any;
+  lang: 'en' | 'fr';
+}
+const { service, lang } = Astro.props;
+
+if (!service) {
+  return Astro.redirect("/404");
+}
+
+const heroBgUrl = service?.heroBgImage
+  ? urlFor(service.heroBgImage).width(1920).url()
+  : "/images/serviceherobg.png";
+---
+
+<Layout
+  title={t(service?.seoTitle, lang) || `${t(service?.title, lang)} | Senquentia`}
+  description={t(service?.seoDescription, lang) ||
+    t(service?.shortDescription, lang)}
+  lang={lang}
+>
+  <div class="services-page-wrap">
+    <!-- Section 1: Hero -->
+    <section class="svc-hero">
+      <div class="svc-hero-bg">
+        <img src={heroBgUrl} alt={t(service?.title, lang)} />
+      </div>
+      <div class="svc-hero-container">
+        <div class="svc-hero-box">
+          <div class="svc-hero-text-row">
+            <h1 class="svc-hero-title">
+              {t(service?.title, lang).toUpperCase()}
+            </h1>
+            <div class="svc-hero-bar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Perspective -->
+    <section class="svc-perspective">
+      <div class="container">
+        <h2 class="svc-perspective-heading">
+          {lang === "fr" ? "PERSPECTIVE" : "PERSPECTIVE"}
+        </h2>
+
+        <div class="svc-perspective-grid">
+          <div class="svc-perspective-left">
+            <p class="svc-perspective-lead1">
+              {
+                t(service?.perspectiveText, lang) ||
+                  (lang === "fr"
+                    ? "Une transformation réussie exige à la fois une clarté stratégique et une exécution disciplinée."
+                    : "Successful transformation requires both strategic clarity and disciplined execution.")
+              }
+            </p>
+            <p class="svc-perspective-lead2">
+              {
+                t(service?.perspectiveText2, lang) ||
+                  (lang === "fr"
+                    ? "Nous travaillons aux côtés des équipes de direction pour structurer les initiatives de transformation, guider la mise en œuvre des programmes et veiller à ce que les organisations restent alignées."
+                    : "We work alongside leadership teams to structure transformation initiatives, guide program delivery, and ensure organizations remain aligned.")
+              }
+            </p>
+          </div>
+          <div class="svc-perspective-divider"></div>
+          <div class="svc-perspective-right">
+            {
+              lang === "fr" ? (
+                <>
+                  <p>
+                    Les organisations qui abordent la transformation comme une
+                    initiative purement technologique sous-estiment souvent le
+                    leadership, la gouvernance et l'alignement organisationnel
+                    requis pour soutenir un changement significatif.
+                  </p>
+                  <p>
+                    L'intelligence artificielle présente des opportunités
+                    significatives pour améliorer la prise de décision,
+                    rationaliser les opérations et créer de nouvelles sources de
+                    valeur. Réaliser ce potentiel demande un alignement entre
+                    les priorités commerciales, les données, la gouvernance et
+                    la préparation organisationnelle.
+                  </p>
+                  <p>
+                    Nous travaillons avec les équipes de direction pour définir
+                    leurs initiatives de transformation numérique, évaluer les
+                    opportunités, établir une gouvernance appropriée et intégrer
+                    les capacités numériques de manière pratique.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    Organizations that approach transformation as a purely
+                    technological initiative often underestimate the leadership,
+                    governance, and organizational alignment required to sustain
+                    meaningful change.
+                  </p>
+                  <p>
+                    Artificial intelligence presents significant opportunities
+                    to enhance decision-making, streamline operations, and
+                    create new sources of value. Realizing this potential
+                    demands alignment between business priorities, data,
+                    governance, and organizational readiness.
+                  </p>
+                  <p>
+                    We work with leadership teams to define their digital
+                    transformation initiatives, assess opportunities, establish
+                    appropriate governance, and integrate digital capabilities
+                    in a way that is practical.
+                  </p>
+                </>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Alignment -->
+    <section class="svc-alignment">
+      <div class="svc-alignment-bg">
+        <img src={heroBgUrl} alt="" />
+      </div>
+
+      <div class="container svc-alignment-container">
+        <div class="svc-alignment-box">
+          <div class="svc-alignment-top">
+            <h3 class="svc-alignment-title">
+              {
+                t(service?.quoteText, lang) ||
+                  (lang === "fr"
+                    ? "L'alignement des processus, de la technologie et de la culture mène à un changement significatif et durable."
+                    : "Process, technology, and culture alignment lead to meaningful and lasting change.")
+              }
+            </h3>
+          </div>
+          <div class="svc-alignment-bottom">
+            <p class="svc-alignment-desc">
+              {
+                lang === "fr"
+                  ? "Nous nous associons aux équipes de direction pour guider les transformations complexes et assurer un leadership expérimenté tout au long des phases critiques des programmes."
+                  : "We partner with leadership teams to guide complex transformations and provide experienced leadership throughout critical program phases."
+              }
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Approach -->
+    <section class="svc-approach">
+      <div class="container">
+        <div class="svc-approach-header">
+          <h2 class="svc-approach-title">
+            {lang === "fr" ? "APPROCHE" : "APPROACH"}
+          </h2>
+        </div>
+
+        <div class="svc-approach-list">
+          {
+            service?.approachSections?.map((section: any) => (
+              <div class="svc-approach-item">
+                <h3 class="svc-approach-item-title">{t(section.title, lang)}</h3>
+                <p class="svc-approach-item-text">{t(section.body, lang)}</p>
+              </div>
+            )) || (
+              <div class="svc-approach-item">
+                <h3 class="svc-approach-item-title">
+                  {lang === "fr"
+                    ? "Stratégie de transformation"
+                    : "Transformation Strategy"}
+                </h3>
+                <p class="svc-approach-item-text">
+                  {t(service?.approachLead, lang) ||
+                    (lang === "fr"
+                      ? "Nous travaillons avec les équipes de direction pour définir les objectifs de transformation."
+                      : "We work with executive teams to define transformation objectives.")}
+                </p>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Moments -->
+    <section class="svc-moments">
+      <div class="container svc-moments-container">
+        <div class="svc-moments-content">
+          <h2 class="svc-moments-title">
+            {
+              lang === "fr"
+                ? "Les organisations font appel à nous dans des moments tels que ceux-ci."
+                : "Organizations engage us in moments such as these."
+            }
+          </h2>
+          <div class="svc-moments-line"></div>
+
+          <div class="svc-moments-list">
+            {
+              service?.industriesEngaged?.map((item: any) => (
+                <>
+                  <div class="svc-moments-label">{t(item.label, lang)}</div>
+                  <div class="svc-moments-desc">{t(item.description, lang)}</div>
+                </>
+              )) || (
+                <>
+                  <div class="svc-moments-label">
+                    {lang === "fr"
+                      ? "Lancer une transformation"
+                      : "Launching Transformation"}
+                  </div>
+                  <div class="svc-moments-desc">
+                    {lang === "fr"
+                      ? "Programmes de transformation ERP ou HCM à grande échelle"
+                      : "Large-scale ERP or HCM transformation programs"}
+                  </div>
+                </>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Closing -->
+    <section class="svc-alignment">
+      <div class="svc-alignment-bg">
+        <img src="/images/serviceherobg.png" alt="" />
+      </div>
+
+      <div class="container svc-alignment-container">
+        <div class="svc-alignment-box">
+          <div class="svc-impact-top">
+            <h3 class="svc-impact-title">
+              {lang === "fr" ? "IMPACT DURABLE" : "LASTING IMPACT"}
+            </h3>
+            <div class="svc-impact-text">
+              <p>
+                {
+                  t(service?.closingText, lang) ||
+                    (lang === "fr"
+                      ? "Notre rôle est d'apporter clarté, structure et leadership expérimenté à ces initiatives."
+                      : "Our role is to bring clarity, structure, and experienced leadership to these initiatives.")
+                }
+              </p>
+            </div>
+          </div>
+          <div class="svc-impact-bottom">
+            <h4 class="svc-impact-footer">
+              {
+                lang === "fr"
+                  ? "Nous accueillons les conversations avec les équipes de direction."
+                  : "We welcome conversations with leadership teams."
+              }
+            </h4>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,13 @@
+---
+import { getBlogPostBySlug, getBlogSlugs } from '@/utils/sanity';
+import JournalDetailPage from '../../../components/pages/JournalDetailPage.astro';
+
+export async function getStaticPaths() {
+  const slugs = await getBlogSlugs();
+  return (slugs ?? []).map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await getBlogPostBySlug(slug!);
+---
+<JournalDetailPage post={post} lang="fr" />

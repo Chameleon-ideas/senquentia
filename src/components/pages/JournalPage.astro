@@ -1,0 +1,78 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getJournalPage, getBlogPosts, urlFor } from "@/utils/sanity";
+import { t } from "@/utils/i18n";
+
+interface Props {
+  lang: 'en' | 'fr';
+}
+const { lang } = Astro.props;
+
+const [page, posts] = await Promise.all([getJournalPage(), getBlogPosts()]);
+
+const heroBgUrl = page?.heroBgImage 
+  ? urlFor(page.heroBgImage).width(1920).url() 
+  : "/images/journalhero.png";
+---
+
+<Layout 
+  title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Journal" : "Journal")} 
+  description={t(page?.seoDescription, lang)}
+  lang={lang}
+>
+  <!-- ═══ HERO ══════════════════════════════════════════════ -->
+  <section class="journal-hero">
+    <div class="journal-hero-bg" style={`background-image: url('${heroBgUrl}')`}></div>
+    <div class="container2">
+      <div class="journal-hero-content">
+        <div class="journal-hero-eyebrow-wrapper">
+          <p class="journal-hero-eyebrow">{t(page?.heroLabel, lang) || "JOURNAL"}</p>
+          <div class="journal-hero-eyebrow-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BLOG FEED ═════════════════════════════════════════ -->
+  <section class="journal-feed">
+    <div class="container2">
+      <div class="journal-header reveal-left">
+        <h2 class="journal-heading">
+          {t(page?.sectionHeadline, lang) || (lang === 'fr' ? "Perspectives sur la transformation." : "Perspectives on transformation.")}
+        </h2>
+      </div>
+
+      <div class="journal-grid">
+        {posts?.map((post: any, i: number) => (
+          <article class="journal-card reveal-up" style={`transition-delay: ${i * 100}ms`}>
+            <a href={`${lang === 'fr' ? '/fr' : ''}/journal/${post.slug?.current}`} class="journal-card-link">
+              <div class="journal-card-image-wrap">
+                <img 
+                  src={post.featuredImage ? urlFor(post.featuredImage).width(800).url() : "/images/journal1.png"} 
+                  alt={post.title} 
+                  class="journal-card-img"
+                />
+              </div>
+              <div class="journal-card-content">
+                <div class="journal-card-meta">
+                   <span class="journal-card-date">
+                     {new Date(post.publishedAt).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
+                       year: 'numeric',
+                       month: 'long',
+                       day: 'numeric'
+                     })}
+                   </span>
+                </div>
+                <h3 class="journal-card-title">{post.title}</h3>
+                <p class="journal-card-excerpt">{post.excerpt}</p>
+                <span class="journal-card-more">
+                   {lang === 'fr' ? "Lire la suite" : "Read more"} —
+                </span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
