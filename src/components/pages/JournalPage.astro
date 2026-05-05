@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import "../../styles/journal.css";
 import { getJournalPage, getBlogPosts, urlFor } from "@/utils/sanity";
 import { t } from "@/utils/i18n";
 
@@ -12,67 +13,97 @@ const [page, posts] = await Promise.all([getJournalPage(), getBlogPosts()]);
 
 const heroBgUrl = page?.heroBgImage 
   ? urlFor(page.heroBgImage).width(1920).url() 
-  : "/images/journalhero.png";
+  : "/images/jouhero.png";
+
+const articles = posts?.length ? posts.map(p => ({
+  title: t(p.title, lang),
+  desc: t(p.excerpt, lang),
+  img: p.featuredImage ? urlFor(p.featuredImage).width(600).url() : "/images/jou1.png",
+  slug: p.slug?.current
+})) : [
+  {
+    title: lang === 'fr' ? "Pourquoi la transformation numérique n'est plus optionnelle" : "Why Digital Transformation is No Longer Optional",
+    desc: lang === 'fr' ? "Les entreprises qui retardent leur transformation numérique risquent de se laisser distancer par leurs concurrents." : "Businesses that delay digital transformation risk falling behind competitors.",
+    img: "/images/jou1.png",
+    slug: "why-digital-transformation-is-no-longer-optional"
+  },
+  {
+    title: lang === 'fr' ? "Le rôle du leadership dans le changement organisationnel" : "The Role of Leadership in Organizational Change",
+    desc: lang === 'fr' ? "Les dirigeants qui communiquent une vision claire, inspirent les équipes et s'adaptent au changement." : "Leaders who communicate a clear vision, inspire teams, and adapt to change.",
+    img: "/images/jou2.png",
+    slug: "the-role-of-leadership-in-organizational-change"
+  },
+  {
+    title: lang === 'fr' ? "Conseil stratégique : Transformer la vision en action" : "Strategic Advisory: Turning Vision into Action",
+    desc: lang === 'fr' ? "De nombreuses organisations ont de grandes idées mais manquent d'exécution." : "Many organizations have big ideas but lack execution.",
+    img: "/images/jou3.png",
+    slug: "strategic-advisory-turning-vision-into-action"
+  },
+  {
+    title: lang === 'fr' ? "Bâtir une organisation prête pour l'avenir" : "Building a Future-Ready Organization",
+    desc: lang === 'fr' ? "Les entreprises prêtes pour l'avenir investissent dans la technologie, les personnes et les processus." : "Future-ready companies invest in technology, people, and processes.",
+    img: "/images/jou4.png",
+    slug: "building-a-future-ready-organization"
+  },
+  {
+    title: lang === 'fr' ? "Coaching exécutif pour les leaders à fort impact" : "Executive Coaching for High-Impact Leaders",
+    desc: lang === 'fr' ? "Les cadres supérieurs font face à une pression constante pour performer." : "Top executives face constant pressure to perform.",
+    img: "/images/jou5.png",
+    slug: "executive-coaching-for-high-impact-leaders"
+  },
+  {
+    title: lang === 'fr' ? "Surmonter la résistance au changement en milieu de travail" : "Overcoming Resistance to Change in the Workplace",
+    desc: lang === 'fr' ? "Le changement apporte souvent de l'incertitude. Les organisations qui se concentrent..." : "Change often brings uncertainty. Organizations that focus...",
+    img: "/images/jou6.png",
+    slug: "overcoming-resistance-to-change"
+  },
+];
 ---
 
-<Layout 
-  title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Journal" : "Journal")} 
-  description={t(page?.seoDescription, lang)}
-  lang={lang}
->
-  <!-- ═══ HERO ══════════════════════════════════════════════ -->
-  <section class="journal-hero">
-    <div class="journal-hero-bg" style={`background-image: url('${heroBgUrl}')`}></div>
-    <div class="container2">
-      <div class="journal-hero-content">
-        <div class="journal-hero-eyebrow-wrapper">
-          <p class="journal-hero-eyebrow">{t(page?.heroLabel, lang) || "JOURNAL"}</p>
-          <div class="journal-hero-eyebrow-line"></div>
-        </div>
+<Layout title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Journal | Senquentia" : "Journal | Senquentia")} description={t(page?.seoDescription, lang)} lang={lang}>
+  <div class="journal-page">
+    <!-- Section 1: Hero -->
+    <section class="journal-hero">
+      <img src={heroBgUrl} alt="Journal Hero" class="journal-hero-img" />
+      <div class="journal-hero-label">
+        <h1>{t(page?.heroLabel, lang) || (lang === 'fr' ? "JOURNAL." : "JOURNAL.")}</h1>
+        <div class="journal-hero-bar"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ═══ BLOG FEED ═════════════════════════════════════════ -->
-  <section class="journal-feed">
     <div class="container2">
-      <div class="journal-header reveal-left">
-        <h2 class="journal-heading">
-          {t(page?.sectionHeadline, lang) || (lang === 'fr' ? "Perspectives sur la transformation." : "Perspectives on transformation.")}
+      <!-- Section 2: Intro -->
+      <section class="journal-intro">
+        <h2 class="journal-intro-title" set:html={t(page?.sectionHeadline, lang) || (lang === 'fr' ? "SUR LA TRANSFORMATION <br /> ET LE LEADERSHIP" : "ON TRANSFORMATION <br /> AND LEADERSHIP")}>
         </h2>
-      </div>
+      </section>
 
-      <div class="journal-grid">
-        {posts?.map((post: any, i: number) => (
-          <article class="journal-card reveal-up" style={`transition-delay: ${i * 100}ms`}>
-            <a href={`${lang === 'fr' ? '/fr' : ''}/journal/${post.slug?.current}`} class="journal-card-link">
-              <div class="journal-card-image-wrap">
-                <img 
-                  src={post.featuredImage ? urlFor(post.featuredImage).width(800).url() : "/images/journal1.png"} 
-                  alt={post.title} 
-                  class="journal-card-img"
-                />
-              </div>
-              <div class="journal-card-content">
-                <div class="journal-card-meta">
-                   <span class="journal-card-date">
-                     {new Date(post.publishedAt).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
-                       year: 'numeric',
-                       month: 'long',
-                       day: 'numeric'
-                     })}
-                   </span>
+      <!-- Section 3: Articles Grid -->
+      <section class="journal-articles">
+        <div class="container">
+          <div class="articles-grid">
+            {
+              articles.map((article) => (
+                <div class="article-card">
+                  <div class="article-img-box">
+                    <img src={article.img} alt={article.title} />
+                  </div>
+                  <h3 class="article-title">{article.title}</h3>
+                  <p class="article-desc">{article.desc}</p>
+                  <a
+                    href={article.slug 
+                      ? `${lang === 'fr' ? '/fr' : ''}/journal/${article.slug}` 
+                      : "#"}
+                    class="article-link"
+                  >
+                    {lang === 'fr' ? "En savoir plus" : "Read More"}
+                  </a>
                 </div>
-                <h3 class="journal-card-title">{post.title}</h3>
-                <p class="journal-card-excerpt">{post.excerpt}</p>
-                <span class="journal-card-more">
-                   {lang === 'fr' ? "Lire la suite" : "Read more"} —
-                </span>
-              </div>
-            </a>
-          </article>
-        ))}
-      </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
+  </div>
 </Layout>

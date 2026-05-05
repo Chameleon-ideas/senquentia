@@ -1,107 +1,172 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getContactPage, urlFor } from "@/utils/sanity";
+import { getConnectPage, urlFor } from "@/utils/sanity";
 import { t } from "@/utils/i18n";
+import "../../styles/contact.css";
 
 interface Props {
   lang: 'en' | 'fr';
 }
 const { lang } = Astro.props;
 
-const page = await getContactPage();
+const page = await getConnectPage();
 
-const heroBgUrl = page?.heroBgImage 
-  ? urlFor(page.heroBgImage).width(1920).url() 
+const heroBgUrl = page?.heroBgImage
+  ? urlFor(page.heroBgImage).width(1920).url()
   : "/images/contactbg.png";
+
+const email = page?.email ?? "info@senquentia.com";
 ---
 
-<Layout 
-  title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Contact" : "Contact")} 
+<Layout
+  title={t(page?.seoTitle, lang) || (lang === 'fr' ? "Contact | Senquentia" : "Contact | Senquentia")}
   description={t(page?.seoDescription, lang)}
   lang={lang}
 >
-  <!-- ═══ CONTACT HERO ══════════════════════════════════════ -->
-  <section class="contact-hero">
-    <div class="contact-hero-bg" style={`background-image: url('${heroBgUrl}')`}></div>
-    <div class="container2">
-       <div class="contact-top-label reveal-left">
-          <h2>CONTACT</h2>
-       </div>
-    </div>
-  </section>
+  <div
+    class="contact-page-outer"
+    style={`background-image: url(${heroBgUrl});`}
+  >
+    <div class="contact-page-inner">
+      <!-- Top Right Label -->
+      <div class="contact-top-label">
+        <h2>{lang === 'fr' ? "CONTACT" : "CONTACT"}</h2>
+        <div class="contact-top-bar"></div>
+      </div>
 
-  <!-- ═══ CONTACT CONTENT ═══════════════════════════════════ -->
-  <section class="contact-section">
-    <div class="contact-top-bar"></div>
-    <div class="container2">
-      <div class="contact-grid">
-        <div class="contact-left reveal-left">
-          <h2 class="contact-heading">
-            {t(page?.leadText, lang) || (lang === 'fr' ? "Notre travail débute dans le dialogue." : "Our work begins in conversations.")}
-          </h2>
-          <p class="contact-subheading">
-            {lang === 'fr' ? "Échanger." : "Connect."}
-          </p>
-        </div>
-
-        <div class="contact-right reveal-right">
-          <form class="contact-form" action="#" method="POST">
-            <div class="form-grid">
-              <div class="form-group">
-                <input type="text" id="name" name="name" placeholder={lang === 'fr' ? "Nom" : "Name"} required />
-              </div>
-              <div class="form-group">
-                <input type="text" id="org" name="org" placeholder={lang === 'fr' ? "Organisation" : "Organization"} />
-              </div>
-              <div class="form-group">
-                <input type="email" id="email" name="email" placeholder={lang === 'fr' ? "Courriel" : "Email"} required />
-              </div>
-              <div class="form-group">
-                <input type="tel" id="phone" name="phone" placeholder={lang === 'fr' ? "Téléphone" : "Phone"} />
-              </div>
-            </div>
-
-            <div class="form-group select-group">
-              <label>{lang === 'fr' ? "Domaine d’intérêt" : "Area of Interest"}:</label>
-              <div class="radio-grid">
-                 <label class="radio-item">
-                    <input type="radio" name="interest" value="transformation" checked />
-                    <span>{lang === 'fr' ? "Transformation numérique et organisationnelle" : "Digital & Organizational Transformation"}</span>
-                 </label>
-                 <label class="radio-item">
-                    <input type="radio" name="interest" value="advisory" />
-                    <span>{lang === 'fr' ? "Conseil stratégique" : "Strategic Advisory"}</span>
-                 </label>
-                 <label class="radio-item">
-                    <input type="radio" name="interest" value="coaching" />
-                    <span>{lang === 'fr' ? "Développement du leadership et accompagnement des dirigeants" : "Leadership Development & Executive Coaching"}</span>
-                 </label>
-                 <label class="radio-item">
-                    <input type="radio" name="interest" value="other" />
-                    <span>{lang === 'fr' ? "Autre" : "Other"}</span>
-                 </label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <textarea id="message" name="message" rows="5" placeholder={lang === 'fr' ? "Message" : "Message"} required></textarea>
-            </div>
-
-            <div class="form-footer">
-               <button type="submit" class="submit-btn">{lang === 'fr' ? "Envoyer" : "Send"}</button>
-            </div>
-          </form>
-          
-          <div class="contact-footer-right">
-             <p class="contact-footer-text">
-               {t(page?.disclaimer, lang) || (lang === 'fr' ? "Toutes les demandes sont traitées avec discrétion et confidentialité." : "We treat all inquiries with discretion and confidentiality.")}
-             </p>
-             <a href={`mailto:${page?.email || 'info@senquentia.com'}`} class="contact-email">
-               {page?.email || 'info@senquentia.com'}
-             </a>
+      <div class="container">
+        <main class="contact-content-main">
+          <!-- Intro Text -->
+          <div class="contact-intro-text">
+            <p>{t(page?.leadText, lang) || (lang === 'fr' ? "Notre travail commence par une conversation." : "Our work begins in conversation.")}</p>
+            <p>{lang === 'fr' ? "Connecter." : "Connect."}</p>
           </div>
-        </div>
+
+          <!-- Red Line -->
+          <div class="contact-red-line"></div>
+
+          <!-- Form Grid -->
+          <form
+            id="connect-form"
+            class="contact-form-grid"
+            method="POST"
+            action="/api/contact"
+          >
+            <!-- Left Col -->
+            <div class="contact-form-col">
+              <input
+                type="text"
+                name="name"
+                placeholder={lang === 'fr' ? "Nom" : "Name"}
+                class="contact-field"
+                required
+              />
+              <input
+                type="text"
+                name="organization"
+                placeholder={lang === 'fr' ? "Organisation" : "Organization"}
+                class="contact-field"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                class="contact-field"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder={lang === 'fr' ? "Téléphone" : "Phone"}
+                class="contact-field"
+              />
+            </div>
+
+            <!-- Right Col -->
+            <div class="contact-form-col">
+              <input
+                type="text"
+                name="area"
+                placeholder={lang === 'fr' ? "Domaine d'intérêt" : "Area of interest"}
+                class="contact-field"
+              />
+              <textarea
+                name="message"
+                placeholder="Message"
+                class="contact-field contact-textarea"
+                required></textarea>
+            </div>
+
+          </form>
+
+          <!-- Footer row moved outside the grid to allow more width -->
+          <div class="contact-footer-right">
+            <button
+              type="submit"
+              id="send-btn"
+              form="connect-form"
+              class="contact-submit-btn"
+              data-sending={lang === 'fr' ? "Envoi en cours…" : "Sending…"}
+              data-sent={lang === 'fr' ? "Envoyé ✓" : "Sent ✓"}
+              data-error={lang === 'fr' ? "Une erreur est survenue." : "Something went wrong."}
+              >{lang === 'fr' ? "ENVOYER" : "SEND"}</button
+            >
+
+            <div class="contact-footer-text">
+              <p class="contact-disclaimer">
+                {
+                  t(page?.disclaimer, lang) ||
+                    (lang === 'fr' 
+                      ? "Nous traitons toutes les demandes avec discrétion et confidentialité."
+                      : "We treat all inquiries with discretion and confidentiality.")
+                }
+              </p>
+              <a href={`mailto:${email}`} class="contact-email-link-footer"
+                >{email}</a
+              >
+            </div>
+          </div>
+        </main>
       </div>
     </div>
-  </section>
+  </div>
 </Layout>
+
+<script>
+  const form = document.getElementById(
+    "connect-form",
+  ) as HTMLFormElement | null;
+  const btn = document.getElementById("send-btn") as HTMLButtonElement | null;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!btn) return;
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    const sendingText = btn.dataset.sending || "Sending…";
+    const sentText = btn.dataset.sent || "Sent ✓";
+    const errorText = btn.dataset.error || "Something went wrong.";
+
+    btn.textContent = sendingText;
+
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error();
+      btn.textContent = sentText;
+      form.reset();
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }, 3000);
+    } catch {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      alert(errorText);
+    }
+  });
+</script>
