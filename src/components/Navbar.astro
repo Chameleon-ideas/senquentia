@@ -86,10 +86,6 @@ function isActive(href: string) {
 
   <!-- Right side -->
   <div class="nav-right">
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-    </button>
     <a
       href={linkedinUrl}
       target="_blank"
@@ -106,24 +102,6 @@ function isActive(href: string) {
 </header>
 
 <style>
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--clr-text);
-    opacity: 0.8;
-    transition: opacity 0.2s, transform 0.3s var(--ease);
-  }
-  .theme-toggle:hover {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  .sun-icon { display: none; }
-  .moon-icon { display: block; }
-
-  :global([data-theme="light"]) .sun-icon { display: block; }
-  :global([data-theme="light"]) .moon-icon { display: none; }
-  :global([data-theme="light"]) .nav-linkedin { filter: invert(1); }
 </style>
 
 <!-- Mobile nav -->
@@ -162,18 +140,6 @@ function isActive(href: string) {
       });
     });
 
-    // Theme Toggle
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const doc = document.documentElement;
-        const currentTheme = doc.getAttribute('data-theme') || 'dark';
-        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        doc.setAttribute('data-theme', nextTheme);
-        localStorage.setItem('theme', nextTheme);
-      });
-    }
   }
 
   // Initialize on load

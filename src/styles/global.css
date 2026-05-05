@@ -43,34 +43,24 @@
   --ff-h-light: 'Helvetica Neue Light', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   --clr-red: #c00;
-  
-  /* Theme Tokens */
-  --clr-bg: #0f0f0f;
-  --clr-surface: #000000;
-  --clr-text: #f8f6f2;
-  --clr-text-muted: #6d6d6d;
+  --clr-dark: #0f0f0f;
+  --clr-cream: #f8f6f2;
+  --clr-white: #ffffff;
+  --clr-muted: #6d6d6d;
   --clr-border: rgba(248, 246, 242, 0.15);
 
-  /* Legacy Aliases (to avoid breaking existing styles) */
-  --clr-dark: var(--clr-bg);
-  --clr-cream: var(--clr-text);
-  --clr-white: #ffffff;
-  --clr-muted: var(--clr-text-muted);
+  /* Semantic Aliases */
+  --clr-bg: var(--clr-dark);
+  --clr-text: var(--clr-cream);
+  --clr-surface: #000000;
+  --clr-overlay: rgba(248, 246, 242, 0.75);
 
   --container-pad: clamp(1.5rem, 12.5%, 130px);
   --section-v: 6rem;
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --pt-color-1: var(--clr-red);
-  --pt-color-2: var(--clr-bg);
-}
-
-[data-theme="light"] {
-  --clr-bg: #f8f6f2;
-  --clr-surface: #ffffff;
-  --clr-text: #0f0f0f;
-  --clr-text-muted: #4a4a4a;
-  --clr-border: rgba(15, 15, 15, 0.1);
+  --pt-color-2: var(--clr-dark);
 }
 
 /* ── Reset ─────────────────────────────────────────────────── */
@@ -88,11 +78,10 @@ html {
 
 body {
   font-family: var(--ff-body);
-  background: var(--clr-bg);
-  color: var(--clr-text);
+  background: var(--clr-dark);
+  color: var(--clr-cream);
   line-height: 1.65;
   overflow-x: hidden;
-  transition: background 0.4s var(--ease), color 0.4s var(--ease);
 }
 
 a {
