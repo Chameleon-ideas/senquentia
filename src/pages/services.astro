@@ -1,3 +1,4 @@
+---
 import Layout from "../layouts/Layout.astro";
 import { getServicesPage, urlFor } from "@/utils/sanity";
 
@@ -6,6 +7,7 @@ const page = await getServicesPage();
 const heroBgUrl = page?.heroBgImage 
   ? urlFor(page.heroBgImage).width(1920).url() 
   : "/images/serviceherobg.png";
+---
 
 <Layout title={page?.seoTitle ?? "Services"} description={page?.seoDescription ?? "Digital & Organizational Transformation"}>
   <div class="services-page-wrap">
