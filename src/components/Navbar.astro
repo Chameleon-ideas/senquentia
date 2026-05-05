@@ -4,16 +4,17 @@ import { getLang } from "../utils/i18n";
 
 interface Props {
   settings: any;
+  lang?: any;
 }
-const { settings } = Astro.props;
+const { settings, lang: langProp } = Astro.props;
 const currentPath = Astro.url.pathname;
-const lang = getLang(Astro.url);
+const lang = langProp || getLang(Astro.url);
 
 const logoUrl = settings?.logo ? urlFor(settings.logo).height(88).url() : null;
 const linkedinUrl = settings?.linkedin ?? "#";
 const enableFR = settings?.enableFR ?? false;
 
-const links = [
+const baseLinks = [
   { label: "Home", labelFR: "Accueil", href: "/" },
   {
     label: "Services",
@@ -26,15 +27,15 @@ const links = [
   { label: "Contact", labelFR: "Contact", href: "/contact" },
 ];
 
-// Add language toggle if enabled in Sanity
-if (enableFR) {
-  links.push({
-    label: "En",
-    labelFR: "Fr",
+const links = [
+  ...baseLinks,
+  ...(enableFR ? [{
+    label: "EN",
+    labelFR: "FR",
     href: "#",
     isLangToggle: true,
-  } as any);
-}
+  }] : [])
+];
 
 function isActive(href: string) {
   if (href === "#") return false;
@@ -102,6 +103,9 @@ function isActive(href: string) {
 </header>
 
 <style>
+  @media (max-width: 1024px) {
+    /* Handle lang toggle in mobile specially if needed, but for now it's in the list */
+  }
 </style>
 
 <!-- Mobile nav -->
@@ -139,7 +143,6 @@ function isActive(href: string) {
         window.location.href = url.toString();
       });
     });
-
   }
 
   // Initialize on load

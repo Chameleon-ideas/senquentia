@@ -30,7 +30,7 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
-      include: ['gsap', 'lenis', 'gsap/ScrollTrigger', 'void-elements', 'html-parse-stringify'],
+      include: ['gsap', 'gsap/ScrollTrigger', 'void-elements', 'html-parse-stringify'],
       exclude: ['fsevents'],
     },
     ssr: {

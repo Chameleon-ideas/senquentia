@@ -45,7 +45,7 @@ const faviconUrl = settings?.favicon?.asset?.url ?? '/favicon.ico';
       <div class="pt-layer pt-layer-2"></div>
     </div>
 
-    <Navbar settings={settings} />
+    <Navbar settings={settings} lang={lang} />
     <slot />
     <Footer settings={settings} footerData={footerData} />
 
