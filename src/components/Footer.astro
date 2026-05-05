@@ -1,6 +1,6 @@
 ---
-import { urlFor } from '@/utils/sanity';
-import { getLang } from '../utils/i18n';
+import { urlFor } from "@/utils/sanity";
+import { getLang } from "../utils/i18n";
 
 interface Props {
   settings: any;
@@ -9,27 +9,32 @@ const { settings } = Astro.props;
 const lang = getLang(Astro.url);
 
 const logoUrl = settings?.logo ? urlFor(settings.logo).height(72).url() : null;
-const siteName = settings?.siteName ?? 'Senquentia';
-const tagline  = settings?.tagline ?? 'Strategy & Management Consulting';
-const address  = settings?.address ?? 'Montréal, Quebec, Canada';
-const email    = settings?.email ?? 'info@senquentia.com';
-const linkedin = settings?.linkedin ?? '#';
+const siteName = settings?.siteName ?? "Senquentia";
+const tagline = settings?.tagline ?? "Strategy & Management Consulting";
+const address = settings?.address ?? "Montréal, Quebec, Canada";
+const email = settings?.email ?? "info@senquentia.com";
+const linkedin = settings?.linkedin ?? "#";
 ---
 
 <footer class="site-footer">
-  <div class="container">
+  <div class="container2">
     <div class="footer-inner">
       <!-- Brand -->
       <div class="footer-brand">
-        <a href={lang === "fr" ? "/?lang=fr" : "/"} class="footer-logo" aria-label={siteName}>
-          {logoUrl
-            ? <img src={logoUrl} alt={siteName} />
-            : <img src="/images/footerlogo3.png" alt={siteName} />
+        <a
+          href={lang === "fr" ? "/?lang=fr" : "/"}
+          class="footer-logo"
+          aria-label={siteName}
+        >
+          {
+            logoUrl ? (
+              <img src={logoUrl} alt={siteName} />
+            ) : (
+              <img src="/images/footerlogo3.png" alt={siteName} />
+            )
           }
         </a>
-        {logoUrl && tagline && (
-          <p class="footer-tagline">{tagline}</p>
-        )}
+        {logoUrl && tagline && <p class="footer-tagline">{tagline}</p>}
       </div>
 
       <!-- Contact info -->
@@ -37,8 +42,16 @@ const linkedin = settings?.linkedin ?? '#';
         {address && <span class="footer-info">{address}</span>}
         {email && <span class="footer-email">{email}</span>}
         <div class="footer-contact-row">
-          <a href="/contact" class="footer-contact-link">{lang === 'fr' ? 'Contact' : 'Contact'}</a>
-          <a href={linkedin} target="_blank" rel="noopener noreferrer" class="footer-linkedin" aria-label="LinkedIn">
+          <a href="/contact" class="footer-contact-link"
+            >{lang === "fr" ? "Contact" : "Contact"}</a
+          >
+          <a
+            href={linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-linkedin"
+            aria-label="LinkedIn"
+          >
             <img src="/images/linkdinicon.svg" alt="LinkedIn" />
           </a>
         </div>
@@ -46,7 +59,7 @@ const linkedin = settings?.linkedin ?? '#';
     </div>
 
     <div class="footer-bottom">
-      <span>&copy; 2026 {siteName}. All rights reserved. Designed and Developed by <a href="https://chameleon-ideas.com" target="_blank" rel="noopener noreferrer">Chameleon Ideas</a></span>
+      <span> Copyright </span>
     </div>
   </div>
 </footer>

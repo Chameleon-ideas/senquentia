@@ -12,6 +12,14 @@
 }
 
 @font-face {
+  font-family: 'American Typewriter Light';
+  src: url('/fonts/American%20Typewriter%20Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Century Gothic Paneuropean';
   src: url('/fonts/CenturyGothicPaneuropeanRegular.ttf') format('truetype');
   font-weight: normal;
@@ -21,6 +29,7 @@
 
 :root {
   --ff-display: 'American Typewriter', Georgia, serif;
+  --ff-light: 'American Typewriter Light', Georgia, serif;
   --ff-body: 'Century Gothic Paneuropean', 'Century Gothic', 'Century', 'Trebuchet MS', Verdana, sans-serif;
   --ff-ui: 'Avenir', 'Century Gothic Paneuropean', 'Century Gothic', 'Trebuchet MS', sans-serif;
 
@@ -363,39 +372,40 @@ button {
   }
 }
 
-.intro-eyebrow-left,
-.intro-eyebrow-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
-  align-items: center;
-  gap: 0;
+.intro-eyebrow-wrapper {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 2.5rem;
+  margin-bottom: 4rem;
 }
 
-.intro-eyebrow-left {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: clamp(2rem, 5vw, 5rem);
+.intro-eyebrow {
+  font-family: var(--ff-body);
+  font-size: 1.32rem;
+  text-transform: uppercase;
+  color: var(--clr-cream);
+  text-align: right;
+  white-space: nowrap;
+  margin-bottom: 0.6rem;
 }
 
 .intro-eyebrow-line {
   height: 1px;
   background: var(--clr-red);
-  width: 50vw;
-  margin-right: 1.5rem;
+  width: 100%;
+  position: relative;
 }
 
-.intro-eyebrow-right {
-  padding-left: clamp(2rem, 5vw, 5rem);
-}
-
-.intro-eyebrow {
-  font-family: var(--ff-body);
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  color: var(--clr-cream);
-  text-align: right;
-  white-space: nowrap;
+.intro-eyebrow-line::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 0;
+  height: 100%;
+  width: 100vw;
+  background: inherit;
 }
 
 .intro-grid {
@@ -403,7 +413,7 @@ button {
   grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
   align-items: start;
   gap: 0;
-  padding: 8rem 0rem;
+  padding: 2rem 0rem 8rem 0rem;
 }
 
 .intro-v-divider {
@@ -444,7 +454,7 @@ button {
 
 .intro-body {
   font-family: var(--ff-body);
-  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   color: #F8F6F2;
   line-height: 1.5;
   letter-spacing: -0.01em;
@@ -595,8 +605,8 @@ button {
   background: var(--clr-cream);
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 10rem 2.5rem 10rem 1rem;
+  justify-content: center;
+  padding: 2.5rem;
 }
 
 .service-overlay-title {
@@ -605,18 +615,15 @@ button {
   color: #6D6D6D;
   font-weight: 700;
   line-height: 1.2;
-  text-align: right;
+  text-align: center;
   display: flex;
-  align-items: stretch;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   gap: 0.8rem;
 }
 
 .service-overlay-title::after {
-  content: "";
-  width: 4px;
-  background: var(--clr-red);
-  flex-shrink: 0;
+  display: none;
 }
 
 .service-overlay-num,
@@ -820,8 +827,15 @@ button {
    ============================================================ */
 .site-footer {
   background: var(--clr-dark);
-  padding-block: 3.5rem 2rem;
+  padding-block: 3.5rem 2.5rem;
   border-top: 1px solid var(--clr-border);
+  padding: 10rem 7.9rem 3.5rem 7.9rem;
+}
+
+@media(max-width:768px) {
+  .site-footer {
+    padding: 5rem 4rem 2rem 4rem;
+  }
 }
 
 .footer-inner {
@@ -854,14 +868,14 @@ button {
 
 .footer-info {
   font-family: var(--ff-body);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: var(--clr-cream);
   letter-spacing: 0;
 }
 
 .footer-email {
   font-family: var(--ff-display);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: var(--clr-cream);
 }
 
@@ -869,12 +883,12 @@ button {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 1.8rem;
 }
 
 .footer-contact-link {
   font-family: var(--ff-display);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--clr-cream);
   letter-spacing: 0.02em;
@@ -886,8 +900,8 @@ button {
 }
 
 .footer-linkedin img {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: auto;
   display: block;
   transition: opacity 0.2s;
 }
@@ -898,15 +912,14 @@ button {
 
 .footer-bottom {
   text-align: right;
-  margin-top: 3rem;
-  padding-top: 2rem;
+  padding-top: 7.5rem;
   /* Removed border to match screenshot */
 }
 
 .footer-bottom span {
   font-family: var(--ff-body);
-  font-size: 0.8rem;
-  color: rgba(248, 246, 242, 0.6);
+  font-size: 1rem;
+  color: rgba(255, 255, 255);
 }
 
 .footer-bottom a {
@@ -1948,7 +1961,7 @@ button {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  padding: 4rem 4rem 3rem 4rem;
+  padding: 24rem 6.3rem 10rem 4rem;
 }
 
 .svc-hero-text-row {
@@ -1978,6 +1991,8 @@ button {
   background: var(--clr-dark);
   padding-top: 6rem;
   padding-bottom: 8rem;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
 }
 
 .svc-perspective .container {
@@ -1987,7 +2002,7 @@ button {
 
 .svc-perspective-heading {
   font-family: var(--ff-display);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2.5rem, 5vw, 4.7rem);
   color: var(--clr-cream);
   margin-bottom: 4rem;
   font-weight: 500;
@@ -1996,7 +2011,7 @@ button {
 
 .svc-perspective-grid {
   display: grid;
-  grid-template-columns: 1fr 1px 1.25fr;
+  grid-template-columns: 1fr 1px 1fr;
   gap: 4rem;
   align-items: start;
 }
@@ -2022,23 +2037,21 @@ button {
   text-align: right;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  padding-right: 1rem;
+  gap: 4rem;
 }
 
 .svc-perspective-lead1 {
-  font-family: var(--ff-display);
-  font-size: 1.65rem;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: var(--ff-light);
+  font-size: 1.9rem;
+  line-height: 1.1;
 }
 
 .svc-perspective-lead2 {
   font-family: var(--ff-display);
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 400;
   color: var(--clr-cream);
-  line-height: 1.4;
+  line-height: 1.1;
 }
 
 .svc-perspective-right {
@@ -2323,7 +2336,7 @@ button {
 }
 
 .svc-alignment-bottom {
-  padding: 4rem 10% 5rem 30%;
+  padding: 4rem 10% 5rem 10%;
   flex: 1;
   display: flex;
   justify-content: flex-end;
@@ -2331,11 +2344,11 @@ button {
 
 .svc-alignment-desc {
   font-family: var(--ff-body);
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   color: var(--clr-dark);
   text-align: right;
   line-height: 1.6;
-  max-width: 800px;
+  max-width: 995px;
 }
 
 /* SECTION 4: IMPACT */
@@ -2358,9 +2371,10 @@ button {
 
 .svc-impact-text {
   font-family: var(--ff-body);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: var(--clr-dark);
   line-height: 1.6;
+  max-width: 1030px;
 }
 
 .svc-impact-text p {
@@ -2428,8 +2442,8 @@ button {
   position: absolute;
   bottom: 0;
   left: -50vw;
-  right: 500px;
-  height: 1.2px;
+  right: 580px;
+  height: 2px;
   background: var(--clr-red);
 }
 
@@ -2438,13 +2452,14 @@ button {
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 400;
   color: var(--clr-cream);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .svc-approach-item-text {
   font-family: var(--ff-body);
   font-size: clamp(1rem, 1.2vw, 1.25rem);
   line-height: 1.6;
+  max-width: 1140px;
 }
 
 .svc-approach-item-text p {

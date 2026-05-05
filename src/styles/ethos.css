@@ -73,15 +73,15 @@
 
 .principles-grid {
   display: grid;
-  grid-template-columns: 1fr 2px 1.25fr;
+  grid-template-columns: 1fr 2px 1fr;
   gap: 5rem;
   align-items: stretch;
 }
 
 .principles-divider {
   background: var(--clr-red);
-  width: 2px;
-  height: 65%;
+  width: 1px;
+  height: 100%;
   align-self: center;
 }
 
@@ -98,7 +98,7 @@
 
 .ethos-label {
   font-family: var(--ff-display);
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   color: var(--clr-cream);
   margin-bottom: 2.5rem;
   text-transform: uppercase;
@@ -106,7 +106,7 @@
 
 .ethos-body-text {
   font-family: var(--ff-body);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1.6;
   color: rgba(248, 246, 242, 0.85);
 }
