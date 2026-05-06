@@ -13,47 +13,58 @@ export const service = defineType({
   ],
   fields: [
     // ── Core ──────────────────────────────────────────────────────────────────
-    defineField({ name: 'title', title: 'Title', type: 'localeString', group: 'core',
+    defineField({
+      name: 'title', title: 'Title', type: 'localeString', group: 'core',
       validation: (R) => R.required(),
     }),
-    defineField({ name: 'slug', title: 'Slug', type: 'slug', group: 'core',
+    defineField({
+      name: 'slug', title: 'Slug', type: 'slug', group: 'core',
       options: { source: 'title.en', maxLength: 96 },
       validation: (R) => R.required(),
     }),
 
-    defineField({ name: 'shortDescription', title: 'Short Description (listing card)', type: 'localeText',
+    defineField({
+      name: 'shortDescription', title: 'Short Description (listing card)', type: 'localeText',
       group: 'core',
     }),
-    defineField({ name: 'image', title: 'Card Image', type: 'image', group: 'core',
+    defineField({
+      name: 'image', title: 'Card Image', type: 'image', group: 'core',
       options: { hotspot: true },
       fields: [defineField({ name: 'alt', title: 'Alt text', type: 'localeString' })],
     }),
-    defineField({ name: 'heroBgImage', title: 'Hero Background Image', type: 'image', group: 'core',
+    defineField({
+      name: 'heroBgImage', title: 'Hero Background Image', type: 'image', group: 'core',
       options: { hotspot: true },
       fields: [defineField({ name: 'alt', title: 'Alt text', type: 'localeString' })],
     }),
-    defineField({ name: 'order', title: 'Display Order', type: 'number', group: 'core',
+    defineField({
+      name: 'order', title: 'Display Order', type: 'number', group: 'core',
       initialValue: 99, description: 'Lower = appears first.',
     }),
 
     // ── Perspective ───────────────────────────────────────────────────────────
-    defineField({ name: 'perspectiveText', title: 'Perspective Text (left column)', type: 'localeText',
+    defineField({
+      name: 'perspectiveText', title: 'Perspective Text (left column)', type: 'localeText',
       group: 'perspective',
       description: 'Plain text fallback. Use rich-text columns below for more control.',
     }),
-    defineField({ name: 'perspectiveText2', title: 'Perspective Text (right column)', type: 'localeText',
+    defineField({
+      name: 'perspectiveText2', title: 'Perspective Text (right column)', type: 'localeText',
       group: 'perspective',
     }),
-    defineField({ name: 'perspectiveCol1', title: 'Perspective Rich Text (left)', type: 'localeBlock',
+    defineField({
+      name: 'perspectiveCol1', title: 'Perspective Rich Text (left)', type: 'localeBlock',
       group: 'perspective',
     }),
-    defineField({ name: 'perspectiveCol2', title: 'Perspective Rich Text (right)', type: 'localeBlock',
+    defineField({
+      name: 'perspectiveCol2', title: 'Perspective Rich Text (right)', type: 'localeBlock',
       group: 'perspective',
     }),
     defineField({ name: 'quoteText', title: 'Pull Quote', type: 'localeString', group: 'perspective' }),
 
     // ── Approach ──────────────────────────────────────────────────────────────
-    defineField({ name: 'approachLead', title: 'Approach Lead Text', type: 'localeText',
+    defineField({
+      name: 'approachLead', title: 'Approach Lead Text', type: 'localeText',
       group: 'approach',
     }),
     defineField({
@@ -82,7 +93,8 @@ export const service = defineType({
     }),
 
     // ── Closing ───────────────────────────────────────────────────────────────
-    defineField({ name: 'closingText', title: 'Closing Statement', type: 'localeText',
+    defineField({
+      name: 'closingText', title: 'Closing Statement', type: 'localeText',
       group: 'closing',
     }),
 

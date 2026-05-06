@@ -1,6 +1,6 @@
 /* ============================================================
    SENQUENTIA — GLOBAL DESIGN SYSTEM
-   Fonts: American Typewriter (display), Century Gothic (body), Avenir (ui), Helvetica Neue (light)
+   Fonts: American Typewriter (display), Avenir Book (body), Avenir (ui), Helvetica Neue (light)
    ============================================================ */
 
 @font-face {
@@ -28,6 +28,14 @@
 }
 
 @font-face {
+  font-family: 'Avenir Book';
+  src: url('/fonts/Avenir%20Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Helvetica Neue Light';
   src: url('/fonts/HelveticaNeueLight.otf') format('opentype');
   font-weight: 300;
@@ -38,7 +46,7 @@
 :root {
   --ff-display: 'American Typewriter', Georgia, serif;
   --ff-light: 'American Typewriter Light', Georgia, serif;
-  --ff-body: 'Century Gothic Paneuropean', 'Century Gothic', 'Century', 'Trebuchet MS', Verdana, sans-serif;
+  --ff-body: 'Avenir Book', 'Century Gothic Paneuropean', 'Century Gothic', 'Century', 'Trebuchet MS', Verdana, sans-serif;
   --ff-ui: 'Avenir', 'Century Gothic Paneuropean', 'Century Gothic', 'Trebuchet MS', sans-serif;
   --ff-h-light: 'Helvetica Neue Light', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
@@ -2005,7 +2013,7 @@ button {
 /* SECTION 2: PERSPECTIVE */
 .svc-perspective {
   background: var(--clr-dark);
-  padding-top: 15rem;
+  padding-top: 14rem;
   padding-bottom: 15rem;
   padding-left: 3.5rem;
   padding-right: 3.5rem;
@@ -2279,7 +2287,7 @@ button {
 .svc-alignment-container {
   position: relative;
   z-index: 4;
-  max-width: 1600px;
+  max-width: 1460px;
   margin-inline: auto;
   padding-inline: clamp(1.5rem, 5vw, 5rem);
   width: 100%;
@@ -2323,7 +2331,7 @@ button {
 .svc-alignment-box2::after {
   content: '';
   position: absolute;
-  top: 52%;
+  top: 45%;
   right: -50vw;
   left: 0%;
   height: 2px;
@@ -2348,7 +2356,12 @@ button {
 }
 
 .svc-alignment-top2 {
-  padding: 9rem 10% 8rem 10%;
+  padding: 9rem 1% 8rem 10%;
+  flex: 1;
+}
+
+.svc-alignment-top3 {
+  padding: 6rem 1% 3rem 10%;
   flex: 1;
 }
 
@@ -2358,11 +2371,20 @@ button {
   color: var(--clr-dark);
   font-weight: 700;
   line-height: 1.4;
-  max-width: 900px;
+  max-width: 1040px;
+  -webkit-text-stroke-width: 0.4px;
+  -webkit-text-stroke-color: #0f0f0f;
 }
 
 .svc-alignment-bottom {
   padding: 4rem 10% 5rem 10%;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.svc-alignment-bottom-strategic {
+  padding: 4rem 7% 5rem 5%;
   flex: 1;
   display: flex;
   justify-content: flex-end;
@@ -2419,6 +2441,22 @@ button {
   justify-content: center;
 }
 
+.svc-impact-bottom-strategic {
+  padding: 5rem 5% 7rem 14%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svc-impact-bottom-digital {
+  padding: 7rem 0% 7rem 10%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .svc-impact-footer {
   font-family: var(--ff-display);
   font-size: clamp(1.1rem, 1.5vw, 1.35rem);
@@ -2452,6 +2490,12 @@ button {
   flex-direction: column;
 }
 
+.svc-approach-list-digital {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 0rem 0rem 1.4rem;
+}
+
 .svc-approach-item {
   position: relative;
   padding-bottom: 3.6rem;
@@ -2478,7 +2522,7 @@ button {
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 400;
   color: var(--clr-cream);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .svc-approach-item-text {
@@ -2500,6 +2544,12 @@ button {
 .svc-moments {
   background: var(--clr-dark);
   padding-block: 14rem;
+  overflow: hidden;
+}
+
+.svc-moments-digital {
+  background: var(--clr-dark);
+  padding: 2rem 2rem 15rem 2rem;
   overflow: hidden;
 }
 
@@ -2640,7 +2690,9 @@ button {
 
   .svc-alignment-top,
   .svc-alignment-top2,
+  .svc-alignment-top3,
   .svc-alignment-bottom,
+  .svc-alignment-bottom-strategic,
   .svc-impact-top,
   .svc-impact-bottom {
     padding: 3rem 1.5rem;

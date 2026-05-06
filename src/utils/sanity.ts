@@ -7,7 +7,7 @@ const clientConfig = {
   dataset: 'production',
   apiVersion: '2024-01-01',
   token: 'sk9pPpLfulj4mVAS0mqu7dssJtWJWTEXqkvWNMRrw5RnHIIj5Fg3ofb1o9HsnTAJjtLuFAoGRzQvrrtEWtKGtS8QWprID513VZ2Th7ZFIwujvKHOCqd593Z4aa7jRmGfNbzApPeE3IiXp0dBaHENZXl3mpNYZzcpzWPfREykbF8j8HQUvfpS',
-  useCdn: false, 
+  useCdn: false,
 };
 
 export const sanityClient = createClient(clientConfig);
@@ -167,6 +167,6 @@ export async function getTeamMembers() {
 }
 
 // Stubs for consistency
-export async function getAboutPage()       { return getEthosPage(); }
-export async function getBlogPage()        { return getJournalPage(); }
-export async function getContactPage()     { return getConnectPage(); }
+export async function getAboutPage() { return getEthosPage(); }
+export async function getBlogPage() { return getJournalPage(); }
+export async function getContactPage() { return getConnectPage(); }
