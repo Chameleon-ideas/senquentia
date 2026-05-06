@@ -1,6 +1,42 @@
-import localeString from './localeString';
-import localeText from './localeText';
-import localeBlock from './localeBlock';
+import { defineType, defineField } from 'sanity';
+
+// Inline helpers to avoid import issues during minification
+const localeString = defineType({
+  name: 'localeString',
+  title: 'Localized Text',
+  type: 'object',
+  fields: [
+    defineField({ name: 'en', title: 'English', type: 'string' }),
+    defineField({ name: 'fr', title: 'French', type: 'string' }),
+  ],
+});
+
+const localeText = defineType({
+  name: 'localeText',
+  title: 'Localized Text (long)',
+  type: 'object',
+  fields: [
+    defineField({ name: 'en', title: 'English', type: 'text', rows: 3 }),
+    defineField({ name: 'fr', title: 'French', type: 'text', rows: 3 }),
+  ],
+});
+
+const localeBlock = defineType({
+  name: 'localeBlock',
+  title: 'Localized Rich Text',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'en', title: 'English', type: 'array',
+      of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }],
+    }),
+    defineField({
+      name: 'fr', title: 'French', type: 'array',
+      of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }],
+    }),
+  ],
+});
+
 import siteSettings from './siteSettings';
 import homePage from './homePage';
 import aboutPage from './aboutPage';
@@ -19,22 +55,19 @@ import testimonialsPage from './testimonialsPage';
 import testimonial from './testimonial';
 
 export const schemaTypes = [
-  // Primitive helpers
   localeString,
   localeText,
   localeBlock,
-  // Singletons
   siteSettings,
   homePage,
   servicesPage,
-  aboutPage, // Ethos
-  blogPage,  // Journal
+  aboutPage,
+  blogPage,
   contactPage,
   footer,
   faqPage,
   portfolioPage,
   testimonialsPage,
-  // Collections
   service,
   blogPost,
   teamMember,
