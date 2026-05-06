@@ -71,6 +71,12 @@
   --pt-color-2: var(--clr-dark);
 }
 
+@media (max-width: 900px) {
+  :root {
+    --container-pad: clamp(1rem, 10%, 3rem);
+  }
+}
+
 /* ── Reset ─────────────────────────────────────────────────── */
 *,
 *::before,

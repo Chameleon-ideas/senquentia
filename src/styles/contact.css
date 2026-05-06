@@ -33,6 +33,12 @@
   flex-direction: column;
 }
 
+@media (max-width: 460px) {
+  .contact-page-inner {
+    padding: 4rem 0.5rem;
+  }
+}
+
 /* Top Right Label */
 .contact-top-label {
   position: absolute;

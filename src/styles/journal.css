@@ -64,6 +64,12 @@
   padding-block: 10rem;
 }
 
+@media (max-width: 768px) {
+  .journal-articles {
+    margin: 0rem;
+  }
+}
+
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -153,11 +159,11 @@
 }
 
 .article-detail-text-col {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 4rem;
-  max-width: 790px;
+  max-width: 830px;
 }
 
 .article-detail-text-col p {
@@ -213,7 +219,7 @@
 
 .staggered-top {
   align-self: flex-start;
-  max-width: 800px;
+  max-width: 830px;
 }
 
 .staggered-bottom {

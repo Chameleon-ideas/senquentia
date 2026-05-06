@@ -89,9 +89,12 @@ const bodyContent = post.body?.[lang] || post.body?.en || [];
 
     <!-- Featured Image -->
     {
-      post.featuredImage && (
+      (post.innerImage || post.featuredImage) && (
         <section class="article-detail-image-section">
-          <img src={urlFor(post.featuredImage).width(1920).url()} alt={title} />
+          <img 
+            src={urlFor(post.innerImage || post.featuredImage).width(1920).url()} 
+            alt={title} 
+          />
         </section>
       )
     }

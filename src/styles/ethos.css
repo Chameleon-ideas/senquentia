@@ -257,6 +257,12 @@
   margin-left: auto;
 }
 
+@media (max-width: 900px) {
+  .value-card:nth-child(odd) .value-card-body {
+    margin-left: 0;
+  }
+}
+
 .value-card-name {
   font-family: var(--ff-display);
   font-size: 1.55rem;
@@ -384,7 +390,10 @@
   .values-grid {
     grid-template-columns: 1fr;
     gap: 4rem;
+    padding-left: 0;
   }
+
+
 
   .value-card:nth-child(odd) {
     text-align: left;
