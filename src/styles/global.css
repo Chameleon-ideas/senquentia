@@ -2005,8 +2005,8 @@ button {
 /* SECTION 2: PERSPECTIVE */
 .svc-perspective {
   background: var(--clr-dark);
-  padding-top: 13rem;
-  padding-bottom: 13rem;
+  padding-top: 15rem;
+  padding-bottom: 15rem;
   padding-left: 3.5rem;
   padding-right: 3.5rem;
 }
@@ -2102,7 +2102,7 @@ button {
 /* DUAL COLUMN VARIATION */
 .svc-dual-grid {
   display: grid;
-  grid-template-columns: 1fr 1px 1.25fr;
+  grid-template-columns: 1.4fr 1px 1.4fr;
   gap: 4rem;
   align-items: start;
 }
@@ -2136,7 +2136,7 @@ button {
 
 .svc-dual-body-left {
   font-family: var(--ff-body);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1.65;
   color: var(--clr-cream);
 }
