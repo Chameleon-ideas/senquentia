@@ -2338,8 +2338,8 @@ button {
   content: '';
   position: absolute;
   top: 45%;
-  right: -50vw;
-  left: 0%;
+  right: 0%;
+  left: -50vw;
   height: 2px;
   background: var(--clr-red);
   z-index: 5;
@@ -2349,8 +2349,8 @@ button {
   content: '';
   position: absolute;
   top: 49%;
-  right: -50vw;
-  left: 0%;
+  right: 0%;
+  left: -50vw;
   height: 2px;
   background: var(--clr-red);
   z-index: 5;

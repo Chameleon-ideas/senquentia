@@ -30,5 +30,9 @@ export const portfolioPage = defineType({
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'string', group: 'seo' }),
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'text', rows: 2, group: 'seo' }),
   ],
-  preview: { prepare: () => ({ title: 'Portfolio Page' }) },
+  preview: {
+    prepare() {
+      return { title: 'Portfolio Page' };
+    },
+  },
 });

@@ -53,22 +53,26 @@ export const aboutPage = defineType({
           defineField({ name: 'name', title: 'Name', type: 'localeString' }),
           defineField({ name: 'body', title: 'Description', type: 'localeText' }),
         ],
-        preview: { select: { title: 'name.en', subtitle: 'body.en' } },
+        preview: { select: { title: 'name.en' } },
       }],
     }),
 
     // ── Founder ───────────────────────────────────────────────────────────────
-    defineField({ name: 'founderName', title: 'Founder Name', type: 'string', group: 'founder' }),
-    defineField({ name: 'founderTitle', title: 'Founder Title / Role', type: 'localeString', group: 'founder' }),
-    defineField({ name: 'founderPhoto', title: 'Founder Photo', type: 'image',
-      group: 'founder', options: { hotspot: true },
+    defineField({ name: 'founderImage', title: 'Founder Image', type: 'image', group: 'founder',
+      options: { hotspot: true },
       fields: [defineField({ name: 'alt', title: 'Alt text', type: 'localeString' })],
     }),
-    defineField({ name: 'founderBio', title: 'Founder Bio', type: 'localeText', group: 'founder' }),
+    defineField({ name: 'founderName', title: 'Founder Name', type: 'localeString', group: 'founder' }),
+    defineField({ name: 'founderTitle', title: 'Founder Title', type: 'localeString', group: 'founder' }),
+    defineField({ name: 'founderBio', title: 'Founder Bio', type: 'localeText', rows: 5, group: 'founder' }),
 
     // ── SEO ───────────────────────────────────────────────────────────────────
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'localeString', group: 'seo' }),
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
-  preview: { prepare: () => ({ title: 'Ethos Page' }) },
+  preview: {
+    prepare() {
+      return { title: 'Ethos Page' };
+    },
+  },
 });

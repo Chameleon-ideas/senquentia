@@ -71,5 +71,9 @@ export const homePage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
     defineField({ name: 'ogImage', title: 'OG / Share Image', type: 'image', group: 'seo' }),
   ],
-  preview: { prepare: () => ({ title: 'Home Page' }) },
+  preview: {
+    prepare() {
+      return { title: 'Home Page' };
+    },
+  },
 });

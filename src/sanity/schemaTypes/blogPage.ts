@@ -24,5 +24,9 @@ export const blogPage = defineType({
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'localeString', group: 'seo' }),
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
-  preview: { prepare: () => ({ title: 'Journal Page' }) },
+  preview: {
+    prepare() {
+      return { title: 'Journal Page' };
+    },
+  },
 });

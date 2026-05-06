@@ -57,8 +57,13 @@ export const blogPost = defineType({
   }],
   preview: {
     select: { title: 'title.en', subtitle: 'publishedAt', media: 'featuredImage' },
-    prepare: ({ title, subtitle, media }) => ({
-      title, subtitle: subtitle ? new Date(subtitle).toLocaleDateString() : 'Draft', media,
-    }),
+    prepare(selection: any) {
+      const { title, subtitle, media } = selection;
+      return {
+        title: title || 'Untitled Post',
+        subtitle: subtitle ? new Date(subtitle).toLocaleDateString() : 'Draft',
+        media,
+      };
+    },
   },
 });

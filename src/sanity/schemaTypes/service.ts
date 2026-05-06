@@ -22,7 +22,6 @@ export const service = defineType({
       options: { source: 'title.en', maxLength: 96 },
       validation: (R) => R.required(),
     }),
-
     defineField({
       name: 'shortDescription', title: 'Short Description (listing card)', type: 'localeText',
       group: 'core',
@@ -75,28 +74,18 @@ export const service = defineType({
           defineField({ name: 'title', title: 'Section Title', type: 'localeString' }),
           defineField({ name: 'body', title: 'Section Body', type: 'localeText' }),
         ],
-        preview: { select: { title: 'title.en', subtitle: 'body.en' } },
-      }],
-    }),
-    defineField({
-      name: 'industriesEngaged', title: 'Industries / Engagement Contexts', type: 'array',
-      group: 'approach',
-      description: 'Table rows: "Organizations engage us in moments such as these"',
-      of: [{
-        type: 'object',
-        fields: [
-          defineField({ name: 'label', title: 'Industry / Context Label', type: 'localeString' }),
-          defineField({ name: 'description', title: 'Description', type: 'localeString' }),
-        ],
-        preview: { select: { title: 'label.en', subtitle: 'description.en' } },
+        preview: {
+          select: { title: 'title.en' },
+          prepare(selection: any) {
+            return { title: selection.title || 'Untitled Section' };
+          },
+        },
       }],
     }),
 
     // ── Closing ───────────────────────────────────────────────────────────────
-    defineField({
-      name: 'closingText', title: 'Closing Statement', type: 'localeText',
-      group: 'closing',
-    }),
+    defineField({ name: 'closingTitle', title: 'Closing Title', type: 'localeString', group: 'closing' }),
+    defineField({ name: 'closingBody', title: 'Closing Body', type: 'localeText', group: 'closing' }),
 
     // ── SEO ───────────────────────────────────────────────────────────────────
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'localeString', group: 'seo' }),
@@ -104,7 +93,14 @@ export const service = defineType({
   ],
   orderings: [{ name: 'orderAsc', title: 'Order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {
-    select: { title: 'title', subtitle: 'slug.current', media: 'image' },
-    prepare: ({ title, subtitle, media }) => ({ title, subtitle: `/${subtitle}`, media }),
+    select: { title: 'title.en', subtitle: 'slug.current', media: 'image' },
+    prepare(selection: any) {
+      const { title, subtitle, media } = selection;
+      return {
+        title: title || 'Untitled Service',
+        subtitle: subtitle ? `/${subtitle}` : '',
+        media,
+      };
+    },
   },
 });

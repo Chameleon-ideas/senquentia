@@ -35,5 +35,9 @@ export const servicesPage = defineType({
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'localeString', group: 'seo' }),
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
-  preview: { prepare: () => ({ title: 'Services Page' }) },
+  preview: {
+    prepare() {
+      return { title: 'Services Page' };
+    },
+  },
 });
