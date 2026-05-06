@@ -2,6 +2,7 @@
 import { getBlogPostBySlug, getBlogSlugs } from '@/utils/sanity';
 import JournalDetailPage from '../../components/pages/JournalDetailPage.astro';
 
+// Dynamic Journal Detail Route
 export async function getStaticPaths() {
   const slugs = await getBlogSlugs();
   return (slugs ?? []).map((s: { slug: string }) => ({ params: { slug: s.slug } }));

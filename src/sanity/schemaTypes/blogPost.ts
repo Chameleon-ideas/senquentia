@@ -17,7 +17,29 @@ export const blogPost = defineType({
     defineField({ name: 'featuredImage', title: 'Featured Image', type: 'image',
       options: { hotspot: true },
     }),
-    defineField({ name: 'body', title: 'Body', type: 'localeBlock' }),
+    defineField({ name: 'body', title: 'Body', type: 'localeBlock', description: 'Standard body text (optional if using structured fields below)' }),
+    
+    // Structured Editorial Layout
+    defineField({
+      name: 'editorialIntro',
+      title: 'Editorial Intro (Two Columns)',
+      type: 'object',
+      fields: [
+        defineField({ name: 'col1', title: 'Column 1', type: 'localeBlock' }),
+        defineField({ name: 'col2', title: 'Column 2', type: 'localeBlock' }),
+      ],
+    }),
+    defineField({ name: 'quoteText', title: 'Pull Quote', type: 'localeString' }),
+    defineField({
+      name: 'staggeredSection',
+      title: 'Staggered Section',
+      type: 'object',
+      fields: [
+        defineField({ name: 'topText', title: 'Top Text', type: 'localeString' }),
+        defineField({ name: 'bottomText', title: 'Bottom Text', type: 'localeString' }),
+      ],
+    }),
+
     defineField({ name: 'category', title: 'Category', type: 'string' }),
     defineField({ name: 'tags', title: 'Tags', type: 'array', of: [{ type: 'string' }],
       options: { layout: 'tags' },

@@ -110,11 +110,66 @@ const email = page?.email ?? "info@senquentia.com";
 
           <!-- Footer row moved outside the grid to allow more width -->
           <div class="contact-footer-right">
-            <button type="submit" id="send-btn" form="connect-form"
-            class="contact-submit-btn"
+            <button
+              type="submit"
+              id="send-btn"
+              form="connect-form"
+              class="contact-submit-btn"
+            >
+              {lang === "fr" ? "Envoyer" : "Send"}
+            </button>
+
+            <div class="contact-footer-text">
+              <p class="contact-disclaimer">
+                {
+                  t(page?.disclaimer, lang) ||
+                    (lang === "fr"
+                      ? "Nous traitons toutes les demandes avec discrétion et confidentialité."
+                      : "We treat all inquiries with discretion and confidentiality.")
+                }
+              </p>
+              <a href={`mailto:${email}`} class="contact-email-link-footer"
+                >{email}</a
+              >
+            </div>
           </div>
         </main>
       </div>
     </div>
-  </div></Layout
->
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById(
+    "connect-form",
+  ) as HTMLFormElement | null;
+  const btn = document.getElementById("send-btn") as HTMLButtonElement | null;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!btn) return;
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = "Sending…";
+
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error();
+      btn.textContent = "Sent ✓";
+      form.reset();
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }, 3000);
+    } catch {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      alert("Something went wrong. Please try again or email us directly.");
+    }
+  });
+</script>

@@ -3,29 +3,29 @@ import Layout from "../../layouts/Layout.astro";
 import { urlFor } from "@/utils/sanity";
 import { PortableText } from "astro-portabletext";
 import { t } from "@/utils/i18n";
+import "../../styles/journal.css";
 
 interface Props {
   post: any;
-  lang: 'en' | 'fr';
+  lang: "en" | "fr";
 }
 const { post, lang } = Astro.props;
 
 if (!post) {
-  return Astro.redirect(`${lang === 'fr' ? '/fr' : ''}/journal`);
+  return Astro.redirect(`${lang === "fr" ? "/fr" : ""}/journal`);
 }
 
 const title = t(post.title, lang);
-const publishedDate = post.publishedAt
-  ? new Date(post.publishedAt).toLocaleDateString(
-      lang === "fr" ? "fr-FR" : "en-CA",
-      { year: "numeric", month: "long", day: "numeric" }
-    )
-  : null;
+const quoteText = t(post.quoteText, lang);
+const staggeredTop = t(post.staggeredSection?.topText, lang);
+const staggeredBottom = t(post.staggeredSection?.bottomText, lang);
+
+const col1 =
+  post.editorialIntro?.col1?.[lang] || post.editorialIntro?.col1?.en || [];
+const col2 =
+  post.editorialIntro?.col2?.[lang] || post.editorialIntro?.col2?.en || [];
 
 const bodyContent = post.body?.[lang] || post.body?.en || [];
-const midpoint = Math.ceil(bodyContent.length / 2);
-const col1 = bodyContent.slice(0, midpoint);
-const col2 = bodyContent.slice(midpoint);
 ---
 
 <Layout
@@ -36,55 +36,86 @@ const col2 = bodyContent.slice(midpoint);
     : undefined}
   lang={lang}
 >
-  <div class="journal-inner">
-    <div class="container">
-      <!-- Header -->
-      <div class="journal-inner-header">
-        {(post.category || publishedDate) && (
-          <div class="journal-inner-meta">
-            {post.category && <span>{post.category}</span>}
-            {post.category && publishedDate && <span> · </span>}
-            {publishedDate && <span>{publishedDate}</span>}
-          </div>
-        )}
-        <h1 class="journal-inner-title">{title}</h1>
-      </div>
+  <div class="article-detail-page" style="padding: 0rem 2rem;">
+    <!-- Header -->
+    <header class="article-detail-header">
+      <h1 class="article-detail-title" style="font-weight: 500;">
+        {title}
+      </h1>
+    </header>
 
-      <!-- Two-column body -->
-      {
-        col1.length > 0 && (
-          <div class="journal-inner-body">
-            <div class="journal-inner-prose">
-              <PortableText value={col1} />
+    <!-- Editorial Layout Sections -->
+    {
+      col1.length > 0 && (
+        <section class="article-detail-intro-grid">
+          <div class="article-detail-text-col">
+            <PortableText value={col1} />
+          </div>
+
+          <div class="article-vertical-divider" />
+
+          <div class="article-detail-text-col">
+            <PortableText value={col2} />
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Fallback for standard body if intro is missing -->
+    {
+      col1.length === 0 && bodyContent.length > 0 && (
+        <section
+          class="article-detail-intro-grid"
+          style="grid-template-columns: 1fr;"
+        >
+          <div
+            class="article-detail-text-col"
+            style="max-width: 900px; margin-inline: auto;"
+          >
+            <PortableText value={bodyContent} />
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Quote Section -->
+    {
+      quoteText && (
+        <section class="article-detail-quote-section">
+          <p class="article-detail-quote">{quoteText}</p>
+        </section>
+      )
+    }
+
+    <!-- Featured Image -->
+    {
+      post.featuredImage && (
+        <section class="article-detail-image-section">
+          <img src={urlFor(post.featuredImage).width(1920).url()} alt={title} />
+        </section>
+      )
+    }
+
+    <!-- Staggered Section -->
+    {
+      staggeredTop && (
+        <section class="article-detail-staggered">
+          <div class="staggered-top">
+            <div class="article-detail-text-col" style="padding:0;">
+              <span>{staggeredTop}</span>
             </div>
-            {col2.length > 0 && (
-              <div class="journal-inner-prose">
-                <PortableText value={col2} />
-              </div>
-            )}
           </div>
-        )
-      }
 
-      <!-- Featured image -->
-      {
-        post.featuredImage && (
-          <div class="journal-inner-img">
-            <img
-              src={urlFor(post.featuredImage).width(1400).url()}
-              alt={title}
-              loading="lazy"
-            />
+          <div class="staggered-red-line" />
+
+          <div class="staggered-bottom">
+            <div class="article-detail-text-col" style="padding:0;">
+              <span>{staggeredBottom}</span>
+            </div>
           </div>
-        )
-      }
+        </section>
+      )
+    }
 
-      <!-- Back link -->
-      <div class="journal-back">
-        <a href={`${lang === 'fr' ? '/fr' : ''}/journal`}>
-          {lang === "fr" ? "← Retour au Journal" : "← Back to Journal"}
-        </a>
-      </div>
-    </div>
   </div>
 </Layout>

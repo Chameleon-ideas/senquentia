@@ -12,7 +12,7 @@ export default defineConfig({
       projectId: 'egq490jl',
       dataset: 'production',
       apiVersion: '2024-01-01',
-      useCdn: true,
+      useCdn: false,
       studioBasePath: '/studio',
       stega: {
         enabled: false,
@@ -45,3 +45,4 @@ export default defineConfig({
     },
   },
 });
+// Restart trigger

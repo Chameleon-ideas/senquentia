@@ -149,6 +149,15 @@ export async function getBlogPostBySlug(slug: string) {
     _id, title, slug, excerpt,
     featuredImage ${imageFields},
     body { en[], fr[] },
+    editorialIntro { 
+      col1 { en[], fr[] }, 
+      col2 { en[], fr[] } 
+    },
+    quoteText,
+    staggeredSection {
+      topText,
+      bottomText
+    },
     category, publishedAt,
     author->{ name, photo ${imageFields} },
     seoTitle, seoDescription
