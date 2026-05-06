@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity';
+import { defineField } from 'sanity';
 
-export const footer = defineType({
+export default {
   name: 'footer',
   title: 'Footer',
   type: 'document',
@@ -14,4 +14,4 @@ export const footer = defineType({
     defineField({ name: 'copyrightText', title: 'Copyright Text', type: 'localeString', description: 'e.g. © 2026 Senquentia. All rights reserved.' }),
   ],
   preview: { select: { title: 'companyName.en' } },
-});
+};

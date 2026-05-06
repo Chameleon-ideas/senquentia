@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity';
+import { defineField } from 'sanity';
 
-export const blogPost = defineType({
+export default {
   name: 'blogPost',
   title: 'Journal Post',
   type: 'document',
@@ -12,7 +12,7 @@ export const blogPost = defineType({
     defineField({ name: 'innerImage', title: 'Hero Image (Inner Page)', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', title: 'Alt text', type: 'localeString' })] }),
     defineField({ name: 'publishedAt', title: 'Published at', type: 'datetime' }),
     defineField({ name: 'category', title: 'Category', type: 'string', options: { list: [{ title: 'Strategy', value: 'Strategy' }, { title: 'Transformation', value: 'Transformation' }, { title: 'Leadership', value: 'Leadership' }] } }),
-    defineField({ name: 'author', title: 'Author', type: 'reference', to: { type: 'teamMember' } }),
+    defineField({ name: 'author', title: 'Author', type: 'reference', to: [{ type: 'teamMember' }] }),
     defineField({
       name: 'editorialIntro',
       title: 'Editorial Intro (Asymmetrical Rows)',
@@ -37,4 +37,4 @@ export const blogPost = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2 }),
   ],
   preview: { select: { title: 'title.en', subtitle: 'publishedAt', media: 'featuredImage' } },
-});
+};

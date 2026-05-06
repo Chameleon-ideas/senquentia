@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity';
+import { defineField } from 'sanity';
 
-export const teamMember = defineType({
+export default {
   name: 'teamMember',
   title: 'Team Member',
   type: 'document',
@@ -14,4 +14,4 @@ export const teamMember = defineType({
   preview: {
     select: { title: 'name', subtitle: 'role.en', media: 'photo' },
   },
-});
+};

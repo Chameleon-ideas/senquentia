@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity';
+import { defineField } from 'sanity';
 
-export const servicesPage = defineType({
+export default {
   name: 'servicesPage',
   title: 'Services Page',
   type: 'document',
@@ -25,4 +25,4 @@ export const servicesPage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
   preview: { select: { title: 'heroHeadline.en' } },
-});
+};

@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity';
+import { defineField } from 'sanity';
 
-export const service = defineType({
+export default {
   name: 'service',
   title: 'Service',
   type: 'document',
@@ -88,4 +88,4 @@ export const service = defineType({
   ],
   orderings: [{ name: 'orderAsc', title: 'Order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: { select: { title: 'title.en', subtitle: 'slug.current', media: 'image' } },
-});
+};
