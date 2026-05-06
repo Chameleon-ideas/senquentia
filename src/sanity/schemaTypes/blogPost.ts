@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
   name: 'blogPost',
   title: 'Journal Post',
   type: 'document',
@@ -37,4 +37,4 @@ export default {
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2 }),
   ],
   preview: { select: { title: 'title.en', subtitle: 'publishedAt', media: 'featuredImage' } },
-};
+});

@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
@@ -34,4 +34,4 @@ export default {
   preview: {
     select: { title: 'siteName' },
   },
-};
+});

@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
   name: 'faqItem',
   title: 'FAQ Item',
   type: 'document',
@@ -18,4 +18,4 @@ export default {
   ],
   orderings: [{ name: 'orderAsc', title: 'Order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: { select: { title: 'question.en' } },
-};
+});

@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
   name: 'service',
   title: 'Service',
   type: 'document',
@@ -88,4 +88,4 @@ export default {
   ],
   orderings: [{ name: 'orderAsc', title: 'Order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: { select: { title: 'title.en', subtitle: 'slug.current', media: 'image' } },
-};
+});

@@ -1,4 +1,6 @@
-import { localeString, localeText, localeBlock } from './localeString';
+import localeString from './localeString';
+import localeText from './localeText';
+import localeBlock from './localeBlock';
 import siteSettings from './siteSettings';
 import homePage from './homePage';
 import aboutPage from './aboutPage';

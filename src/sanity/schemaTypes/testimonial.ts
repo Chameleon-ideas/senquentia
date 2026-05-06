@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
   name: 'testimonial',
   title: 'Testimonial',
   type: 'document',
@@ -24,4 +24,4 @@ export default {
   preview: {
     select: { title: 'author', subtitle: 'role', media: 'photo' },
   },
-};
+});

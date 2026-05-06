@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
   name: 'homePage',
   title: 'Home Page',
   type: 'document',
@@ -72,4 +72,4 @@ export default {
     defineField({ name: 'ogImage', title: 'OG / Share Image', type: 'image', group: 'seo' }),
   ],
   preview: { select: { title: 'introHeadline.en' } },
-};
+});

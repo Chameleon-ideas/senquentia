@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
   name: 'contactPage',
   title: 'Contact Page',
   type: 'document',
@@ -18,4 +18,4 @@ export default {
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
   preview: { select: { title: 'leadText.en' } },
-};
+});

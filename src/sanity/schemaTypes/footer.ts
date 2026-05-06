@@ -1,6 +1,6 @@
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
   name: 'footer',
   title: 'Footer',
   type: 'document',
@@ -14,4 +14,4 @@ export default {
     defineField({ name: 'copyrightText', title: 'Copyright Text', type: 'localeString', description: 'e.g. © 2026 Senquentia. All rights reserved.' }),
   ],
   preview: { select: { title: 'companyName.en' } },
-};
+});
