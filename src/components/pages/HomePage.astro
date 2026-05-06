@@ -21,46 +21,47 @@ const ctaBgStyle = page?.ctaBgImage
 
 const stats = page?.stats ?? [
   {
-    number: "500M+",
-    label: {
-      en: "Program budget oversight",
-      fr: "Surveillance du budget du programme",
-    },
-  },
-  {
     number: "25+",
     label: {
       en: "ERP Transformation Programs",
-      fr: "Programmes de transformation ERP",
+      fr: "programmes de transformation PGI",
     },
   },
   {
     number: "30+",
     label: {
       en: "HCM Transformation Programs",
-      fr: "Programmes de transformation HCM",
+      fr: "programmes de transformation GCM",
+    },
+  },
+  {
+    number: "500M+",
+    label: {
+      en: "Program budget oversight",
+      fr: "Gestion budgétaire de programme de 500 M",
     },
   },
   {
     number: "10+",
-    label: { en: "Mergers & Acquisitions", fr: "Fusions et acquisitions" },
+    label: { en: "Mergers & Acquisitions", fr: "fusions et acquisitions" },
   },
 ];
 
 const industries =
   lang === "fr"
     ? [
-        "Sociétés d'État et entités du secteur public",
-        "Services bancaires et financiers",
+        "Big Four",
+        "Sociétés d'État et organisations du secteur public",
+        "Banque et services financiers",
         "Énergie et services publics",
         "Assurance",
         "Aviation et aérospatiale",
         "Transport et logistique",
-        "Services de construction et d'ingénierie",
-        "Pâte, papier et foresterie",
+        "Construction et services d'ingénierie",
+        "Pâtes, papiers et produits forestiers",
         "Mines et ressources naturelles",
         "Commerce de détail et biens de consommation",
-        "Fabrication d'aliments et de boissons",
+        "Fabrication alimentaire et boissons",
         "Enseignement supérieur et institutions académiques",
       ]
     : [
@@ -95,7 +96,7 @@ const displayServices = services?.length
         {
           title: {
             en: "Leadership Development & Executive Coaching",
-            fr: "Développement du leadership et coaching de dirigeants",
+            fr: "Développement du leadership et accompagnement des dirigeants",
           },
           slug: { current: "leadership-development-executive-coaching" },
         },
@@ -158,17 +159,13 @@ const displayServices = services?.length
               ) : lang === "fr" ? (
                 <>
                   <p>
-                    Grâce à nos services de conseil en stratégie et en gestion,
-                    les organisations naviguent dans la complexité et stimulent
-                    des changements significatifs — soutenus par une perspective
-                    stratégique et une approche pragmatique et concrète.
+                    Grâce à nos services de conseil stratégique et en gestion, les organisations naviguent dans la complexité et mènent des transformations porteuses de sens, grâce à une approche pragmatique et résolument orientée vers l'action.
                   </p>
                   <p>
-                    Notre travail est fondé sur la confiance et façonné par le
-                    contexte unique de chaque organisation.
+                    Notre travail repose sur une relation de confiance et s'adapte au contexte unique de chaque organisation.
                   </p>
                   <p>
-                    Nous nous concentrons sur la production d'un impact durable.
+                    Notre ambition : générer un impact durable.
                   </p>
                 </>
               ) : (
@@ -288,7 +285,7 @@ const displayServices = services?.length
           <a href={`${lang === 'fr' ? '/fr' : ''}/contact`} class="home-cta-link">
             {
               t(page?.ctaLinkLabel, lang) ||
-                (lang === "fr" ? "Connecter." : "Connect.")
+                (lang === "fr" ? "Échanger." : "Connect.")
             }
           </a>
         </div>

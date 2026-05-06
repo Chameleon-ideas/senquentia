@@ -47,7 +47,7 @@ const email = page?.email ?? "info@senquentia.com";
                     : "Our work begins in conversation.")
               }
             </p>
-            <p>{lang === "fr" ? "Connecter." : "Connect."}</p>
+            <p>{lang === "fr" ? "Échanger." : "Connect."}</p>
           </div>
 
           <!-- Red Line -->
@@ -78,7 +78,7 @@ const email = page?.email ?? "info@senquentia.com";
               <input
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder={lang === "fr" ? "Courriel" : "Email"}
                 class="contact-field"
                 required
               />
@@ -124,7 +124,7 @@ const email = page?.email ?? "info@senquentia.com";
                 {
                   t(page?.disclaimer, lang) ||
                     (lang === "fr"
-                      ? "Nous traitons toutes les demandes avec discrétion et confidentialité."
+                      ? "Toutes les demandes sont traitées avec discrétion et confidentialité."
                       : "We treat all inquiries with discretion and confidentiality.")
                 }
               </p>

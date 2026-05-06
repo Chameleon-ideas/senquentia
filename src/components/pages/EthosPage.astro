@@ -24,28 +24,28 @@ const values = page?.values ?? [
     name: lang === "fr" ? "Confiance" : "Trust",
     body:
       lang === "fr"
-        ? "Construite sur la cohérence, l'intégrité et la transparence."
+        ? "Fondée sur la constance, l'intégrité et la transparence."
         : "Built through consistency, integrity, and transparency.",
-  },
-  {
-    name: lang === "fr" ? "Croissance" : "Growth",
-    body:
-      lang === "fr"
-        ? "Axée sur le renforcement des capacités et la libération du potentiel."
-        : "Focused on strengthening capabilities and unlocking potential.",
   },
   {
     name: lang === "fr" ? "Excellence" : "Excellence",
     body:
       lang === "fr"
-        ? "Guidée par la perspicacité, l'expertise et une exécution disciplinée."
+        ? "Portée par la rigueur, l'expertise et la discipline d'exécution."
         : "Driven by insight, expertise, and disciplined execution.",
+  },
+  {
+    name: lang === "fr" ? "Croissance" : "Growth",
+    body:
+      lang === "fr"
+        ? "Axée sur le développement des capacités et le plein déploiement du potentiel."
+        : "Focused on strengthening capabilities and unlocking potential.",
   },
   {
     name: lang === "fr" ? "Partenariat" : "Partnership",
     body:
       lang === "fr"
-        ? "Défini par un engagement partagé vers des résultats significatifs et durables."
+        ? "Ancré dans un engagement commun à générer des résultats durables et significatifs."
         : "Defined by shared commitment to meaningful, lasting outcomes.",
   },
 ];
@@ -53,9 +53,9 @@ const values = page?.values ?? [
 
 <Layout
   title={t(page?.seoTitle, lang) ||
-    (lang === "fr" ? "Ethos | Senquentia" : "Ethos | Senquentia")}
+    (lang === "fr" ? "Éthos | Senquentia" : "Ethos | Senquentia")}
   description={t(page?.seoDescription, lang) ||
-    "The principles and perspectives that shape our work."}
+    (lang === "fr" ? "Les principes et les perspectives qui façonnent notre travail." : "The principles and perspectives that shape our work.")}
   lang={lang}
 >
   <div class="ethos-page-wrapper">
@@ -66,7 +66,7 @@ const values = page?.values ?? [
       </div>
       <div class="ethos-hero-label" style="font-weight: 400;">
         <h2>
-          {t(page?.heroLabel, lang) || (lang === "fr" ? "ETHOS." : "ETHOS.")}
+          {t(page?.heroLabel, lang) || (lang === "fr" ? "ÉTHOS." : "ETHOS.")}
         </h2>
         <div class="ethos-hero-bar"></div>
       </div>
@@ -81,7 +81,7 @@ const values = page?.values ?? [
             style="font-weight: 400;"
             set:html={t(page?.principlesHeadline, lang) ||
               (lang === "fr"
-                ? "LES PRINCIPES ET <br /> PERSPECTIVES <br /> QUI FAÇONNENT NOTRE TRAVAIL."
+                ? "Les principes et les <br /> perspectives <br /> qui façonnent notre travail."
                 : "THE PRINCIPLES AND <br /> PERSPECTIVES <br /> THAT SHAPE OUR WORK.")}
           />
         </div>
@@ -95,7 +95,7 @@ const values = page?.values ?? [
               {
                 t(page?.etymologyDesc, lang) ||
                   (lang === "fr"
-                    ? "Retracer les racines de notre philosophie, de nos valeurs et de notre but en tant que cabinet."
+                    ? "À l'origine de notre philosophie, de nos valeurs et de notre raison d'être."
                     : "Tracing the roots of our philosophy, values, and purpose as a firm.")
               }
             </p>
@@ -104,23 +104,23 @@ const values = page?.values ?? [
               <div class="etymology-item">
                 <span class="etymology-tag"
                   >{
-                    lang === "fr" ? "une façon de penser" : "a way of thinking"
+                    lang === "fr" ? "une manière de pensée" : "a way of thinking"
                   }</span
                 >
                 <div class="etymology-word-line">
-                  <span style="font-weight: 600;">sen</span>tentia <span
-                    class="etymology-word-line-span">[sɛn'tɛn.ti.a] :</span
+                  <span style="font-weight: 600;">Sen</span>tentia <span
+                    class="etymology-word-line-span">[sɛnˈtɛn.ti.a] :</span
                   >
                 </div>
               </div>
               <div class="etymology-item align-start">
                 <div class="etymology-word-line">
-                  <span>: [eː.ɫɔˈkʷɛn.ti.a]</span> elo<strong>quentia</strong>
+                  <span>[eː.ɫɔˈkʷɛn.ti.a] elo<strong>quentia</strong></span>
                 </div>
                 <span class="etymology-meaning"
                   >{
                     lang === "fr"
-                      ? "l'art de la fluidité"
+                      ? "l'art de l'expression : Eloquentia"
                       : "the art of fluency"
                   }</span
                 >
@@ -141,15 +141,11 @@ const values = page?.values ?? [
                 ) : lang === "fr" ? (
                   <>
                     <p>
-                      Chez Senquentia, nous remettons en question la pensée
-                      conventionnelle et apportons de la clarté dans les
-                      environnements complexes.
+                      Chez Senquentia, nous remettons en question les idées reçues et apportons de la clarté dans des environnements complexes.
                     </p>
                     <br />
                     <p>
-                      Nous combinons vision stratégique et exécution pratique
-                      pour aider les dirigeants à prendre des décisions
-                      éclairées et à mener des changements significatifs.
+                      Nous conjuguons perspective stratégique et mise en œuvre concrète afin d'aider les dirigeants à prendre des décisions éclairées et à mener des transformations porteuses de sens.
                     </p>
                   </>
                 ) : (
@@ -174,7 +170,7 @@ const values = page?.values ?? [
                 {
                   t(page?.philosophyQuote, lang) ||
                     (lang === "fr"
-                      ? "L'expérience apporte de la perspective, mais c'est l'intégrité qui gagne la confiance."
+                      ? "L'expérience apporte la perspective, mais c'est l'intégrité qui inspire la confiance."
                       : "Experience brings perspective, but integrity is what earns trust.")
                 }
               </h3>
@@ -195,7 +191,7 @@ const values = page?.values ?? [
             {
               t(page?.valuesDesc, lang) ||
                 (lang === "fr"
-                  ? "Nos valeurs ont façonné chaque étape de notre parcours et continuent de définir notre perspective."
+                  ? "Nos valeurs ont guidé chaque étape de notre parcours et continuent de façonner notre perspective et notre approche."
                   : "Our values have shaped every step of our journey and continue to define our perspective.")
             }
           </p>
@@ -233,8 +229,8 @@ const values = page?.values ?? [
               {
                 t(page?.founderTitle, lang) ||
                   (lang === "fr"
-                    ? "Veronica Eleonora Palumbo est une conseillère de direction qui maîtrise parfaitement la stratégie et la mise en œuvre."
-                    : "Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery.")
+                  ? "Veronica Eleonora Palumbo est une conseillère auprès des dirigeants, alliant réflexion stratégique et mise en œuvre."
+                  : "Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery.")
               }
             </h3>
 
@@ -247,23 +243,10 @@ const values = page?.values ?? [
                 ) : lang === "fr" ? (
                   <>
                     <p>
-                      Avec 20 ans d'expérience dans la direction de programmes
-                      ERP et une expertise dans les solutions de gestion du
-                      capital humain, elle est une voix de confiance dans la
-                      transformation numérique et organisationnelle, apportant
-                      des perspectives fraîches pour définir les initiatives
-                      commerciales. Elle a dirigé plusieurs mandats
-                      multinationaux et encadré des équipes de prestation
-                      mondiales, perfectionnant son expertise dans les mises en
-                      œuvre à grande échelle.
+                      Forte de 20 années d'expérience dans la direction de programmes ERP et d'une expertise en solutions de gestion du capital humain, elle est une voix reconnue en transformation numérique et organisationnelle, apportant des perspectives nouvelles à la définition d'initiatives stratégiques. Elle a dirigé plusieurs mandats multinationaux et piloté des équipes de livraison à l'échelle mondiale, développant une expertise approfondie des déploiements à grande échelle.
                     </p>
                     <p>
-                      En tant que conseillère stratégique, Veronica s'est
-                      associée à des équipes de direction pour naviguer dans des
-                      initiatives commerciales critiques, des fusions et
-                      acquisitions et des changements de culture, mettant à
-                      profit ses compétences en développement organisationnel,
-                      en planification de la relève et en gestion du changement.
+                      À titre de conseillère stratégique, Veronica accompagne les équipes de direction dans leurs initiatives critiques, les fusions et acquisitions, ainsi que les transformations culturelles, en s'appuyant sur son expertise en développement organisationnel, planification de la relève et gestion du changement.
                     </p>
                   </>
                 ) : (

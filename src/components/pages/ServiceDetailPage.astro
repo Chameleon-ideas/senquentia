@@ -13,9 +13,123 @@ if (!service) {
   return Astro.redirect("/404");
 }
 
+const slug = service?.slug?.current || "";
+
+const FALLBACKS: any = {
+  "digital-organizational-transformation": {
+    title: { en: "Digital & Organizational Transformation", fr: "Transformation numérique et organisationnelle" },
+    perspectiveLead1: {
+      en: "Successful transformation requires both strategic clarity and disciplined execution.",
+      fr: "La réussite d'une transformation repose à la fois sur une clarté stratégique et une exécution disciplinée."
+    },
+    perspectiveLead2: {
+      en: "We work alongside leadership teams to structure transformation initiatives, guide program delivery, and ensure organizations remain aligned.",
+      fr: "Nous travaillons aux côtés des équipes de direction pour structurer les initiatives de transformation, orienter la mise en œuvre des programmes et veiller à ce que les organisations restent alignées tout au long du changement."
+    },
+    perspectiveRight: {
+      fr: [
+        "Les organisations qui abordent la transformation comme une initiative purement technologique sous-estiment souvent l'importance du leadership, la gouvernance et l'alignement organisationnel nécessaires à la pérennité du changement — un défi qui s'accentue à mesure qu'elles intègrent des capacités fondées sur l'intelligence artificielle.",
+        "L'intelligence artificielle offre des opportunités significatives pour améliorer la prise de décision, optimiser les opérations et créer de nouvelles sources de valeur. En réaliser pleinement le potentiel exige toutefois bien plus que l'adoption de nouveaux outils ; cela requiert un alignement entre les priorités d'affaires, les données, la gouvernance et la maturité organisationnelle.",
+        "Nous accompagnons les équipes de direction dans la définition de leurs initiatives de transformation numérique, l'évaluation des opportunités, la mise en place d'une gouvernance adaptée et l'intégration de capacités numériques de manière pragmatique, responsable et alignée sur les objectifs stratégiques.",
+        "Notre objectif est d'aider les organisations à dépasser la phase d'expérimentation pour évoluer vers une adoption réfléchie et à grande échelle."
+      ]
+    },
+    quote: {
+      en: "Process, technology, and culture alignment lead to meaningful and lasting change.",
+      fr: "Les processus, la technologie et la culture sont les leviers d'un changement durable et porteur de sens."
+    },
+    alignmentDesc: {
+      en: "We partner with leadership teams to guide complex transformations and provide experienced leadership throughout critical program phases.",
+      fr: "Forts d'une expertise en solutions ERP et en gestion du capital humain, ainsi que d'une expérience dans l'adoption de technologies émergentes, dont l'intelligence artificielle, nous accompagnons les équipes de direction dans la conduite de transformations complexes et assurons un leadership expérimenté aux moments clés des programmes."
+    },
+    closingHeading: { en: "LASTING IMPACT", fr: "UN IMPACT DURABLE" },
+    closingText: {
+      en: "Our role is to bring clarity, structure, and experienced leadership to these initiatives.",
+      fr: "Mener des transformations complexes."
+    },
+    closingCTA: {
+      en: "Connect.",
+      fr: "Échanger."
+    }
+  },
+  "strategic-advisory": {
+    title: { en: "Strategic Advisory", fr: "Conseil stratégique" },
+    perspectiveLead1: {
+      en: "Strategic decisions rarely fail due to a lack of ideas.",
+      fr: "Les décisions stratégiques échouent rarement par manque d'idées."
+    },
+    perspectiveLead2: {
+      en: "They fail when organizations struggle to align leadership, culture, and execution behind a clear direction.",
+      fr: "Elles échouent lorsque les organisations peinent à aligner le leadership, la culture et l'exécution autour d'une direction claire."
+    },
+    perspectiveRight: {
+      fr: [
+        "Un conseil efficace apporte de la clarté dans des situations complexes, en aidant les équipes de direction à évaluer leurs options, apprécier la maturité organisationnelle et avancer avec confiance.",
+        "Cela inclut de plus en plus l'accompagnement des dirigeants dans la compréhension des implications des technologies émergentes, telles que l'intelligence artificielle, sur la stratégie, les modèles opérationnels et la préparation organisationnelle."
+      ]
+    },
+    quote: {
+      en: "Leadership alignment and strategic clarity shape the decisions that drive an organization.",
+      fr: "L'alignement du leadership et la clarté stratégique façonnent les décisions qui orientent une organisation."
+    },
+    alignmentDesc: {
+      en: "We work with leadership teams to evaluate organizational effectiveness, inform complex decisions, and guide initiatives that structure the future.",
+      fr: "Nous travaillons avec les équipes de direction pour évaluer l'efficacité organisationnelle, éclairer des décisions complexes et orienter des initiatives qui structurent l'avenir."
+    },
+    alignmentOrphan: {
+       fr: "Notre rôle est d'apporter un regard indépendant, fondé sur l'expérience, une analyse structurée et un accompagnement adapté, alors que les dirigeants naviguent le changement, la croissance et la transformation."
+    },
+    closingHeading: { en: "STRATEGIC CLARITY", fr: "CLARTÉ STRATÉGIQUE" },
+    closingText: {
+      en: "Our role is to provide independent, structured thinking and practical experience to the decisions that shape an organization's future.",
+      fr: "Diriger dans des contextes de complexité et de transition."
+    },
+    closingCTA: {
+      en: "Connect.",
+      fr: "Échanger."
+    }
+  },
+  "leadership-development-executive-coaching": {
+    title: { en: "Leadership Development & Executive Coaching", fr: "Développement du leadership et accompagnement des dirigeants" },
+    perspectiveLead1: {
+      en: "Leadership effectiveness dictates an organization's ability to navigate change and sustain performance.",
+      fr: "L'efficacité du leadership conditionne la capacité d'une organisation à naviguer le changement et à maintenir sa performance."
+    },
+    perspectiveLead2: {
+      en: "We work with experienced leaders to strengthen leadership capabilities and provide confidential advisory as they guide their organizations through complex environments.",
+      fr: "Nous travaillons avec des dirigeants expérimentés afin de renforcer leurs capacités de leadership et de leur offrir un accompagnement confidentiel, alors qu'ils guident leurs organisations dans des environnements complexes."
+    },
+    perspectiveRight: {
+      fr: [
+        "En complément de notre travail auprès des organisations, nous accompagnons des dirigeants à titre individuel, en leur offrant un espace confidentiel pour prendre du recul, naviguer la complexité et renforcer leur approche du leadership.",
+        "Ces accompagnements sont adaptés au contexte propre à chaque dirigeant et portent souvent sur des périodes de transition, de prise de responsabilités accrues ou de dynamiques organisationnelles complexes.",
+        "Notre travail repose sur la discrétion, la confiance et un dialogue réfléchi, offrant aux dirigeants l'espace et la perspective nécessaires pour assumer leurs responsabilités avec clarté et assurance."
+      ]
+    },
+    quote: {
+      en: "Our approach is reflective, discreet, and tailored to the needs of each leader and organization.",
+      fr: "Notre approche est réfléchie, discrète et adaptée aux besoins de chaque dirigeant et de chaque organisation."
+    },
+    closingHeading: { en: "LEADERSHIP", fr: "LE LEADERSHIP" },
+    closingText: {
+      en: "Leading through complexity and transition.",
+      fr: "Diriger dans des contextes de complexité et de transition."
+    },
+    closingCTA: {
+      en: "Connect.",
+      fr: "Échanger."
+    }
+  }
+};
+
+const currentFallback = FALLBACKS[slug] || {};
+
 const heroBgUrl = service?.heroBgImage
   ? urlFor(service.heroBgImage).width(1920).url()
   : "/images/serviceherobg.png";
+
+// Helper for multi-line French paragraphs
+const frPerspective = currentFallback.perspectiveRight?.fr || [];
 ---
 
 <Layout
@@ -55,65 +169,34 @@ const heroBgUrl = service?.heroBgImage
               {
                 t(service?.perspectiveText, lang) ||
                   (lang === "fr"
-                    ? "Une transformation réussie exige à la fois une clarté stratégique et une exécution disciplinée."
-                    : "Successful transformation requires both strategic clarity and disciplined execution.")
+                    ? currentFallback.perspectiveLead1?.fr
+                    : currentFallback.perspectiveLead1?.en) || (lang === "fr" ? "Perspective..." : "Perspective...")
               }
             </p>
             <p class="svc-perspective-lead2">
               {
                 t(service?.perspectiveText2, lang) ||
                   (lang === "fr"
-                    ? "Nous travaillons aux côtés des équipes de direction pour structurer les initiatives de transformation, guider la mise en œuvre des programmes et veiller à ce que les organisations restent alignées."
-                    : "We work alongside leadership teams to structure transformation initiatives, guide program delivery, and ensure organizations remain aligned.")
+                    ? currentFallback.perspectiveLead2?.fr
+                    : currentFallback.perspectiveLead2?.en)
               }
             </p>
           </div>
           <div class="svc-perspective-divider"></div>
           <div class="svc-perspective-right">
             {
-              lang === "fr" ? (
+              (t(service?.perspectiveCol1, lang) || t(service?.perspectiveCol2, lang)) ? (
+                 <div class="rich-content">
+                    {/* Render rich text here if available in CMS */}
+                 </div>
+              ) : lang === "fr" ? (
                 <>
-                  <p>
-                    Les organisations qui abordent la transformation comme une
-                    initiative purement technologique sous-estiment souvent le
-                    leadership, la gouvernance et l'alignement organisationnel
-                    requis pour soutenir un changement significatif.
-                  </p>
-                  <p>
-                    L'intelligence artificielle présente des opportunités
-                    significatives pour améliorer la prise de décision,
-                    rationaliser les opérations et créer de nouvelles sources de
-                    valeur. Réaliser ce potentiel demande un alignement entre
-                    les priorités commerciales, les données, la gouvernance et
-                    la préparation organisationnelle.
-                  </p>
-                  <p>
-                    Nous travaillons avec les équipes de direction pour définir
-                    leurs initiatives de transformation numérique, évaluer les
-                    opportunités, établir une gouvernance appropriée et intégrer
-                    les capacités numériques de manière pratique.
-                  </p>
+                  {frPerspective.map((p: string) => <p>{p}</p>)}
                 </>
               ) : (
                 <>
                   <p>
-                    Organizations that approach transformation as a purely
-                    technological initiative often underestimate the leadership,
-                    governance, and organizational alignment required to sustain
-                    meaningful change.
-                  </p>
-                  <p>
-                    Artificial intelligence presents significant opportunities
-                    to enhance decision-making, streamline operations, and
-                    create new sources of value. Realizing this potential
-                    demands alignment between business priorities, data,
-                    governance, and organizational readiness.
-                  </p>
-                  <p>
-                    We work with leadership teams to define their digital
-                    transformation initiatives, assess opportunities, establish
-                    appropriate governance, and integrate digital capabilities
-                    in a way that is practical.
+                    {currentFallback.perspectiveRight?.en?.[0] || "Successful transformation requires both strategic clarity and disciplined execution."}
                   </p>
                 </>
               )
@@ -136,8 +219,8 @@ const heroBgUrl = service?.heroBgImage
               {
                 t(service?.quoteText, lang) ||
                   (lang === "fr"
-                    ? "L'alignement des processus, de la technologie et de la culture mène à un changement significatif et durable."
-                    : "Process, technology, and culture alignment lead to meaningful and lasting change.")
+                    ? currentFallback.quote?.fr
+                    : currentFallback.quote?.en)
               }
             </h3>
           </div>
@@ -145,10 +228,15 @@ const heroBgUrl = service?.heroBgImage
             <p class="svc-alignment-desc">
               {
                 lang === "fr"
-                  ? "Nous nous associons aux équipes de direction pour guider les transformations complexes et assurer un leadership expérimenté tout au long des phases critiques des programmes."
-                  : "We partner with leadership teams to guide complex transformations and provide experienced leadership throughout critical program phases."
+                  ? currentFallback.alignmentDesc?.fr
+                  : currentFallback.alignmentDesc?.en
               }
             </p>
+            {lang === 'fr' && currentFallback.alignmentOrphan?.fr && (
+              <p class="svc-alignment-desc" style="margin-top: 1.5rem;">
+                {currentFallback.alignmentOrphan.fr}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -165,23 +253,61 @@ const heroBgUrl = service?.heroBgImage
 
         <div class="svc-approach-list">
           {
-            service?.approachSections?.map((section: any) => (
+            (service?.approachSections && service.approachSections.length > 0) ? (
+              service.approachSections.map((section: any) => (
+                <div class="svc-approach-item">
+                  <h3 class="svc-approach-item-title">{t(section.title, lang)}</h3>
+                  <p class="svc-approach-item-text">{t(section.body, lang)}</p>
+                </div>
+              ))
+            ) : slug === 'strategic-advisory' && lang === 'fr' ? (
+              <>
+                 <div class="svc-approach-item">
+                   <h3 class="svc-approach-item-title">Efficacité organisationnelle</h3>
+                   <p class="svc-approach-item-text">Évaluation des structures organisationnelles et des modèles opérationnels au regard des priorités stratégiques</p>
+                 </div>
+                 <div class="svc-approach-item">
+                   <h3 class="svc-approach-item-title">Alignement du leadership</h3>
+                   <p class="svc-approach-item-text">Évaluation de l'alignement du leadership et des cadres décisionnels</p>
+                 </div>
+                 <div class="svc-approach-item">
+                   <h3 class="svc-approach-item-title">Préparation à la transformation</h3>
+                   <p class="svc-approach-item-text">Préparation aux initiatives majeures de transformation et de changement</p>
+                 </div>
+                 <div class="svc-approach-item">
+                    <h3 class="svc-approach-item-title">Fusions, acquisitions et intégration</h3>
+                    <p class="svc-approach-item-text">Accompagnement dans les opérations de fusion, d'acquisition et d'intégration stratégique</p>
+                 </div>
+                 <div class="svc-approach-item">
+                    <h3 class="svc-approach-item-title">Adoption et exécution</h3>
+                    <p class="svc-approach-item-text">Mise en œuvre et adoption de nouvelles stratégies, technologies et modèles opérationnels</p>
+                 </div>
+                 <div class="svc-approach-item">
+                    <h3 class="svc-approach-item-title">Culture et développement du leadership</h3>
+                    <p class="svc-approach-item-text">Renforcement de la culture organisationnelle et des capacités de leadership</p>
+                 </div>
+                 <div class="svc-approach-item">
+                    <h3 class="svc-approach-item-title">Transitions stratégiques</h3>
+                    <p class="svc-approach-item-text">Accompagnement des dirigeants dans des périodes de changement et de transition</p>
+                 </div>
+                 <div class="svc-approach-item">
+                    <h3 class="svc-approach-item-title">Stratégie des technologies émergentes</h3>
+                    <p class="svc-approach-item-text">Évaluation des implications stratégiques des technologies émergentes, incluant l'intelligence artificielle</p>
+                 </div>
+              </>
+            ) : lang === 'fr' ? (
               <div class="svc-approach-item">
-                <h3 class="svc-approach-item-title">{t(section.title, lang)}</h3>
-                <p class="svc-approach-item-text">{t(section.body, lang)}</p>
-              </div>
-            )) || (
-              <div class="svc-approach-item">
-                <h3 class="svc-approach-item-title">
-                  {lang === "fr"
-                    ? "Stratégie de transformation"
-                    : "Transformation Strategy"}
-                </h3>
                 <p class="svc-approach-item-text">
                   {t(service?.approachLead, lang) ||
-                    (lang === "fr"
-                      ? "Nous travaillons avec les équipes de direction pour définir les objectifs de transformation."
-                      : "We work with executive teams to define transformation objectives.")}
+                    (slug === 'leadership-development-executive-coaching' 
+                      ? "Nous accompagnons les dirigeants dans le renforcement de leur capacité à diriger avec clarté, discernement et assurance. À travers un dialogue structuré et des apports concrets, nous les aidons à développer le jugement, la conscience de soi et la présence de leadership nécessaires pour évoluer dans des environnements complexes."
+                      : "Nous travaillons avec les équipes de direction pour définir les objectifs de transformation.")}
+                </p>
+              </div>
+            ) : (
+               <div class="svc-approach-item">
+                <p class="svc-approach-item-text">
+                  {t(service?.approachLead, lang) || "We work with executive teams to define objectives."}
                 </p>
               </div>
             )
@@ -191,44 +317,46 @@ const heroBgUrl = service?.heroBgImage
     </section>
 
     <!-- Section 5: Moments -->
-    <section class="svc-moments">
-      <div class="container svc-moments-container">
-        <div class="svc-moments-content">
-          <h2 class="svc-moments-title">
-            {
-              lang === "fr"
-                ? "Les organisations font appel à nous dans des moments tels que ceux-ci."
-                : "Organizations engage us in moments such as these."
-            }
-          </h2>
-          <div class="svc-moments-line"></div>
+    {slug !== 'leadership-development-executive-coaching' && (
+      <section class="svc-moments">
+        <div class="container svc-moments-container">
+          <div class="svc-moments-content">
+            <h2 class="svc-moments-title">
+              {
+                lang === "fr"
+                  ? "Les organisations font appel à nous dans des moments comme ceux-ci."
+                  : "Organizations engage us in moments such as these."
+              }
+            </h2>
+            <div class="svc-moments-line"></div>
 
-          <div class="svc-moments-list">
-            {
-              service?.industriesEngaged?.map((item: any) => (
-                <>
-                  <div class="svc-moments-label">{t(item.label, lang)}</div>
-                  <div class="svc-moments-desc">{t(item.description, lang)}</div>
-                </>
-              )) || (
-                <>
-                  <div class="svc-moments-label">
-                    {lang === "fr"
-                      ? "Lancer une transformation"
-                      : "Launching Transformation"}
-                  </div>
-                  <div class="svc-moments-desc">
-                    {lang === "fr"
-                      ? "Programmes de transformation ERP ou HCM à grande échelle"
-                      : "Large-scale ERP or HCM transformation programs"}
-                  </div>
-                </>
-              )
-            }
+            <div class="svc-moments-list">
+              {
+                service?.industriesEngaged?.map((item: any) => (
+                  <>
+                    <div class="svc-moments-label">{t(item.label, lang)}</div>
+                    <div class="svc-moments-desc">{t(item.description, lang)}</div>
+                  </>
+                )) || (
+                  <>
+                    <div class="svc-moments-label">
+                      {lang === "fr"
+                        ? "Lancer une transformation"
+                        : "Launching Transformation"}
+                    </div>
+                    <div class="svc-moments-desc">
+                      {lang === "fr"
+                        ? "Programmes de transformation ERP ou HCM à grande échelle"
+                        : "Large-scale ERP or HCM transformation programs"}
+                    </div>
+                  </>
+                )
+              }
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     <!-- Section 6: Closing -->
     <section class="svc-alignment">
@@ -240,25 +368,24 @@ const heroBgUrl = service?.heroBgImage
         <div class="svc-alignment-box">
           <div class="svc-impact-top">
             <h3 class="svc-impact-title">
-              {lang === "fr" ? "IMPACT DURABLE" : "LASTING IMPACT"}
+              {lang === "fr" ? currentFallback.closingHeading?.fr : currentFallback.closingHeading?.en}
             </h3>
             <div class="svc-impact-text">
-              <p>
+              <p style="font-weight: 700;">
                 {
-                  t(service?.closingText, lang) ||
-                    (lang === "fr"
-                      ? "Notre rôle est d'apporter clarté, structure et leadership expérimenté à ces initiatives."
-                      : "Our role is to bring clarity, structure, and experienced leadership to these initiatives.")
+                  lang === "fr"
+                    ? currentFallback.closingText?.fr
+                    : currentFallback.closingText?.en
                 }
               </p>
             </div>
           </div>
           <div class="svc-impact-bottom">
-            <h4 class="svc-impact-footer">
+            <h4 class="svc-impact-footer" style="font-weight: 700;">
               {
                 lang === "fr"
-                  ? "Nous accueillons les conversations avec les équipes de direction."
-                  : "We welcome conversations with leadership teams."
+                  ? currentFallback.closingCTA?.fr
+                  : currentFallback.closingCTA?.en
               }
             </h4>
           </div>
