@@ -49,12 +49,12 @@
 
 .journal-intro-title {
   font-family: var(--ff-display);
-  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-size: clamp(2.2rem, 5vw, 4.7rem);
   color: var(--clr-cream);
   text-align: right;
   line-height: 1.1;
   text-transform: uppercase;
-  max-width: 800px;
+  max-width: 880px;
   margin-right: 10%;
 }
 

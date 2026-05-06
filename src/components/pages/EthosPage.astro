@@ -217,5 +217,61 @@ const values = page?.values ?? [
     </section>
 
     <!-- Section 4: Founder -->
-  </div></Layout
->
+    <section class="ethos-founder">
+      <div class="container2">
+        <div class="founder-white-card">
+          <div class="founder-img-box">
+            <img src={founderPhotoUrl} alt="Veronica Eleonora Palumbo" />
+          </div>
+
+          <h2 class="founder-label-top">{lang === 'fr' ? "FONDATRICE" : "FOUNDER"}</h2>
+
+          <div class="founder-info">
+            <h3 class="founder-headline">
+              {t(page?.founderTitle, lang) || (
+                lang === 'fr'
+                  ? "Veronica Eleonora Palumbo est une conseillère de direction qui maîtrise parfaitement la stratégie et la mise en œuvre."
+                  : "Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery."
+              )}
+            </h3>
+
+            <div class="founder-red-divider"></div>
+
+            <div class="founder-bio-text">
+              {page?.founderBio ? <p>{t(page.founderBio, lang)}</p> : (
+                lang === 'fr' ? (
+                  <>
+                    <p>
+                      Avec 20 ans d'expérience dans la direction de programmes ERP et une expertise dans les solutions de gestion du capital humain, elle est une voix de confiance dans la transformation numérique et organisationnelle, apportant des perspectives fraîches pour définir les initiatives commerciales. Elle a dirigé plusieurs mandats multinationaux et encadré des équipes de prestation mondiales, perfectionnant son expertise dans les mises en œuvre à grande échelle.
+                    </p>
+                    <p>
+                      En tant que conseillère stratégique, Veronica s'est associée à des équipes de direction pour naviguer dans des initiatives commerciales critiques, des fusions et acquisitions et des changements de culture, mettant à profit ses compétences en développement organisationnel, en planification de la relève et en gestion du changement.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      With 20 years of experience leading ERP programs and expertise
+                      in Human Capital Management solutions, she is a trusted voice in
+                      digital and organizational transformation, bringing fresh
+                      perspectives to defining business initiatives. She has led
+                      several multinational engagements and directed global delivery
+                      teams, honing her expertise in large-scale implementations.
+                    </p>
+                    <p>
+                      As a strategic advisor, Veronica has partnered with executive
+                      teams to navigate critical business initiatives, mergers and
+                      acquisitions, and culture shifts, leveraging her skills in
+                      organizational development, succession planning, and change
+                      management.
+                    </p>
+                  </>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

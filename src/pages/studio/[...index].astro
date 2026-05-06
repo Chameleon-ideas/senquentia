@@ -1,0 +1,24 @@
+---
+import { Studio } from 'sanity';
+import config from '../../../sanity.config';
+export const prerender = false;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sanity Studio</title>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <Studio config={config} client:only="react" />
+  </body>
+</html>
