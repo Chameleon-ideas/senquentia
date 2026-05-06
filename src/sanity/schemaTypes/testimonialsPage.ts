@@ -32,8 +32,8 @@ export const testimonialsPage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'text', rows: 2, group: 'seo' }),
   ],
   preview: {
-    prepare() {
-      return { title: 'Testimonials Page' };
+    prepare: function() {
+      return { title: 'Testimonials  Page' };
     },
   },
 });

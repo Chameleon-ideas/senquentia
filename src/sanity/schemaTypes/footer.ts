@@ -40,8 +40,8 @@ export const footer = defineType({
     }),
   ],
   preview: {
-    prepare() {
-      return { title: 'Footer Content' };
+    prepare: function() {
+      return { title: 'Footer' };
     },
   },
 });

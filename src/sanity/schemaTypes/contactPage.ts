@@ -28,8 +28,8 @@ export const contactPage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
   preview: {
-    prepare() {
-      return { title: 'Connect Page' };
+    prepare: function() {
+      return { title: 'Contact  Page' };
     },
   },
 });

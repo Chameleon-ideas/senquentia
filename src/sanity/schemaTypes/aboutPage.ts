@@ -53,7 +53,12 @@ export const aboutPage = defineType({
           defineField({ name: 'name', title: 'Name', type: 'localeString' }),
           defineField({ name: 'body', title: 'Description', type: 'localeText' }),
         ],
-        preview: { select: { title: 'name.en' } },
+        preview: {
+          select: { title: 'name.en' },
+          prepare: function(selection) {
+            return { title: selection.title || 'Untitled Value' };
+          },
+        },
       }],
     }),
 
@@ -71,7 +76,7 @@ export const aboutPage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
   preview: {
-    prepare() {
+    prepare: function() {
       return { title: 'Ethos Page' };
     },
   },

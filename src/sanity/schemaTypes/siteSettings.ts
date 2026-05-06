@@ -33,7 +33,7 @@ export const siteSettings = defineType({
   ],
   preview: {
     select: { title: 'siteName' },
-    prepare(selection: any) {
+    prepare: function(selection) {
       return { title: selection.title || 'Site Settings' };
     },
   },

@@ -34,8 +34,8 @@ export const faqPage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'text', rows: 2, group: 'seo' }),
   ],
   preview: {
-    prepare() {
-      return { title: 'FAQ Page' };
+    prepare: function() {
+      return { title: 'Faq  Page' };
     },
   },
 });
