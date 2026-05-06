@@ -52,15 +52,7 @@ export const homePage = defineType({
           defineField({ name: 'number', title: 'Value (Text)', type: 'string', description: 'e.g. "500M+"' }),
           defineField({ name: 'label', title: 'Label', type: 'localeString' }),
         ],
-        preview: {
-          select: { title: 'number', subtitle: 'label.en' },
-          prepare: function prepare(selection) {
-            return {
-              title: selection.title,
-              subtitle: selection.subtitle
-            };
-          }
-        },
+        preview: { select: { title: 'number', subtitle: 'label.en' } },
       }],
     }),
 
@@ -79,9 +71,5 @@ export const homePage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
     defineField({ name: 'ogImage', title: 'OG / Share Image', type: 'image', group: 'seo' }),
   ],
-  preview: {
-    prepare: function prepare() {
-      return { title: 'Home Page' };
-    },
-  },
+  preview: { select: { title: 'introHeadline.en' } },
 });

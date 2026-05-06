@@ -6,38 +6,23 @@ export const servicesPage = defineType({
   type: 'document',
   __experimental_actions: ['update', 'publish'],
   groups: [
-    { name: 'hero', title: 'Page Hero' },
-    { name: 'content', title: 'Content' },
-    { name: 'cta', title: 'CTA Banner' },
+    { name: 'hero', title: 'Hero' },
+    { name: 'intro', title: 'Intro Section' },
+    { name: 'cta', title: 'CTA Section' },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
-    defineField({ name: 'heroHeadline', title: 'Page Headline', type: 'localeString', group: 'hero' }),
-    defineField({ name: 'heroSubtext', title: 'Page Subtext', type: 'localeText', group: 'hero' }),
-    defineField({ name: 'heroBgImage', title: 'Hero Background Image', type: 'image',
-      group: 'hero', options: { hotspot: true },
-    }),
-
-    defineField({ name: 'sectionEyebrow', title: 'Section Eyebrow', type: 'localeString', group: 'content' }),
-    defineField({ name: 'sectionHeadline', title: 'Section Headline', type: 'localeString', group: 'content' }),
-    defineField({ name: 'sectionSubtext', title: 'Section Subtext', type: 'localeText', group: 'content' }),
-
+    defineField({ name: 'heroHeadline', title: 'Hero Headline', type: 'localeString', group: 'hero' }),
+    defineField({ name: 'heroSubtext', title: 'Hero Subtext', type: 'localeText', group: 'hero' }),
+    defineField({ name: 'heroBgImage', title: 'Hero Background Image', type: 'image', group: 'hero', options: { hotspot: true } }),
+    defineField({ name: 'sectionEyebrow', title: 'Section Eyebrow', type: 'localeString', group: 'intro' }),
+    defineField({ name: 'sectionHeadline', title: 'Section Headline', type: 'localeString', group: 'intro' }),
+    defineField({ name: 'sectionSubtext', title: 'Section Subtext', type: 'localeText', group: 'intro' }),
     defineField({ name: 'ctaHeadline', title: 'CTA Headline', type: 'localeString', group: 'cta' }),
-    defineField({ name: 'ctaBody', title: 'CTA Body Text', type: 'localeText', group: 'cta' }),
-    defineField({
-      name: 'ctaButton', title: 'CTA Button', type: 'object', group: 'cta',
-      fields: [
-        defineField({ name: 'label', type: 'localeString', title: 'Label' }),
-        defineField({ name: 'href', type: 'string', title: 'Link', initialValue: '/contact' }),
-      ],
-    }),
-
+    defineField({ name: 'ctaBody', title: 'CTA Body', type: 'localeText', group: 'cta' }),
+    defineField({ name: 'ctaButton', title: 'CTA Button Text', type: 'localeString', group: 'cta' }),
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'localeString', group: 'seo' }),
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
-  preview: {
-    prepare: function prepare() {
-      return { title: 'Services  Page' };
-    },
-  },
+  preview: { select: { title: 'heroHeadline.en' } },
 });

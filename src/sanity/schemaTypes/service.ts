@@ -74,12 +74,7 @@ export const service = defineType({
           defineField({ name: 'title', title: 'Section Title', type: 'localeString' }),
           defineField({ name: 'body', title: 'Section Body', type: 'localeText' }),
         ],
-        preview: {
-          select: { title: 'title.en' },
-          prepare: function prepare(selection) {
-            return { title: selection.title || 'Untitled Section' };
-          },
-        },
+        preview: { select: { title: 'title.en' } },
       }],
     }),
 
@@ -92,17 +87,5 @@ export const service = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
   orderings: [{ name: 'orderAsc', title: 'Order', by: [{ field: 'order', direction: 'asc' }] }],
-  preview: {
-    select: { title: 'title.en', subtitle: 'slug.current', media: 'image' },
-    prepare: function prepare(selection) {
-      var title = selection.title;
-      var subtitle = selection.subtitle;
-      var media = selection.media;
-      return {
-        title: title || 'Untitled Service',
-        subtitle: subtitle ? '/' + subtitle : '',
-        media: media,
-      };
-    },
-  },
+  preview: { select: { title: 'title.en', subtitle: 'slug.current', media: 'image' } },
 });
