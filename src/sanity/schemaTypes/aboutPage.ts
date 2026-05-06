@@ -55,7 +55,7 @@ export const aboutPage = defineType({
         ],
         preview: {
           select: { title: 'name.en' },
-          prepare: function(selection) {
+          prepare: function prepare(selection) {
             return { title: selection.title || 'Untitled Value' };
           },
         },
@@ -76,7 +76,7 @@ export const aboutPage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'localeText', rows: 2, group: 'seo' }),
   ],
   preview: {
-    prepare: function() {
+    prepare: function prepare() {
       return { title: 'Ethos Page' };
     },
   },

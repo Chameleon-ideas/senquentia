@@ -76,7 +76,7 @@ export const service = defineType({
         ],
         preview: {
           select: { title: 'title.en' },
-          prepare: function(selection) {
+          prepare: function prepare(selection) {
             return { title: selection.title || 'Untitled Section' };
           },
         },
@@ -94,7 +94,7 @@ export const service = defineType({
   orderings: [{ name: 'orderAsc', title: 'Order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {
     select: { title: 'title.en', subtitle: 'slug.current', media: 'image' },
-    prepare: function(selection) {
+    prepare: function prepare(selection) {
       var title = selection.title;
       var subtitle = selection.subtitle;
       var media = selection.media;

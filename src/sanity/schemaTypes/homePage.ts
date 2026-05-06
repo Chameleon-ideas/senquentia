@@ -54,7 +54,7 @@ export const homePage = defineType({
         ],
         preview: {
           select: { title: 'number', subtitle: 'label.en' },
-          prepare: function(selection) {
+          prepare: function prepare(selection) {
             return {
               title: selection.title,
               subtitle: selection.subtitle
@@ -80,7 +80,7 @@ export const homePage = defineType({
     defineField({ name: 'ogImage', title: 'OG / Share Image', type: 'image', group: 'seo' }),
   ],
   preview: {
-    prepare: function() {
+    prepare: function prepare() {
       return { title: 'Home Page' };
     },
   },
