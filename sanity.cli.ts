@@ -6,4 +6,5 @@ export default defineCliConfig({
     dataset: 'production',
   },
   studioHost: 'senquentia',
+  autoUpdates: true,
 });
