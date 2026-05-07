@@ -8,17 +8,6 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [
     react(),
-    sanity({
-      projectId: 'egq490jl',
-      dataset: 'production',
-      apiVersion: '2024-01-01',
-      useCdn: false,
-      studioBasePath: '/studio',
-      stega: {
-        enabled: false,
-        studioUrl: '/studio',
-      },
-    }),
   ],
   i18n: {
     defaultLocale: 'en',
