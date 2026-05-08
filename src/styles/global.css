@@ -2251,6 +2251,10 @@ button {
   max-width: 450px;
 }
 
+.svc-dual-body-right p {
+  margin-bottom: 15px;
+}
+
 @media (max-width: 900px) {
   .svc-dual-grid {
     grid-template-columns: 1fr;
@@ -2474,14 +2478,18 @@ button {
   padding: 4rem 10% 5rem 10%;
   flex: 1;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2rem;
 }
 
 .svc-alignment-bottom-strategic {
   padding: 4rem 7% 5rem 5%;
   flex: 1;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2rem;
 }
 
 .svc-alignment-desc {
@@ -2535,8 +2543,32 @@ button {
   justify-content: center;
 }
 
+.svc-impact-bottom-ldec {
+  padding: 7rem 10% 7rem 48%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svc-impact-bottom-ldec-fr {
+  padding: 7rem 10% 7rem 36%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .svc-impact-bottom-strategic {
-  padding: 5rem 5% 7rem 14%;
+  padding: 5rem 5% 7rem 54%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svc-impact-bottom-strategic-fr {
+  padding: 5rem 5% 7rem 40%;
   flex: 1;
   display: flex;
   align-items: center;
@@ -2544,7 +2576,7 @@ button {
 }
 
 .svc-impact-bottom-digital {
-  padding: 7rem 0% 7rem 10%;
+  padding: 7rem 0% 7rem 35%;
   flex: 1;
   display: flex;
   align-items: center;
@@ -2626,12 +2658,10 @@ button {
   max-width: 1140px;
 }
 
-.svc-approach-item-text p {
-  margin-bottom: 1.25rem;
-}
-
-.svc-approach-item-text p:last-child {
-  margin-bottom: 0;
+.svc-approach-item-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 /* SECTION 6: MOMENTS */

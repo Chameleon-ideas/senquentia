@@ -1,44 +1,25 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getServiceBySlug, urlFor } from "@/utils/sanity";
-import { t } from "@/utils/i18n";
 
-const lang = "en"; // Defaulting to en for this specific route
-const service = await getServiceBySlug("strategic-advisory");
-
-if (!service) {
-  return Astro.redirect("/404");
-}
-
-const heroBgUrl = service?.heroBgImage
-  ? urlFor(service.heroBgImage).width(1920).url()
-  : "/images/servicesherobg2.png";
-
-const alignmentBgUrl = service?.alignmentImage
-  ? urlFor(service.alignmentImage).width(1920).url()
-  : "/images/servicesherobg2.png";
-
-const closingBgUrl = service?.closingImage
-  ? urlFor(service.closingImage).width(1920).url()
-  : "/images/servicesherobg2.png";
+const lang = "en";
 ---
 
-<Layout 
-  title={t(service?.seoTitle, lang) || "Strategic Advisory | Senquentia"} 
-  description={t(service?.seoDescription, lang) || t(service?.shortDescription, lang)}
+<Layout
+  title="Strategic Advisory | Senquentia"
+  description="Strategic advisory services helping organizations navigate complexity and transition."
   lang={lang}
 >
   <div class="services-page-wrap">
     <!-- Section 1: Hero -->
     <section class="svc-hero">
       <div class="svc-hero-bg">
-        <img src={heroBgUrl} alt="" />
+        <img src="/images/servicesherobg2.png" alt="" />
       </div>
       <div class="svc-hero-container">
         <div class="svc-hero-box">
           <div class="svc-hero-text-row p-adjust">
             <h1 class="svc-hero-title" style="font-weight: 400;">
-              {t(service?.title, lang).toUpperCase()}.
+              STRATEGIC ADVISORY.
             </h1>
             <div class="svc-hero-bar"></div>
           </div>
@@ -49,41 +30,31 @@ const closingBgUrl = service?.closingImage
     <!-- Section 2: Perspective -->
     <section class="svc-perspective">
       <div class="container">
-        <h2 class="svc-perspective-heading">{lang === 'fr' ? "PERSPECTIVE" : "PERSPECTIVE"}</h2>
+        <h2 class="svc-perspective-heading">PERSPECTIVE</h2>
 
         <div class="svc-perspective-grid">
           <div class="svc-perspective-left">
             <p class="svc-perspective-lead1-strategic">
-              {t(service?.perspectiveLead1, lang) || "Strategic decisions rarely fail because of a lack of ideas."}
+              Strategic decisions rarely fail because of a lack of ideas.
             </p>
             <p class="svc-perspective-lead2-strategic">
-              {t(service?.perspectiveLead2, lang) || "They fail when organizations struggle to align leadership, culture, and execution around a clear direction."}
+              They fail when organizations struggle to align leadership,
+              culture, and execution around a clear direction.
             </p>
           </div>
           <div class="svc-perspective-divider"></div>
           <div class="svc-perspective-right">
-            {
-              service?.perspectiveBody ? (
-                <div class="rich-content">
-                  {/* Assuming perspectiveBody is handled via a component or logic if rich text */}
-                  {/* For now using fallback logic if it's text-based or needs a specific renderer */}
-                </div>
-              ) : (
-                <>
-                  <p>
-                    Effective advisory work brings clarity to complex situations,
-                    helping leadership teams assess their options, evaluate
-                    organizational readiness, and move forward with confidence.
-                  </p>
-                  <p>
-                    This increasingly includes helping leaders navigate the
-                    implications of emerging technologies such as artificial
-                    intelligence on strategy, operating models, and organizational
-                    readiness.
-                  </p>
-                </>
-              )
-            }
+            <p>
+              Effective advisory work brings clarity to complex situations,
+              helping leadership teams assess their options, evaluate
+              organizational readiness, and move forward with confidence.
+            </p>
+            <p>
+              This increasingly includes helping leaders navigate the
+              implications of emerging technologies such as artificial
+              intelligence on strategy, operating models, and organizational
+              readiness.
+            </p>
           </div>
         </div>
       </div>
@@ -92,7 +63,7 @@ const closingBgUrl = service?.closingImage
     <!-- Section 3 & 4: Alignment & Impact -->
     <section class="svc-alignment">
       <div class="svc-alignment-bg">
-        <img src={alignmentBgUrl} alt="" />
+        <img src="/images/servicesherobg2.png" alt="" />
       </div>
 
       <!-- Alignment Box -->
@@ -100,112 +71,187 @@ const closingBgUrl = service?.closingImage
         <div class="svc-alignment-box2">
           <div class="svc-alignment-top3">
             <h3 class="svc-alignment-title" style="font-weight: 500;">
-              {t(service?.quoteText, lang) || "Leadership alignment and strategic clarity shape the decisions that define an organization’s direction."}
+              Leadership alignment and strategic clarity shape the decisions
+              that define an organization’s direction.
             </h3>
           </div>
           <div class="svc-alignment-bottom-strategic">
             <p class="svc-alignment-desc">
-              {t(service?.alignmentBody, lang) || "We work with executive teams to evaluate organizational effectiveness, navigate complex decisions, and guide initiatives that shape future direction."}
+              We work with executive teams to evaluate organizational
+              effectiveness, navigate complex decisions, and guide initiatives
+              that shape future direction.
+            </p>
+            <p class="svc-alignment-desc">
+              Our role is to provide <strong
+                >independent, experience-based perspective</strong
+              >, structured analysis and advisory support as leaders navigate
+              change, growth, and transformation.
             </p>
           </div>
         </div>
       </div>
     </section>
-  </div>
 
-  <!-- Section 4: Approach -->
-  <section class="svc-approach">
-    <div class="container">
-      <div class="svc-approach-header">
-        <h2 class="svc-approach-title">{lang === 'fr' ? "APPROCHE" : "APPROACH"}</h2>
-      </div>
-
-      <div class="svc-approach-list-digital">
-        {
-          service?.approachSections?.map((section: any) => (
-            <div class="svc-approach-item">
-              <h3 class="svc-approach-item-title">{t(section.title, lang)}</h3>
-              <p class="svc-approach-item-text">{t(section.body, lang)}</p>
-            </div>
-          )) || (
-            <>
-              <div class="svc-approach-item">
-                <h3 class="svc-approach-item-title">Organizational Effectiveness</h3>
-                <p class="svc-approach-item-text">
-                  We work with leadership teams to evaluate organizational structures,
-                  governance models, and decision-making frameworks to ensure
-                  organizations are positioned to execute their strategic priorities
-                  effectively.
-                </p>
-              </div>
-              {/* ... more fallbacks if needed, but the loop covers Sanity content */}
-            </>
-          )
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 5: Moments -->
-  <section class="svc-moments-digital">
-    <div class="container svc-moments-container">
-      <div class="svc-moments-content">
-        <h2 class="svc-moments-title">
-          {t(service?.momentsTitle, lang) || "Organizations engage us in moments such as these."}
-        </h2>
-        <div class="svc-moments-line"></div>
-
-        <div class="svc-moments-list">
-          {
-            service?.industriesEngaged?.map((item: any) => (
-              <>
-                <div class="svc-moments-label">{t(item.label, lang)}</div>
-                <div class="svc-moments-desc">{t(item.description, lang)}</div>
-              </>
-            )) || (
-              <>
-                <div class="svc-moments-label">Organizational Effectiveness</div>
-                <div class="svc-moments-desc">Evaluating organizational structures and operating models to support strategic priorities</div>
-              </>
-            )
-          }
+    <!-- Section 4: Approach -->
+    <section class="svc-approach">
+      <div class="container">
+        <div class="svc-approach-header">
+          <h2 class="svc-approach-title">APPROACH</h2>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Section 6: Impact -->
-  <section class="svc-alignment">
-    <div class="svc-alignment-bg">
-      <img src={closingBgUrl} alt="" />
-    </div>
+        <div class="svc-approach-list-digital">
+          <div class="svc-approach-item">
+            <h3 class="svc-approach-item-title">
+              Organizational Effectiveness
+            </h3>
+            <p class="svc-approach-item-text">
+              We work with leadership teams to evaluate organizational
+              structures, governance models, and decision-making frameworks to
+              ensure organizations are positioned to execute their strategic
+              priorities effectively.
+            </p>
+          </div>
 
-    <!-- Impact Box -->
-    <div class="container svc-alignment-container">
-      <div class="svc-alignment-box">
-        <div class="svc-impact-top">
-          <h3 class="svc-impact-title">{t(service?.closingText, lang) || "STRATEGIC CLARITY"}</h3>
-          <div class="svc-impact-text">
-            {
-              service?.closingBody ? (
-                <div class="rich-content">
-                  {/* Render closingBody rich text */}
-                </div>
-              ) : (
-                <>
-                  <p>Strategic advisory work is ultimately about helping leadership teams see their organization more clearly.</p>
-                  <p>Our role is to bring independent perspective, structured thinking, and practical experience to the decisions that shape an organization’s future.</p>
-                </>
-              )
-            }
+          <div class="svc-approach-item">
+            <h3 class="svc-approach-item-title">
+              Culture, Leadership & Change Alignment
+            </h3>
+            <div class="svc-approach-item-text-group">
+              <p class="svc-approach-item-text">
+                Strategy and transformation succeed when leadership teams are
+                aligned around a shared vision, organizational culture supports
+                the direction of change, and people are equipped to adapt.
+              </p>
+              <p class="svc-approach-item-text">
+                We support leaders in strengthening alignment, defining cultural
+                priorities, and developing leadership capability, while
+                embedding practical change management approaches to drive
+                adoption and sustain outcomes.
+              </p>
+            </div>
+          </div>
+
+          <div class="svc-approach-item">
+            <h3 class="svc-approach-item-title">Strategic Decision Support</h3>
+            <div class="svc-approach-item-text-group">
+              <p class="svc-approach-item-text">
+                We provide experienced advisory support to leadership teams as
+                they navigate complex strategic decisions, helping organizations
+                evaluate options, assess risks, and move forward with
+                confidence.
+              </p>
+              <p class="svc-approach-item-text">
+                This includes supporting leaders in evaluating the strategic
+                implications of technology, transformation investments, and
+                emerging capabilities such as artificial intelligence.
+              </p>
+            </div>
+          </div>
+
+          <div class="svc-approach-item">
+            <h3 class="svc-approach-item-title">
+              Transformation & Change Management
+            </h3>
+            <div class="svc-approach-item-text-group">
+              <p class="svc-approach-item-text">
+                We help organizations translate strategy into execution by
+                designing and guiding structured transformation and change
+                initiatives.
+              </p>
+              <p class="svc-approach-item-text">
+                This includes stakeholder alignment, communication strategies,
+                adoption planning, and ensuring that changes are effectively
+                implemented and sustained across the organization.
+              </p>
+            </div>
           </div>
         </div>
-        <div class="svc-impact-bottom-strategic">
-          <h4 class="svc-impact-footer">
-            {t(service?.closingFooter, lang) || "We welcome conversations with leadership teams navigating critical strategic decisions. Connect."}
-          </h4>
+      </div>
+    </section>
+
+    <!-- Section 5: Moments -->
+    <section class="svc-moments-digital">
+      <div class="container svc-moments-container">
+        <div class="svc-moments-content">
+          <h2 class="svc-moments-title">
+            Organizations engage us in moments such as these.
+          </h2>
+          <div class="svc-moments-line"></div>
+
+          <div class="svc-moments-list">
+            <div class="svc-moments-label">Organizational Effectiveness</div>
+            <div class="svc-moments-desc">
+              Evaluating organizational structures and operating models to
+              support strategic priorities
+            </div>
+            <div class="svc-moments-label">Leadership Alignment</div>
+            <div class="svc-moments-desc">
+              Assessing leadership alignment and decision-making frameworks
+            </div>
+            <div class="svc-moments-label">Transformation Readiness</div>
+            <div class="svc-moments-desc">
+              Preparing for major transformation and change initiatives
+            </div>
+            <div class="svc-moments-label">M&A and Integration</div>
+            <div class="svc-moments-desc">
+              Navigating mergers, acquisitions, and strategic integrations
+            </div>
+            <div class="svc-moments-label">Adoption & Execution</div>
+            <div class="svc-moments-desc">
+              Driving adoption of new strategies, technologies, and operating
+              models
+            </div>
+            <div class="svc-moments-label">
+              Culture & Leadership Development
+            </div>
+            <div class="svc-moments-desc">
+              Strengthening organizational culture and leadership capability
+            </div>
+            <div class="svc-moments-label">Strategic Transitions</div>
+            <div class="svc-moments-desc">
+              Supporting leaders through periods of significant change and
+              transition
+            </div>
+            <div class="svc-moments-label">Emerging Technology Strategy</div>
+            <div class="svc-moments-desc">
+              Evaluating the strategic implications of emerging technologies,
+              including artificial intelligence
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Section 6: Impact -->
+    <section class="svc-alignment">
+      <div class="svc-alignment-bg">
+        <img src="/images/servicesherobg2.png" alt="" />
+      </div>
+
+      <!-- Impact Box -->
+      <div class="container svc-alignment-container">
+        <div class="svc-alignment-box">
+          <div class="svc-impact-top">
+            <h3 class="svc-impact-title">STRATEGIC CLARITY</h3>
+            <div class="svc-impact-text">
+              <p>
+                Strategic advisory work is ultimately about helping leadership
+                teams see their organization more clearly.
+              </p>
+              <p>
+                Our role is to bring independent perspective, structured
+                thinking, and practical experience to the decisions that shape
+                an organization’s future.
+              </p>
+            </div>
+          </div>
+          <div class="svc-impact-bottom-strategic">
+            <h4 class="svc-impact-footer">
+              Navigating critical strategic decisions. Connect.
+            </h4>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </Layout>
