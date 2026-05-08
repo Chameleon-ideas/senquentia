@@ -4,13 +4,14 @@ import { getHomePage, getServices, urlFor } from "@/utils/sanity";
 import { t } from "@/utils/i18n";
 
 interface Props {
-  lang: 'en' | 'fr';
+  lang: "en" | "fr";
 }
 const { lang } = Astro.props;
 
 const [page, services] = await Promise.all([getHomePage(), getServices()]);
 
-const imageObj = lang === 'fr' && page?.heroBgImageFR ? page.heroBgImageFR : page?.heroBgImage;
+const imageObj =
+  lang === "fr" && page?.heroBgImageFR ? page.heroBgImageFR : page?.heroBgImage;
 const heroImageSrc = imageObj
   ? urlFor(imageObj).width(1920).url()
   : "/images/heroEng.png";
@@ -81,26 +82,26 @@ const industries =
 
 const displayServices = services?.length
   ? services
-    : [
-        {
-          title: {
-            en: "Digital & Organizational Transformation",
-            fr: "Transformation numérique et organisationnelle",
-          },
-          slug: { current: "digital-organizational-transformation" },
+  : [
+      {
+        title: {
+          en: "Digital & Organizational Transformation",
+          fr: "Transformation numérique et organisationnelle",
         },
-        {
-          title: { en: "Strategic Advisory", fr: "Conseil stratégique" },
-          slug: { current: "strategic-advisory" },
+        slug: { current: "digital-organizational-transformation" },
+      },
+      {
+        title: { en: "Strategic Advisory", fr: "Conseil stratégique" },
+        slug: { current: "strategic-advisory" },
+      },
+      {
+        title: {
+          en: "Leadership Development & Executive Coaching",
+          fr: "Développement du leadership et accompagnement des dirigeants",
         },
-        {
-          title: {
-            en: "Leadership Development & Executive Coaching",
-            fr: "Développement du leadership et accompagnement des dirigeants",
-          },
-          slug: { current: "leadership-development-executive-coaching" },
-        },
-      ];
+        slug: { current: "leadership-development-executive-coaching" },
+      },
+    ];
 ---
 
 <Layout
@@ -110,7 +111,7 @@ const displayServices = services?.length
 >
   <!-- ═══ HERO ══════════════════════════════════════════════ -->
   <section class="home-hero">
-    <img src={heroImageSrc} alt="Senquentia" class="home-hero-img" />
+    <img src="/images/hero-home.png" alt="Senquentia" class="home-hero-bg" />
   </section>
 
   <!-- ═══ INTRO ════════════════════════════════════════════ -->
@@ -150,7 +151,7 @@ const displayServices = services?.length
           </p>
           <div class="intro-body">
             {
-              (page?.introBody1 || page?.introBody2 || page?.introBody3) ? (
+              page?.introBody1 || page?.introBody2 || page?.introBody3 ? (
                 <>
                   {page?.introBody1 && <p>{t(page.introBody1, lang)}</p>}
                   {page?.introBody2 && <p>{t(page.introBody2, lang)}</p>}
@@ -159,14 +160,16 @@ const displayServices = services?.length
               ) : lang === "fr" ? (
                 <>
                   <p>
-                    Grâce à nos services de conseil stratégique et en gestion, les organisations naviguent dans la complexité et mènent des transformations porteuses de sens, grâce à une approche pragmatique et résolument orientée vers l'action.
+                    Grâce à nos services de conseil stratégique et en gestion,
+                    les organisations naviguent dans la complexité et mènent des
+                    transformations porteuses de sens, grâce à une approche
+                    pragmatique et résolument orientée vers l'action.
                   </p>
                   <p>
-                    Notre travail repose sur une relation de confiance et s'adapte au contexte unique de chaque organisation.
+                    Notre travail repose sur une relation de confiance et
+                    s'adapte au contexte unique de chaque organisation.
                   </p>
-                  <p>
-                    Notre ambition : générer un impact durable.
-                  </p>
+                  <p>Notre ambition : générer un impact durable.</p>
                 </>
               ) : (
                 <>
@@ -223,7 +226,7 @@ const displayServices = services?.length
               const bgImg = `linear-gradient(rgba(248, 246, 242, 0.7), rgba(248, 246, 242, 0.7)), ${imgUrl}`;
               return (
                 <a
-                  href={`${lang === 'fr' ? '/fr' : ''}/services/${s.slug?.current ?? s.slug}`}
+                  href={`${lang === "fr" ? "/fr" : ""}/services/${s.slug?.current ?? s.slug}`}
                   class="service-overlay-item reveal-up"
                   style={`background-image: ${bgImg}`}
                 >
@@ -282,7 +285,10 @@ const displayServices = services?.length
                   : "Our work begins in conversation.")
             }
           </p>
-          <a href={`${lang === 'fr' ? '/fr' : ''}/contact`} class="home-cta-link">
+          <a
+            href={`${lang === "fr" ? "/fr" : ""}/contact`}
+            class="home-cta-link"
+          >
             {
               t(page?.ctaLinkLabel, lang) ||
                 (lang === "fr" ? "Échanger." : "Connect.")

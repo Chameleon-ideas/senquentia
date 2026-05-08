@@ -92,14 +92,27 @@ const email = page?.email ?? "info@senquentia.com";
 
             <!-- Right Col -->
             <div class="contact-form-col">
-              <input
-                type="text"
-                name="area"
-                placeholder={lang === "fr"
-                  ? "Domaine d'intérêt"
-                  : "Area of interest"}
-                class="contact-field"
-              />
+              <select name="area" class="contact-field" required>
+                <option value="" disabled selected>
+                  {lang === "fr" ? "Domaine d'intérêt" : "Area of interest"}
+                </option>
+                <option value="Digital & Organizational Transformation">
+                  {lang === "fr"
+                    ? "Transformation numérique et organisationnelle"
+                    : "Digital & Organizational Transformation"}
+                </option>
+                <option value="Strategic Advisory">
+                  {lang === "fr" ? "Conseil stratégique" : "Strategic Advisory"}
+                </option>
+                <option value="Leadership Development & Executive Coaching">
+                  {lang === "fr"
+                    ? "Développement du leadership et accompagnement des dirigeants"
+                    : "Leadership Development & Executive Coaching"}
+                </option>
+                <option value="Other">
+                  {lang === "fr" ? "Autre" : "Other"}
+                </option>
+              </select>
               <textarea
                 name="message"
                 placeholder="Message"

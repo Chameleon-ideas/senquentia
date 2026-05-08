@@ -55,7 +55,9 @@ const values = page?.values ?? [
   title={t(page?.seoTitle, lang) ||
     (lang === "fr" ? "Éthos | Senquentia" : "Ethos | Senquentia")}
   description={t(page?.seoDescription, lang) ||
-    (lang === "fr" ? "Les principes et les perspectives qui façonnent notre travail." : "The principles and perspectives that shape our work.")}
+    (lang === "fr"
+      ? "Les principes et les perspectives qui façonnent notre travail."
+      : "The principles and perspectives that shape our work.")}
   lang={lang}
 >
   <div class="ethos-page-wrapper">
@@ -91,7 +93,7 @@ const values = page?.values ?? [
             <h3 class="ethos-label" style="font-weight: 500;">
               {lang === "fr" ? "ÉTYMOLOGIE" : "ETYMOLOGY"}
             </h3>
-            <p class="ethos-body-text">
+            <p class="ethos-body-text margin-left20">
               {
                 t(page?.etymologyDesc, lang) ||
                   (lang === "fr"
@@ -104,18 +106,20 @@ const values = page?.values ?? [
               <div class="etymology-item">
                 <span class="etymology-tag"
                   >{
-                    lang === "fr" ? "une manière de pensée" : "a way of thinking"
+                    lang === "fr"
+                      ? "une manière de pensée"
+                      : "a way of thinking"
                   }</span
                 >
                 <div class="etymology-word-line">
-                  <span style="font-weight: 600;">Sen</span>tentia <span
+                  <span style="font-weight: 600;">sen</span>tentia <span
                     class="etymology-word-line-span">[sɛnˈtɛn.ti.a] :</span
                   >
                 </div>
               </div>
               <div class="etymology-item align-start">
                 <div class="etymology-word-line">
-                  <span>[eː.ɫɔˈkʷɛn.ti.a] elo<strong>quentia</strong></span>
+                  <span>: [eː.ɫɔˈkʷɛn.ti.a] elo<strong>quentia</strong></span>
                 </div>
                 <span class="etymology-meaning"
                   >{
@@ -134,18 +138,23 @@ const values = page?.values ?? [
             <h3 class="ethos-label" style="font-weight: 500;">
               {lang === "fr" ? "PHILOSOPHIE" : "PHILOSOPHY"}
             </h3>
-            <div class="ethos-body-text">
+            <div class="ethos-body-text margin-right20">
               {
                 page?.philosophyBody ? (
                   <p>{t(page.philosophyBody, lang)}</p>
                 ) : lang === "fr" ? (
                   <>
                     <p>
-                      Chez Senquentia, nous remettons en question les idées reçues et apportons de la clarté dans des environnements complexes.
+                      Chez Senquentia, nous remettons en question les idées
+                      reçues et apportons de la clarté dans des environnements
+                      complexes.
                     </p>
                     <br />
                     <p>
-                      Nous conjuguons perspective stratégique et mise en œuvre concrète afin d'aider les dirigeants à prendre des décisions éclairées et à mener des transformations porteuses de sens.
+                      Nous conjuguons perspective stratégique et mise en œuvre
+                      concrète afin d'aider les dirigeants à prendre des
+                      décisions éclairées et à mener des transformations
+                      porteuses de sens.
                     </p>
                   </>
                 ) : (
@@ -229,8 +238,8 @@ const values = page?.values ?? [
               {
                 t(page?.founderTitle, lang) ||
                   (lang === "fr"
-                  ? "Veronica Eleonora Palumbo est une conseillère auprès des dirigeants, alliant réflexion stratégique et mise en œuvre."
-                  : "Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery.")
+                    ? "Veronica Eleonora Palumbo est une conseillère auprès des dirigeants, alliant réflexion stratégique et mise en œuvre."
+                    : "Veronica Eleonora Palumbo is an executive advisor fluent in both strategy and delivery.")
               }
             </h3>
 
@@ -243,10 +252,23 @@ const values = page?.values ?? [
                 ) : lang === "fr" ? (
                   <>
                     <p>
-                      Forte de 20 années d'expérience dans la direction de programmes ERP et d'une expertise en solutions de gestion du capital humain, elle est une voix reconnue en transformation numérique et organisationnelle, apportant des perspectives nouvelles à la définition d'initiatives stratégiques. Elle a dirigé plusieurs mandats multinationaux et piloté des équipes de livraison à l'échelle mondiale, développant une expertise approfondie des déploiements à grande échelle.
+                      Forte de 20 années d'expérience dans la direction de
+                      programmes ERP et d'une expertise en solutions de gestion
+                      du capital humain, elle est une voix reconnue en
+                      transformation numérique et organisationnelle, apportant
+                      des perspectives nouvelles à la définition d'initiatives
+                      stratégiques. Elle a dirigé plusieurs mandats
+                      multinationaux et piloté des équipes de livraison à
+                      l'échelle mondiale, développant une expertise approfondie
+                      des déploiements à grande échelle.
                     </p>
                     <p>
-                      À titre de conseillère stratégique, Veronica accompagne les équipes de direction dans leurs initiatives critiques, les fusions et acquisitions, ainsi que les transformations culturelles, en s'appuyant sur son expertise en développement organisationnel, planification de la relève et gestion du changement.
+                      À titre de conseillère stratégique, Veronica accompagne
+                      les équipes de direction dans leurs initiatives critiques,
+                      les fusions et acquisitions, ainsi que les transformations
+                      culturelles, en s'appuyant sur son expertise en
+                      développement organisationnel, planification de la relève
+                      et gestion du changement.
                     </p>
                   </>
                 ) : (
