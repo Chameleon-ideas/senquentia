@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import "../../styles/ethos.css";
 import { getEthosPage, urlFor } from "@/utils/sanity";
 import { t } from "@/utils/i18n";
+import { PortableText } from "astro-portabletext";
 
 interface Props {
   lang: "en" | "fr";
@@ -10,6 +11,8 @@ interface Props {
 const { lang } = Astro.props;
 
 const page = await getEthosPage();
+
+const bioContent = page?.founderBio?.[lang] || page?.founderBio?.en || [];
 
 const heroBgUrl = page?.heroBgImage
   ? urlFor(page.heroBgImage).width(1920).url()
@@ -247,8 +250,8 @@ const values = page?.values ?? [
 
             <div class="founder-bio-text">
               {
-                page?.founderBio ? (
-                  <p>{t(page.founderBio, lang)}</p>
+                bioContent.length > 0 ? (
+                  <PortableText value={bioContent} />
                 ) : lang === "fr" ? (
                   <>
                     <p>

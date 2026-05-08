@@ -64,7 +64,7 @@ export default defineType({
     }),
     defineField({ name: 'founderName', title: 'Founder Name', type: 'localeString', group: 'founder' }),
     defineField({ name: 'founderTitle', title: 'Founder Title', type: 'localeString', group: 'founder' }),
-    defineField({ name: 'founderBio', title: 'Founder Bio', type: 'localeText', rows: 5, group: 'founder' }),
+    defineField({ name: 'founderBio', title: 'Founder Bio', type: 'localeBlock', group: 'founder' }),
 
     // ── SEO ───────────────────────────────────────────────────────────────────
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'localeString', group: 'seo' }),
