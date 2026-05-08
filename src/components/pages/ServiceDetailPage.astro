@@ -368,7 +368,7 @@ const frPerspective = currentFallback.perspectiveRight?.fr || [];
         <div class="svc-alignment-box">
           <div class="svc-impact-top">
             <h3 class="svc-impact-title">
-              {lang === "fr" ? currentFallback.closingHeading?.fr : currentFallback.closingHeading?.en}
+              {t(service?.closingText, lang) || (lang === "fr" ? currentFallback.closingHeading?.fr : currentFallback.closingHeading?.en)}
             </h3>
             <div class="svc-impact-text">
               <p style="font-weight: 700;">

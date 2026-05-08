@@ -128,8 +128,8 @@ export async function getServiceBySlug(slug: string) {
     approachLead, approachBody,
     approachSections[] { title, body },
     momentsTitle,
-    momentsList[] { label, description },
-    closingTitle, closingBody, closingFooter,
+    industriesEngaged[] { label, description },
+    closingText, closingBody, closingFooter,
     closingImage ${imageFields},
     seoTitle, seoDescription
   }`, { slug });

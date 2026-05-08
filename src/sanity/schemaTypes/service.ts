@@ -105,7 +105,7 @@ export default defineType({
       group: 'approach',
     }),
     defineField({
-      name: 'momentsList', title: 'Moments List', type: 'array', group: 'approach',
+      name: 'industriesEngaged', title: 'Moments List', type: 'array', group: 'approach',
       of: [{
         type: 'object',
         fields: [
@@ -117,7 +117,7 @@ export default defineType({
     }),
 
     // ── Closing / Impact ──────────────────────────────────────────────────────
-    defineField({ name: 'closingTitle', title: 'Impact Title', type: 'localeString', group: 'closing' }),
+    defineField({ name: 'closingText', title: 'Impact Title', type: 'localeString', group: 'closing' }),
     defineField({ name: 'closingBody', title: 'Impact Body', type: 'localeBlock', group: 'closing' }),
     defineField({ name: 'closingFooter', title: 'Closing Footer Text', type: 'localeString', group: 'closing' }),
     defineField({ name: 'closingImage', title: 'Closing Background Image', type: 'image', group: 'closing', options: { hotspot: true } }),

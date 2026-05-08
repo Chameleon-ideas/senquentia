@@ -157,7 +157,7 @@ const closingBgUrl = service?.closingImage
 
         <div class="svc-moments-list">
           {
-            service?.momentsList?.map((item: any) => (
+            service?.industriesEngaged?.map((item: any) => (
               <>
                 <div class="svc-moments-label">{t(item.label, lang)}</div>
                 <div class="svc-moments-desc">{t(item.description, lang)}</div>
@@ -184,7 +184,7 @@ const closingBgUrl = service?.closingImage
     <div class="container svc-alignment-container">
       <div class="svc-alignment-box">
         <div class="svc-impact-top">
-          <h3 class="svc-impact-title">{t(service?.closingTitle, lang) || "STRATEGIC CLARITY"}</h3>
+          <h3 class="svc-impact-title">{t(service?.closingText, lang) || "STRATEGIC CLARITY"}</h3>
           <div class="svc-impact-text">
             {
               service?.closingBody ? (
