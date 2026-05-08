@@ -119,13 +119,18 @@ export async function getServiceBySlug(slug: string) {
     shortDescription,
     heroBgImage ${imageFields},
     image ${imageFields},
-    perspectiveText, perspectiveText2,
-    perspectiveCol1[], perspectiveCol2[],
+    perspectiveTitle1, perspectiveLead1, 
+    perspectiveTitle2, perspectiveLead2,
+    perspectiveBody,
     quoteText,
-    approachLead,
+    alignmentTitle, alignmentBody,
+    alignmentImage ${imageFields},
+    approachLead, approachBody,
     approachSections[] { title, body },
-    industriesEngaged[] { label, description },
-    closingText,
+    momentsTitle,
+    momentsList[] { label, description },
+    closingTitle, closingBody, closingFooter,
+    closingImage ${imageFields},
     seoTitle, seoDescription
   }`, { slug });
 }
