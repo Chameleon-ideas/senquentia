@@ -22,22 +22,22 @@ const baseLinks = [
     href: "/#services-section",
     scrollAnchor: true,
     subLinks: [
-      { 
-        label: "Digital & Organizational Transformation", 
-        labelFR: "Transformation numérique et organisationnelle", 
-        href: "/services/digital-organizational-transformation" 
+      {
+        label: "Digital & Organizational Transformation",
+        labelFR: "Transformation numérique et organisationnelle",
+        href: "/services/digital-organizational-transformation",
       },
-      { 
-        label: "Strategic Advisory", 
-        labelFR: "Conseil stratégique", 
-        href: "/services/strategic-advisory" 
+      {
+        label: "Strategic Advisory",
+        labelFR: "Conseil stratégique",
+        href: "/services/strategic-advisory",
       },
-      { 
-        label: "Leadership Development & Executive Coaching", 
-        labelFR: "Développement du leadership et accompagnement des dirigeants", 
-        href: "/services/leadership-development-executive-coaching" 
+      {
+        label: "Leadership Development & Executive Coaching",
+        labelFR: "Développement du leadership et accompagnement des dirigeants",
+        href: "/services/leadership-development-executive-coaching",
       },
-    ]
+    ],
   },
   { label: "Ethos", labelFR: "Éthos", href: "/ethos" },
   { label: "Journal", labelFR: "Journal", href: "/journal" },
@@ -46,23 +46,28 @@ const baseLinks = [
 
 const links = [
   ...baseLinks,
-  ...(enableFR ? [{
-    label: "FR",
-    labelFR: "EN",
-    href: "#",
-    isLangToggle: true,
-  }] : [])
+  ...(enableFR
+    ? [
+        {
+          label: "FR",
+          labelFR: "EN",
+          href: "#",
+          isLangToggle: true,
+        },
+      ]
+    : []),
 ];
 
 function isActive(href: string) {
   if (href === "#") return false;
-  const pathWithoutLang = currentPath.replace(/^\/fr(\/|$)/, '/');
+  const pathWithoutLang = currentPath.replace(/^\/fr(\/|$)/, "/");
   if (href === "/") return pathWithoutLang === "/";
-  if (href === "/#services-section") return pathWithoutLang.startsWith("/services");
+  if (href === "/#services-section")
+    return pathWithoutLang.startsWith("/services");
   return pathWithoutLang.startsWith(href);
 }
 
-const langPath = lang === 'fr' ? '/fr' : '';
+const langPath = lang === "fr" ? "/fr" : "";
 ---
 
 <header class="site-header">
@@ -83,51 +88,66 @@ const langPath = lang === 'fr' ? '/fr' : '';
   <!-- Desktop nav -->
   <nav aria-label="Main navigation">
     <ul class="nav-links">
-        {
-          links.map((link: any) => {
-            let href = link.href;
-            if (!link.isLangToggle && lang === 'fr') {
-               href = href.startsWith('/') ? `/fr${href === '/' ? '' : href}` : href;
-            }
-            return (
-              <li class={link.subLinks ? "has-dropdown" : ""}>
-                <a
-                  href={href}
-                  class={isActive(link.href) ? "active" : ""}
-                  data-lang-toggle={link.isLangToggle ? "true" : undefined}
-                  {...(link.scrollAnchor
-                    ? {
-                        "data-scroll-anchor": "true",
-                        "data-scroll-target": link.href.split("#")[1],
-                      }
-                    : {})}
-                >
-                  {lang === "fr" ? link.labelFR : link.label}
-                  {link.subLinks && (
-                    <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  )}
-                </a>
+      {
+        links.map((link: any) => {
+          let href = link.href;
+          if (!link.isLangToggle && lang === "fr") {
+            href = href.startsWith("/")
+              ? `/fr${href === "/" ? "" : href}`
+              : href;
+          }
+          return (
+            <li class={link.subLinks ? "has-dropdown" : ""}>
+              <a
+                href={href}
+                class={isActive(link.href) ? "active" : ""}
+                data-lang-toggle={link.isLangToggle ? "true" : undefined}
+                {...(link.scrollAnchor
+                  ? {
+                      "data-scroll-anchor": "true",
+                      "data-scroll-target": link.href.split("#")[1],
+                    }
+                  : {})}
+              >
+                {lang === "fr" ? link.labelFR : link.label}
                 {link.subLinks && (
-                  <ul class="dropdown-menu">
-                    {link.subLinks.map((sub: any) => {
-                      let subHref = sub.href;
-                      if (lang === 'fr') subHref = `/fr${subHref}`;
-                      return (
-                        <li>
-                          <a href={subHref}>
-                            {lang === "fr" ? sub.labelFR : sub.label}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <svg
+                    class="dropdown-arrow"
+                    width="10"
+                    height="6"
+                    viewBox="0 0 10 6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 1L5 5L9 1"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
                 )}
-              </li>
-            );
-          })
-        }
+              </a>
+              {link.subLinks && (
+                <ul class="dropdown-menu">
+                  {link.subLinks.map((sub: any) => {
+                    let subHref = sub.href;
+                    if (lang === "fr") subHref = `/fr${subHref}`;
+                    return (
+                      <li>
+                        <a href={subHref}>
+                          {lang === "fr" ? sub.labelFR : sub.label}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </li>
+          );
+        })
+      }
     </ul>
   </nav>
 
@@ -143,7 +163,10 @@ const langPath = lang === 'fr' ? '/fr' : '';
       <img src="/images/linkdinicon.svg" alt="LinkedIn" />
     </a>
     <button class="hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+      <div class="hamburger-lines">
+        <span class="line-1"></span>
+        <span class="line-2"></span>
+      </div>
     </button>
   </div>
 </header>
@@ -159,8 +182,8 @@ const langPath = lang === 'fr' ? '/fr' : '';
   {
     links.map((link: any) => {
       let href = link.href;
-      if (!link.isLangToggle && lang === 'fr') {
-         href = href.startsWith('/') ? `/fr${href === '/' ? '' : href}` : href;
+      if (!link.isLangToggle && lang === "fr") {
+        href = href.startsWith("/") ? `/fr${href === "/" ? "" : href}` : href;
       }
       return (
         <>
@@ -177,15 +200,16 @@ const langPath = lang === 'fr' ? '/fr' : '';
           >
             {lang === "fr" ? link.labelFR : link.label}
           </a>
-          {link.subLinks && link.subLinks.map((sub: any) => {
-             let subHref = sub.href;
-             if (lang === 'fr') subHref = `/fr${subHref}`;
-             return (
-               <a href={subHref} class="mobile-sublink">
-                 — {lang === "fr" ? sub.labelFR : sub.label}
-               </a>
-             );
-          })}
+          {link.subLinks &&
+            link.subLinks.map((sub: any) => {
+              let subHref = sub.href;
+              if (lang === "fr") subHref = `/fr${subHref}`;
+              return (
+                <a href={subHref} class="mobile-sublink">
+                  — {lang === "fr" ? sub.labelFR : sub.label}
+                </a>
+              );
+            })}
         </>
       );
     })
@@ -201,19 +225,19 @@ const langPath = lang === 'fr' ? '/fr' : '';
         e.preventDefault();
         const currentPath = window.location.pathname;
         let nextPath = currentPath;
-        
-        if (currentPath.startsWith('/fr')) {
+
+        if (currentPath.startsWith("/fr")) {
           // Switch to English: remove /fr prefix
-          nextPath = currentPath.replace(/^\/fr/, '') || '/';
+          nextPath = currentPath.replace(/^\/fr/, "") || "/";
         } else {
           // Switch to French: add /fr prefix
-          nextPath = '/fr' + (currentPath === '/' ? '' : currentPath);
+          nextPath = "/fr" + (currentPath === "/" ? "" : currentPath);
         }
-        
+
         // Ensure no double slashes and correct root
-        nextPath = nextPath.replace(/\/+/g, '/');
-        if (nextPath === '') nextPath = '/';
-        
+        nextPath = nextPath.replace(/\/+/g, "/");
+        if (nextPath === "") nextPath = "/";
+
         window.location.href = nextPath;
       });
     });
